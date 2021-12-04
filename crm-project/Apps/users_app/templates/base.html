@@ -4,20 +4,17 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+<title>{% block title %}{% endblock %}</title>
+
 </head>
 <body>
-
 {% include 'sidebar.html' %}
-{% block content %}
-{% endblock content %}
 
 <div class="content">
-  <h1>{{ user }}</h1>
-  <h2>Responsive Sidebar Example</h2>
-  <p>This example use media queries to transform the sidebar to a top navigation bar when the screen size is 700px or less.</p>
-  <p>We have also added a media query for screens that are 400px or less, which will vertically stack and center the navigation links.</p>
-  <h3>Resize the browser window to see the effect.</h3>
+  <h1>Current user is: {{ user }}</h1>
+  {% block content %}{% endblock %}
 </div>
 
 </body>
 </html>
+

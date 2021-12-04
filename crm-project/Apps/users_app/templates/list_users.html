@@ -1,0 +1,13 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block title %}List Users{% endblock %}
+
+{% block content %}
+
+     {% for user_name in all_users.all %}
+    <h1>{{ user_name }}</h1>
+    {% endfor %}
+
+
+{% endblock %}
+
