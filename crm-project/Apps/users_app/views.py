@@ -18,7 +18,7 @@ def home(request):
 
 
 def listUsers(request):
-    all_users = Users.objects
+    all_users = Users.objects.all()
     return render(request,
                   'list_users.html',
                   dict(all_users=all_users)
