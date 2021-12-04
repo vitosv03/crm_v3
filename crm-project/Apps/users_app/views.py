@@ -11,4 +11,8 @@ def usersHome(request):
 
 def home(request):
     current_user = request.user
-    return HttpResponse('<h1>Home BASIC --USERS-- </h1>')
+    return render(request,
+                  'base.html',
+                  dict(user=current_user)
+                  )
+    # return HttpResponse('<h1>Home BASIC --USERS-- </h1>')
