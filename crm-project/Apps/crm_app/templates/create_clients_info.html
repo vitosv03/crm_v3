@@ -1,0 +1,30 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block title %}Create a New Client{% endblock %}
+
+{% block content %}
+
+<div>
+    <h1>Form to Add a New Client</h1>
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form }}
+<!--        {{ form.head }}-->
+<!--        {{ form.summary }}-->
+<!--        {{ form.address }}-->
+<!--        {{ form.phoneNumber }}-->
+<!--        {{ form.email }}-->
+        {{ error }}
+        <button type="submit" name="">Add a New Client</button>
+    </form>
+</div>
+
+
+
+
+
+
+{% endblock %}
+
+
+

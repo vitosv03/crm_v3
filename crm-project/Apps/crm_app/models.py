@@ -44,7 +44,6 @@ class ClientsInfo(models.Model):
     def display_email(self):
         return ', '.join([email.email for email in self.email.all()])
 
-
     def get_absolute_url(self):
         return reverse('client-detail', args=[str(self.id)])
 

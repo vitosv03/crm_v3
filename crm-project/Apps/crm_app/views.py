@@ -1,6 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import ClientsInfo
+from .forms import ClientsInfoForm
 
 # Create your views here.
 
@@ -14,4 +15,20 @@ def ClientsInfoView(request):
     return render(request,
                   'clients_info.html',
                   dict(all_users=all_clients)
+                  )
+
+
+def CreateClientsInfoView(request):
+    errors = ''
+    if request.method == 'POST':
+        form = ClientsInfoForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect('home')
+        else:
+            errors = 'some errors'
+    form = ClientsInfoForm()
+    return render(request,
+                  'create_clients_info.html',
+                  dict(form=form, errors=errors)
                   )
