@@ -1,11 +1,8 @@
-# import null
-from django.conf import settings
-from django.core.validators import RegexValidator
+
 from django.db import models
-from django.contrib.auth.models import AbstractUser, User
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
-from django.http import request
 from django.urls import reverse
 
 

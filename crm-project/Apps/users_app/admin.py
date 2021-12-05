@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext, gettext_lazy as _
-from .models import Users, ClientsInfo, ClientsEmails, ClientsPhones
+from .models import Users
 # from .models import Users
 
 
@@ -30,8 +30,6 @@ class UsersAdmin(BaseUserAdmin):
 
 
 admin.site.register(Users, UsersAdmin)
-admin.site.register(ClientsInfo)
-admin.site.register(ClientsEmails)
-admin.site.register(ClientsPhones)
+
 
 

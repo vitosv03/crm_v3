@@ -1,0 +1,16 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block title %}Clients Info{% endblock %}
+
+{% block content %}
+
+     {% for client in all_users.all %}
+    <h1>{{ client.title }}</h1>
+    <h1>{{ client.head }}</h1>
+    <h1>{{ client.summary }}</h1>
+    <h1>{{ client.display_phoneNumber }}</h1>
+    {% endfor %}
+
+
+
+{% endblock %}
