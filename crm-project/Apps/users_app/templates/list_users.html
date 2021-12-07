@@ -5,8 +5,8 @@
 {% block content %}
 
      {% for user_name in all_users.all %}
-    <h1>{{ user_name.email }}</h1>
-    <h2>{{ user_name.get_full_name }}</h2>
+    <p>{{ user_name.email }}</p>
+    <p>{{ user_name.get_full_name }}</p>
     {% endfor %}
 
 

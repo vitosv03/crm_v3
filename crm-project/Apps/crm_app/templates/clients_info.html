@@ -5,10 +5,11 @@
 {% block content %}
 
      {% for client in all_users.all %}
-    <h1>{{ client.title }}</h1>
-    <h1>{{ client.head }}</h1>
-    <h1>{{ client.summary }}</h1>
-    <h1>{{ client.display_phoneNumber }}</h1>
+    <p>{{ client.title }}</p>
+    <p>{{ client.head }}</p>
+    <p>{{ client.summary }}</p>
+    <p>{{ client.display_phoneNumber }}</p>
+    <p>----</p>
     {% endfor %}
 
 

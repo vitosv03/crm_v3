@@ -1,10 +1,8 @@
 <div class="sidebar">
   <a  class="active" href=""> user: {{ user }}   </a>
-  <a href="#home">Home</a>
+  <a href="{% url 'home' %}">Home</a>
   <a href="{% url 'listUsers' %}">List Users</a>
   <a href="{% url 'ClientsInfo' %}">Clients Info</a>
   <a href="{% url 'CreateClientInfo' %}">Add client</a>
-  <a href="#news">News</a>
-  <a href="#contact">Contact</a>
-  <a href="#about">About</a>
+
 </div>
