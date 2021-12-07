@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .models import ClientsInfo
+from .models import ClientsInfo, ClientsPhones
 from .forms import ClientsInfoForm
 
 # Create your views here.
@@ -21,9 +21,26 @@ def ClientsInfoView(request):
 def CreateClientsInfoView(request):
     errors = ''
     if request.method == 'POST':
-        form = ClientsInfoForm(request.POST)
+        form = ClientsInfoForm(data=request.POST)
         if form.is_valid:
-            form.save()
+            edit_form = form.save(commit=False)
+            edit_form.created_by = request.user
+
+            edit_form.save()
+            form.save_m2m()
+
+            phone_1 = '+380997654000'
+            phone_2 = '+380997654001'
+            phone_3 = '+380997654002'
+            list_phones = [phone_1, phone_2, phone_3]
+            for phone in list_phones:
+                qs = ClientsPhones.objects.filter(phoneNumber=phone)
+                if qs.exists():
+                    phonenumber = ClientsPhones.objects.get(phoneNumber=phone)
+                else:
+                    phonenumber = ClientsPhones(phoneNumber=phone)
+                    phonenumber.save()
+                edit_form.phoneNumber.add(phonenumber)
             return redirect('home')
         else:
             errors = 'some errors'
@@ -32,3 +49,7 @@ def CreateClientsInfoView(request):
                   'create_clients_info.html',
                   dict(form=form, errors=errors)
                   )
+
+
+            # new_form.title = 'petro'
+
