@@ -10,10 +10,10 @@ def crmHome(request):
     return HttpResponse('<h1>Home --CRM-- </h1>')
 
 
-def ClientsInfoView(request):
+def ClientsListView(request):
     all_clients = ClientsInfo.objects.all()
     return render(request,
-                  'clients_info.html',
+                  'clients_list.html',
                   dict(all_users=all_clients)
                   )
 
