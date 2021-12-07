@@ -1,9 +1,9 @@
 {%  extends 'base.html' %}
 {% load static %}
-{% block title %}Clients Info{% endblock %}
+{% block title %}Clients List{% endblock %}
 
 {% block content %}
-
+<h2>Clients List</h2>
      {% for client in all_users.all %}
     <p>{{ client.title }}</p>
     <p>{{ client.head }}</p>
