@@ -33,7 +33,6 @@ class ClientsInfo(models.Model):
     address = models.CharField(max_length=100)
     phoneNumber = models.ManyToManyField(ClientsPhones, help_text='e.g. +380991234567')
     email = models.ManyToManyField(ClientsEmails, help_text='e.g. mail@test.com')
-    # created_by = models.CharField(max_length=100, default=request.user)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True)

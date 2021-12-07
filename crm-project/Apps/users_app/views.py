@@ -13,7 +13,7 @@ def usersHome(request):
 def home(request):
     current_user = request.user
     return render(request,
-                  'base.html',
+                  'home.html',
                   dict(user=current_user)
                   )
 
