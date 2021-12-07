@@ -3,15 +3,40 @@
 {% block title %}Clients List{% endblock %}
 
 {% block content %}
+<!--<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">-->
 <h2>Clients List</h2>
-     {% for client in all_users.all %}
-    <p>{{ client.title }}</p>
-    <p>{{ client.head }}</p>
-    <p>{{ client.summary }}</p>
-    <p>{{ client.display_phoneNumber }}</p>
-    <p>----</p>
-    {% endfor %}
+          <div class="table-responsive">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Head</th>
+                  <th>Summary</th>
+                  <th>Phones</th>
+                  <th>Emails</th>
+                  <th>Created_by</th>
+                </tr>
+              </thead>
+              <tbody>
 
+              {% for client in all_users.all %}
+                    <tr>
+                      <td>{{ client.title }}</td>
+                      <td>{{ client.head }}</td>
+                      <td>{{ client.summary }}</td>
+                      <td>{{ client.display_phoneNumber }}</td>
+                      <td>{{ client.display_email }}</td>
+                      <td>{{ client.created_by }}</td>
+                    </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
+<!--        </main>-->
 
 
 {% endblock %}
+
+
+

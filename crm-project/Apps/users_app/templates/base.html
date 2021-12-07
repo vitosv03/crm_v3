@@ -1,20 +1,44 @@
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-<title>{% block title %}{% endblock %}</title>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://getbootstrap.com/docs/4.1/assets/img/favicons/favicon.ico">
 
-</head>
-<body>
-{% include 'sidebar.html' %}
+    <title>{% block title %}{% endblock %}</title>
 
-<div class="content">
-<!--  <h1>Current user is: {{ user }}</h1>-->
-  {% block content %}{% endblock %}
-</div>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/dashboard/">
 
-</body>
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/4.1/examples/dashboard/dashboard.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">ProjectService Ltd</a>
+      <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#">Sign out</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container-fluid">
+    {% include 'sidebar.html' %}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      {% block content %}
+      {% endblock %}
+    </main>
+
+    </div>
+
+     {% include 'scripts.html' %}
+  </body>
 </html>
-
