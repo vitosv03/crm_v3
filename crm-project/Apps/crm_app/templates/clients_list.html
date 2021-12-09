@@ -19,9 +19,9 @@
               </thead>
               <tbody>
 
-              {% for client in all_users.all %}
+              {% for client in clients %}
                     <tr>
-                      <td>{{ client.title }}</td>
+                      <td><a href="{{ client.get_absolute_url }}">{{ client.title }}</a></td>
                       <td>{{ client.head }}</td>
                       <td>{{ client.summary }}</td>
                       <td>{{ client.display_phoneNumber }}</td>

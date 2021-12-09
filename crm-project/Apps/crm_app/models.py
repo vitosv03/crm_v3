@@ -31,8 +31,10 @@ class ClientsInfo(models.Model):
     head = models.CharField(max_length=100)
     summary = models.TextField()
     address = models.CharField(max_length=100)
-    phoneNumber = models.ManyToManyField(ClientsPhones, help_text='e.g. +380991234567')
-    email = models.ManyToManyField(ClientsEmails, help_text='e.g. mail@test.com')
+    phoneNumberRegex = RegexValidator(regex=r"^\+?1?\d{8,12}$")
+    phoneNumber = models.CharField(validators=[phoneNumberRegex], max_length=13, unique=True)
+    # phoneNumber = models.ManyToManyField(ClientsPhones, help_text='e.g. +380991234567')
+    # email = models.ManyToManyField(ClientsEmails, help_text='e.g. mail@test.com')
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True)
@@ -44,7 +46,8 @@ class ClientsInfo(models.Model):
         return ', '.join([email.email for email in self.email.all()])
 
     def get_absolute_url(self):
-        return reverse('client-detail', args=[str(self.id)])
+        # return reverse('client-detail', args=[str(self.id)])
+        return reverse('ClientDetail', args=[str(self.id)])
 
     def __str__(self):
         return self.title

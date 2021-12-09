@@ -35,3 +35,8 @@ class ClientsInfoAdmin(admin.ModelAdmin):
 
 admin.site.register(ClientsEmails)
 admin.site.register(ClientsPhones)
+
+
+
+
+
