@@ -6,12 +6,12 @@
 
 {% block content %}
 <h1>Clients Detail of {{ client.title }}</h1>
+<a href="{% url 'clientUpdate' client.pk %}">Edit Client</a>
+<br>
+<a href="{% url 'clientDelete' client.pk %}">Delete Client</a>
     <p>{{ client.head }}</p>
     <p>{{ client.summary }}</p>
-
-
     <p>{{ client.created_by }}</p>
-<p>---</p>
         {% for phones in client.clientsphones_set.all%}
             <p>{{ phones.phoneNumber }}</p>
         {% endfor %}
