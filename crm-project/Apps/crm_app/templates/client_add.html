@@ -7,6 +7,8 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
+        {{ inlinesPhones.as_p }}
+        {{ inlinesEmails.as_p }}
         <input type="submit" value="Save">
     </form>
 

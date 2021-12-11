@@ -1,12 +1,13 @@
+from urllib import request
 
-
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
-from .models import ClientsInfo, ClientsPhones
-# from .forms import ClientsInfoForm
+from .models import ClientsInfo, ClientsPhones, ClientsEmails
+from .forms import ClientsInfoForm, ClientsPhonesFormSet, ClientsEmailsFormSet
+from django.forms import inlineformset_factory
 
 
 # Create your views here.
@@ -47,9 +48,79 @@ class ClientsAddView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'title of page'
+        if self.request.POST:
+            context['inlinesPhones'] = ClientsPhonesFormSet(self.request.POST)
+            context['inlinesEmails'] = ClientsEmailsFormSet(self.request.POST)
+        else:
+            context['inlinesPhones'] = ClientsPhonesFormSet()
+            context['inlinesEmails'] = ClientsEmailsFormSet()
         return context
 
+    def form_valid(self, form):
+        context = self.get_context_data()
+        inlinesPhones = context['inlinesPhones']
+        inlinesEmails = context['inlinesEmails']
+        self.object = form.save()
+        if inlinesPhones.is_valid():
+            inlinesPhones.instance = self.object
+            inlinesPhones.save()
+        if inlinesEmails.is_valid():
+            inlinesEmails.instance = self.object
+            inlinesEmails.save()
+        return super().form_valid(form)
 
+
+# class ClientsAddView(CreateView):
+#     model = ClientsInfo
+#     form_class = ClientsInfoForm
+#     template_name = 'client_add.html'
+#     success_url = reverse_lazy('home')
+#     fields = '__all__'
+#
+#     def post(self, request, *args, **kwargs):
+#         self.object = None
+#         form_class = self.form_class
+#         form = self.get_form(form_class)
+#         clientsPhones_form = ClientsPhonesFormSet(self,request.POST)
+#         clientsEmails_form = ClientsEmailsFormSet(self,request.POST)
+#         if form.is_valid() and clientsPhones_form.is_valid() and clientsEmails_form.is_valid():
+#             return self.form_valid(form)
+#         else:
+#             return self.form_invalid(form)
+#
+#     def form_valid(self, form):
+#         clientsPhones_form = ClientsPhonesFormSet(self, request.POST)
+#         clientsEmails_form = ClientsEmailsFormSet(self, request.POST)
+#         self.object = form.save()
+#         clientsPhones_form.instance = self.object
+#         clientsPhones_form.save()
+#         clientsEmails_form.instance = self.object
+#         clientsEmails_form.save()
+#         return HttpResponseRedirect (self.get_success_url())
+#
+#      # def form_invalid(self, form, clientsPhones_form, clientsEmails_form):
+#      #    return self.render_to_response(
+#      #        self.get_context_data(form=form,
+#      #                              clientsPhones_form=clientsPhones_form,
+#      #                              clientsEmails_form=clientsEmails_form))
+#
+#
+#
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['title'] = 'title of page'
+#         return context
+
+
+# ClientsPhonesFormSet = inlineformset_factory(ClientsInfo, ClientsPhones, fields=('phoneNumber',))
+# client = ClientsInfo.objects.get(id=1)
+# formsetPhones = ClientsPhonesFormSet(instance=client)
+
+
+# BookFormSet = inlineformset_factory(Author, Book, fields=('title',))
+# author = Author.objects.get(name='Mike Royko')
+# formset = BookFormSet(instance=author)
 
 
 # def ClientsListView(request):

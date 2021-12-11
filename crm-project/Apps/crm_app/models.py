@@ -8,7 +8,7 @@ from django.urls import reverse
 
 class ClientsPhones(models.Model):
     phoneNumberRegex = RegexValidator(regex=r"^\+?1?\d{8,12}$")
-    phoneNumber = models.CharField(validators=[phoneNumberRegex], max_length=13, unique=True,help_text='e.g. +380991234567')
+    phoneNumber = models.CharField(validators=[phoneNumberRegex], max_length=13, help_text='e.g. +380991234567')
     client = models.ForeignKey('ClientsInfo', on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True)
