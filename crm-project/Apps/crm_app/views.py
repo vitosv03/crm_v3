@@ -1,9 +1,7 @@
-from urllib import request
-
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .models import ClientsInfo, ClientsPhones, ClientsEmails
 from .forms import ClientsInfoForm, ClientsPhonesFormSet, ClientsEmailsFormSet
@@ -70,65 +68,23 @@ class ClientsAddView(CreateView):
         return super().form_valid(form)
 
 
-# class ClientsAddView(CreateView):
-#     model = ClientsInfo
-#     form_class = ClientsInfoForm
-#     template_name = 'client_add.html'
-#     success_url = reverse_lazy('home')
-#     fields = '__all__'
-#
-#     def post(self, request, *args, **kwargs):
-#         self.object = None
-#         form_class = self.form_class
-#         form = self.get_form(form_class)
-#         clientsPhones_form = ClientsPhonesFormSet(self,request.POST)
-#         clientsEmails_form = ClientsEmailsFormSet(self,request.POST)
-#         if form.is_valid() and clientsPhones_form.is_valid() and clientsEmails_form.is_valid():
-#             return self.form_valid(form)
-#         else:
-#             return self.form_invalid(form)
-#
-#     def form_valid(self, form):
-#         clientsPhones_form = ClientsPhonesFormSet(self, request.POST)
-#         clientsEmails_form = ClientsEmailsFormSet(self, request.POST)
-#         self.object = form.save()
-#         clientsPhones_form.instance = self.object
-#         clientsPhones_form.save()
-#         clientsEmails_form.instance = self.object
-#         clientsEmails_form.save()
-#         return HttpResponseRedirect (self.get_success_url())
-#
-#      # def form_invalid(self, form, clientsPhones_form, clientsEmails_form):
-#      #    return self.render_to_response(
-#      #        self.get_context_data(form=form,
-#      #                              clientsPhones_form=clientsPhones_form,
-#      #                              clientsEmails_form=clientsEmails_form))
-#
-#
-#
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['title'] = 'title of page'
-#         return context
+class ClientUpdateView(UpdateView):
+    model = ClientsInfo
+    template_name = 'client_update.html'
+    context_object_name = 'client'
+    fields = ['title','head','summary', 'address', ]
 
 
-# ClientsPhonesFormSet = inlineformset_factory(ClientsInfo, ClientsPhones, fields=('phoneNumber',))
-# client = ClientsInfo.objects.get(id=1)
-# formsetPhones = ClientsPhonesFormSet(instance=client)
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['title'] = 'title of page'
 
 
-# BookFormSet = inlineformset_factory(Author, Book, fields=('title',))
-# author = Author.objects.get(name='Mike Royko')
-# formset = BookFormSet(instance=author)
-
-
-# def ClientsListView(request):
-#     all_clients = ClientsInfo.objects.all()
-#     return render(request,
-#                   'clients_list.html',
-#                   dict(all_users=all_clients)
-#                   )
+class ClientDeleteView(DeleteView):
+    model = ClientsInfo
+    template_name = 'client_delete.html'
+    context_object_name = 'client'
+    success_url = reverse_lazy('home')
 
 #
 # def CreateClientsInfoView(request):
