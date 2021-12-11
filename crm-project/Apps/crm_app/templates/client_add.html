@@ -7,9 +7,32 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        {{ inlinesPhones.as_p }}
-        {{ inlinesEmails.as_p }}
+<!--        {{ inlinesPhones.as_p }}-->
+<!--        {{ inlinesEmails.as_p }}-->
+<!--{{ inlinesPhones.management_form }}-->
+<h3>FormSet example</h3>
+{{ inlinesPhones.management_form }}
+<div id="form_set">
+    {% for form in inlinesPhones.forms %}
+	    {{form.non_field_errors}}
+		{{form.errors}}
+        <table class='no_error'>
+            {{ form }}
+        </table>
+    {% endfor %}
+</div>
+<input type="button" value="Add More" id="add_more">
+<div id="empty_form" style="display:none">
+    <table class='no_error'>
+        {{ inlinesPhones.empty_form }}
+    </table>
+</div>
+
+        <br>
+        <br>
+
         <input type="submit" value="Save">
+
     </form>
 
 
