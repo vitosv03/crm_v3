@@ -2,14 +2,14 @@ from django.conf import settings
 from django.core.validators import RegexValidator
 from django.db import models
 
-
 # Create your models here.
 from django.urls import reverse
 
 
 class ClientsPhones(models.Model):
     phoneNumberRegex = RegexValidator(regex=r"^\+?1?\d{8,12}$")
-    phoneNumber = models.CharField(validators=[phoneNumberRegex], max_length=13, unique=True)
+    phoneNumber = models.CharField(validators=[phoneNumberRegex], max_length=13, unique=True,help_text='e.g. +380991234567')
+    client = models.ForeignKey('ClientsInfo', on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True)
 
@@ -19,6 +19,7 @@ class ClientsPhones(models.Model):
 
 class ClientsEmails(models.Model):
     email = models.EmailField(max_length=100)
+    client = models.ForeignKey('ClientsInfo', on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True)
 
@@ -31,22 +32,17 @@ class ClientsInfo(models.Model):
     head = models.CharField(max_length=100)
     summary = models.TextField()
     address = models.CharField(max_length=100)
-    phoneNumberRegex = RegexValidator(regex=r"^\+?1?\d{8,12}$")
-    phoneNumber = models.CharField(validators=[phoneNumberRegex], max_length=13, unique=True)
-    # phoneNumber = models.ManyToManyField(ClientsPhones, help_text='e.g. +380991234567')
-    # email = models.ManyToManyField(ClientsEmails, help_text='e.g. mail@test.com')
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True)
 
     def display_phoneNumber(self):
-        return ', '.join([phoneNumber.phoneNumber for phoneNumber in self.phoneNumber.all()])
+        return ", ".join([phone.phoneNumber for phone in self.clientsphones_set.all()])
 
     def display_email(self):
-        return ', '.join([email.email for email in self.email.all()])
+        return ", ".join([e.email for e in self.clientsemails_set.all()])
 
     def get_absolute_url(self):
-        # return reverse('client-detail', args=[str(self.id)])
         return reverse('ClientDetail', args=[str(self.id)])
 
     def __str__(self):

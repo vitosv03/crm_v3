@@ -3,7 +3,7 @@
 <!--  <a href="{% url 'home' %}">Home</a>-->
 <!--  <a href="{% url 'listUsers' %}">List Users</a>-->
 <!--  <a href="{% url 'ClientsList' %}">Clients List</a>-->
-<!--  <a href="{% url 'CreateClientInfo' %}">Add client</a>-->
+
 
 <!--</div>-->
 
@@ -31,9 +31,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{% url 'ClientAdd' %}">
                   <span data-feather="users"></span>
-                  Customers
+                  Client Add
                 </a>
               </li>
               <li class="nav-item">
@@ -58,7 +58,8 @@
             </h6>
             <ul class="nav flex-column mb-2">
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'CreateClientInfo' %}">
+
+                <a class="nav-link" href="#">
                   <span data-feather="file-text"></span>
                   Add client
                 </a>

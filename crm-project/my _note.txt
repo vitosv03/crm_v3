@@ -5,3 +5,23 @@ tabular inline или что то подобное в адмитнку
 добавить формсет при создании
 
 переделать create view
+
+
+python manage.py createsuperuser
+root
+lekt@ukr.net
+PyPass-99
+PyPass-99
+
+
+обязательынй инлайн форм сет
+
+
+
+ClientsInfo.clientsphones_set.all()
+
+
+
+        {% for phones in client.clientsphones_set.all%}
+            <p>{{ phones.phoneNumber }}</p>
+        {% endfor %}

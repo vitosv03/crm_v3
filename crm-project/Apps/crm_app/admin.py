@@ -6,25 +6,86 @@ from .models import ClientsInfo, ClientsEmails, ClientsPhones
 
 # Register your models here.
 
-@admin.register(ClientsInfo)
-class ClientsInfoAdmin(admin.ModelAdmin):
-    list_display = ('title', 'head', 'summary', 'display_phoneNumber', 'display_email', 'created_by', 'date_created',
-                    'date_updated',)
+class ClientsEmailsInline(admin.TabularInline):
+    model = ClientsEmails
+    extra = 0
 
-    fieldsets = (
-        (None, {'fields': ('title', 'head', 'summary')}),
-        (_('Contacts'), {'fields': ('phoneNumber', 'email',)}),
-        (_('Created_by'), {'fields': ('created_by',)}),
-        (_('Dates'), {'fields': ('date_created', 'date_updated')}),
+
+class ClientsPhonesInline(admin.TabularInline):
+    model = ClientsPhones
+    extra = 0
+
+
+@admin.register(ClientsEmails)
+class ClientsEmailsAdmin(admin.ModelAdmin):
+    list_display = (
+        'email',
+        'client',
+        'date_created',
+        'date_updated',
     )
 
-    readonly_fields = ('date_created', 'date_updated', 'created_by')
+
+@admin.register(ClientsPhones)
+class ClientsPhonesAdmin(admin.ModelAdmin):
+    list_display = (
+        'phoneNumber',
+        'client',
+        'date_created',
+        'date_updated',
+    )
+
+
+@admin.register(ClientsInfo)
+class ClientsInfoAdmin(admin.ModelAdmin):
+    list_display = (
+        'title',
+        'head',
+        'summary',
+        'created_by',
+        # 'phoneNumber',
+        'display_phoneNumber',
+        'display_email',
+        # 'email',
+        'date_created',
+        'date_updated',
+    )
+    inlines = [
+        ClientsEmailsInline,
+        ClientsPhonesInline,
+    ]
+    extra = 1
+
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'head', 'summary')
+        }),
+        (_('Created_by'), {
+            'fields': ('created_by',)
+        }),
+        (_('Dates'), {
+            'fields': ('date_created', 'date_updated')
+        }),
+    )
+
+    readonly_fields = (
+        'date_created',
+        'date_updated',
+        'created_by'
+    )
 
     add_fieldsets = (
         (None, {
-            'fields': ('title', 'head', 'phoneNumber', 'email'),
+            'fields': ('title', 'head',),
         }),
     )
+
+    # def phoneNumber(self, obj):
+    #     return ", ".join([phone.phoneNumber for phone in obj.clientsphones_set.all()])
+
+    # def email(self, obj):
+    #     return ", ".join([e.email for e in obj.clientsemails_set.all()])
+
 
     def save_model(self, request, obj, form, change):
         if not obj.pk:
@@ -33,8 +94,27 @@ class ClientsInfoAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 
-admin.site.register(ClientsEmails)
-admin.site.register(ClientsPhones)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

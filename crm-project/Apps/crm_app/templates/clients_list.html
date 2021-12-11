@@ -1,6 +1,6 @@
 {%  extends 'base.html' %}
 {% load static %}
-{% block title %}Clients List{% endblock %}
+{% block title %} {{ title }} {% endblock %}
 
 {% block content %}
 <!--<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">-->
@@ -24,8 +24,8 @@
                       <td><a href="{{ client.get_absolute_url }}">{{ client.title }}</a></td>
                       <td>{{ client.head }}</td>
                       <td>{{ client.summary }}</td>
-                      <td>{{ client.display_phoneNumber }}</td>
-                      <td>{{ client.display_email }}</td>
+                      <td>{{ client.display_phoneNumber}}</td>
+                      <td>{{ client.display_email}}</td>
                       <td>{{ client.created_by }}</td>
                     </tr>
                 {% endfor %}
