@@ -6,22 +6,15 @@
 
     <form method="post">
         {% csrf_token %}
+<!--        {{form.management_form}}-->
+<!--        {{inlinesPhones.management_form}}-->
+<!--        {{inlinesEmails.management_form}}-->
+
         {{ form.as_p }}
-<!--        {{ inlinesPhones.as_p }}-->
-<!--        {{ inlinesEmails.as_p }}-->
-
-        {% for phone in inlinesPhones %}
-            {{ phone.as_p }}
-        {% endfor %}
-
-        {% for email in inlinesEmails %}
-            {{ email.as_p }}
-        {% endfor %}
+        {{ inlinesPhones.as_p }}
+        {{ inlinesEmails.as_p }}
         <input type="submit" value="Save">
     </form>
 
 
 {% endblock %}
-
-
-

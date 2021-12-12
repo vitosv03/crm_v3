@@ -71,22 +71,40 @@ class ClientsAddView(CreateView):
 class ClientUpdateView(UpdateView):
     model = ClientsInfo
     template_name = 'client_update.html'
-    context_object_name = 'client'
-    fields = ['title','head','summary', 'address', ]
+    fields = '__all__'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'title of page'
-        context['inlinesPhones'] = ClientsPhonesFormSet(instance=self.object)
-        context['inlinesEmails'] = ClientsEmailsFormSet(instance=self.object)
+        if self.request.POST:
+            context['inlinesPhones'] = ClientsPhonesFormSet(self.request.POST, instance=self.object)
+            context['inlinesEmails'] = ClientsEmailsFormSet(self.request.POST, instance=self.object)
+        else:
+            context['inlinesPhones'] = ClientsPhonesFormSet(instance=self.object)
+            context['inlinesEmails'] = ClientsEmailsFormSet(instance=self.object)
         return context
 
+    def form_valid(self, form):
+        context = self.get_context_data()
+        inlinesPhones = context['inlinesPhones']
+        inlinesEmails = context['inlinesEmails']
+        self.object = form.save()
+        if inlinesPhones.is_valid():
+            inlinesPhones.instance = self.object
+            inlinesPhones.save()
+        if inlinesEmails.is_valid():
+            inlinesEmails.instance = self.object
+            inlinesEmails.save()
+        return super().form_valid(form)
 
 class ClientDeleteView(DeleteView):
     model = ClientsInfo
     template_name = 'client_delete.html'
     context_object_name = 'client'
     success_url = reverse_lazy('home')
+
+
+
 
 #
 # def CreateClientsInfoView(request):
