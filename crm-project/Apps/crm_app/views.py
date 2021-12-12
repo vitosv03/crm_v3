@@ -131,6 +131,26 @@ class ProjectsDetailView(DetailView):
         return context
 
 
+
+class ProjectsAddView(CreateView):
+    model = ProjectsList
+    template_name = 'project_add.html'
+    success_url = reverse_lazy('home')
+    # fields = '__all__'
+    fields = ['client', 'p_name', 'description',
+              'date_begin', 'date_end', 'value', ]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'title of page'
+        return context
+
+    def form_valid(self, form):
+        edit_form = form.save(commit=False)
+        edit_form.created_by = self.request.user
+        self.object = form.save()
+        return super().form_valid(form)
+
 #
 # def CreateClientsInfoView(request):
 #     errors = ''
