@@ -15,7 +15,10 @@
         {% for phones in client.clientsphones_set.all%}
             <p>{{ phones.phoneNumber }}</p>
         {% endfor %}
-
+        <br>
+        {% for email in client.clientsemails_set.all%}
+            <p>{{ email.email }}</p>
+        {% endfor %}
 
 {% endblock %}
 

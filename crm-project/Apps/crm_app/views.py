@@ -97,6 +97,7 @@ class ClientUpdateView(UpdateView):
             inlinesEmails.save()
         return super().form_valid(form)
 
+
 class ClientDeleteView(DeleteView):
     model = ClientsInfo
     template_name = 'client_delete.html'
