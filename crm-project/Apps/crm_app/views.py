@@ -74,10 +74,12 @@ class ClientUpdateView(UpdateView):
     context_object_name = 'client'
     fields = ['title','head','summary', 'address', ]
 
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['title'] = 'title of page'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'title of page'
+        context['inlinesPhones'] = ClientsPhonesFormSet(instance=self.object)
+        context['inlinesEmails'] = ClientsEmailsFormSet(instance=self.object)
+        return context
 
 
 class ClientDeleteView(DeleteView):

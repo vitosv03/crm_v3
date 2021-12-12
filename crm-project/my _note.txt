@@ -25,3 +25,29 @@ ClientsInfo.clientsphones_set.all()
         {% for phones in client.clientsphones_set.all%}
             <p>{{ phones.phoneNumber }}</p>
         {% endfor %}
+
+
+
+
+<h3>FormSet example</h3>
+{{ myformset.management_form }}
+<div id="form_set">
+    {% for form in myformset.forms %}
+	    {{form.non_field_errors}}
+		{{form.errors}}
+        <table class='no_error'>
+            {{ form }}
+        </table>
+    {% endfor %}
+</div>
+<input type="button" value="Add More" id="add_more">
+<div id="empty_form" style="display:none">
+    <table class='no_error'>
+        {{ inlinesPhones.empty_form }}
+    </table>
+</div>
+
+
+
+<!--        {{ inlinesPhones.as_p }}-->
+<!--        {{ inlinesEmails.as_p }}-->
