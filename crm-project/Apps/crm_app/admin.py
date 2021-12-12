@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext, gettext_lazy as _
 
-from .models import ClientsInfo, ClientsEmails, ClientsPhones
+from .models import ClientsInfo, ClientsEmails, ClientsPhones, ProjectsList
 
 
 # Register your models here.
@@ -18,66 +18,31 @@ class ClientsPhonesInline(admin.TabularInline):
 
 @admin.register(ClientsEmails)
 class ClientsEmailsAdmin(admin.ModelAdmin):
-    list_display = (
-        'email',
-        'client',
-        'date_created',
-        'date_updated',
-    )
+    list_display = ('email', 'client', 'date_created', 'date_updated',)
 
 
 @admin.register(ClientsPhones)
 class ClientsPhonesAdmin(admin.ModelAdmin):
-    list_display = (
-        'phoneNumber',
-        'client',
-        'date_created',
-        'date_updated',
-    )
+    list_display = ('phoneNumber', 'client', 'date_created', 'date_updated',)
 
 
 @admin.register(ClientsInfo)
 class ClientsInfoAdmin(admin.ModelAdmin):
-    list_display = (
-        'title',
-        'head',
-        'summary',
-        'created_by',
-        # 'phoneNumber',
-        'display_phoneNumber',
-        'display_email',
-        # 'email',
-        'date_created',
-        'date_updated',
-    )
-    inlines = [
-        ClientsEmailsInline,
-        ClientsPhonesInline,
-    ]
+    list_display = ('title', 'head', 'summary', 'created_by',
+                    'display_phoneNumber', 'display_email', 'date_created', 'date_updated', )
+    inlines = [ClientsEmailsInline, ClientsPhonesInline,]
     extra = 1
 
     fieldsets = (
-        (None, {
-            'fields': ('title', 'head', 'summary')
-        }),
-        (_('Created_by'), {
-            'fields': ('created_by',)
-        }),
-        (_('Dates'), {
-            'fields': ('date_created', 'date_updated')
-        }),
+        (None, {'fields': ('title', 'head', 'summary')}),
+        (_('Created_by'), {'fields': ('created_by',)}),
+        (_('Dates'), {'fields': ('date_created', 'date_updated')}),
     )
 
-    readonly_fields = (
-        'date_created',
-        'date_updated',
-        'created_by'
-    )
+    readonly_fields = ('date_created', 'date_updated', 'created_by')
 
     add_fieldsets = (
-        (None, {
-            'fields': ('title', 'head',),
-        }),
+        (None, {'fields': ('title', 'head',)}),
     )
 
     # def phoneNumber(self, obj):
@@ -86,7 +51,6 @@ class ClientsInfoAdmin(admin.ModelAdmin):
     # def email(self, obj):
     #     return ", ".join([e.email for e in obj.clientsemails_set.all()])
 
-
     def save_model(self, request, obj, form, change):
         if not obj.pk:
             obj.created_by = request.user
@@ -94,11 +58,18 @@ class ClientsInfoAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 
+@admin.register(ProjectsList)
+class ProjectsListAdmin(admin.ModelAdmin):
+    list_display = ('client', 'p_name', 'description', 'date_begin', 'date_end', 'value',
+                    'created_by', 'date_created', 'date_updated',)
 
+    readonly_fields = ('date_created', 'date_updated', 'created_by')
 
-
-
-
+    def save_model(self, request, obj, form, change):
+        if not obj.pk:
+            obj.created_by = request.user
+        # obj.modified_by = request.user
+        super().save_model(request, obj, form, change)
 
 
 

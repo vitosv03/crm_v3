@@ -47,3 +47,21 @@ class ClientsInfo(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class ProjectsList(models.Model):
+    client = models.ForeignKey('ClientsInfo', on_delete=models.CASCADE)
+    p_name = models.CharField(max_length=100)
+    description = models.TextField()
+    date_begin = models.DateField()
+    date_end = models.DateField()
+    value = models.DecimalField(max_digits=10, decimal_places=2)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True, blank=True)
+    date_updated = models.DateTimeField(auto_now=True, blank=True)
+
+    def get_absolute_url(self):
+        return reverse('ClientDetail', args=[str(self.id)])
+
+    def __str__(self):
+        return self.p_name
