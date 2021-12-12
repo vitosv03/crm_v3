@@ -41,7 +41,8 @@ class ClientsAddView(CreateView):
     model = ClientsInfo
     template_name = 'client_add.html'
     success_url = reverse_lazy('home')
-    fields = '__all__'
+    # fields = '__all__'
+    fields = ['title', 'head', 'summary', 'address', ]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -55,6 +56,8 @@ class ClientsAddView(CreateView):
         return context
 
     def form_valid(self, form):
+        edit_form = form.save(commit=False)
+        edit_form.created_by = self.request.user
         context = self.get_context_data()
         inlinesPhones = context['inlinesPhones']
         inlinesEmails = context['inlinesEmails']
@@ -71,7 +74,8 @@ class ClientsAddView(CreateView):
 class ClientUpdateView(UpdateView):
     model = ClientsInfo
     template_name = 'client_update.html'
-    fields = '__all__'
+    # fields = '__all__'
+    fields = ['title', 'head', 'summary', 'address', ]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
