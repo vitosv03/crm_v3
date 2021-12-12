@@ -109,7 +109,6 @@ class ClientDeleteView(DeleteView):
     success_url = reverse_lazy('home')
 
 
-
 class ProjectsListView(ListView):
     model = ProjectsList
     template_name = 'projects_list.html'
@@ -121,6 +120,15 @@ class ProjectsListView(ListView):
         return context
 
 
+class ProjectsDetailView(DetailView):
+    model = ProjectsList
+    template_name = 'project_detail.html'
+    context_object_name = 'project'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Project: ' + str(context['project'])
+        return context
 
 
 #

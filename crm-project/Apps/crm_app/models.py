@@ -61,7 +61,7 @@ class ProjectsList(models.Model):
     date_updated = models.DateTimeField(auto_now=True, blank=True)
 
     def get_absolute_url(self):
-        return reverse('ClientDetail', args=[str(self.id)])
+        return reverse('ProjectDetail', args=[str(self.id)])
 
     def __str__(self):
         return self.p_name

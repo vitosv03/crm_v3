@@ -22,8 +22,8 @@
 
               {% for project in projects %}
                     <tr>
-                      <td><a href="{{ client.get_absolute_url }}">{{ project.client }}</a></td>
-                      <td>{{ project.p_name }}</td>
+                      <td><a href="{{ project.get_absolute_url }}">{{ project.p_name }}</a></td>
+                      <td>{{ project.client }}</td>
                       <td>{{ project.description}}</td>
                       <td>{{ project.date_begin}}</td>
                       <td>{{ project.date_end}}</td>
