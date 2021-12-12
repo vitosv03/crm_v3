@@ -8,7 +8,7 @@
     <h1>Project Detail of {{ project.p_name }}</h1>
     <a href="{% url 'projectUpdate' project.pk %}">Edit Project</a>
     <br>
-    <a href="{% url 'clientDelete' project.pk %}">Delete Project</a>
+    <a href="{% url 'projectDelete' project.pk %}">Delete Project</a>
     <p>{{ project.p_name }}</p>
     <p>{{ project.client }}</p>
     <p>{{ project.description}}</p>

@@ -169,6 +169,14 @@ class ProjectsUpdateView(UpdateView):
         return super().form_valid(form)
 
 
+
+class ProjectsDeleteView(DeleteView):
+    model = ProjectsList
+    template_name = 'project_delete.html'
+    context_object_name = 'project'
+    success_url = reverse_lazy('home')
+
+
 #
 # def CreateClientsInfoView(request):
 #     errors = ''

@@ -6,7 +6,7 @@
 
     <form method="post">
         {% csrf_token %}
-        <p>Are you sure you want to DELETE {{ project.p_name }} ?</p>
+        <p>Are you sure you want to DELETE {{ client.title }} ?</p>
         <input type="submit" value="Confirm">
     </form>
 
