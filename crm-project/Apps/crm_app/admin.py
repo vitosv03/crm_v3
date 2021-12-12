@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext, gettext_lazy as _
 
-from .models import ClientsInfo, ClientsEmails, ClientsPhones, ProjectsList
+from .models import ClientsInfo, ClientsEmails, ClientsPhones, ProjectsList, Tags, InterPlays
 
 
 # Register your models here.
@@ -72,13 +72,24 @@ class ProjectsListAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 
+@admin.register(Tags)
+class TagsAdmin(admin.ModelAdmin):
+    list_display = ('tag', 'date_created', 'date_updated',)
+    readonly_fields = ('date_created', 'date_updated', )
 
 
+@admin.register(InterPlays)
+class InterPlaysAdmin(admin.ModelAdmin):
+    list_display = ('project', 'link', 'date_created', 'date_updated', 'get_client')
 
 
+    readonly_fields = ('date_created', 'date_updated', 'created_by')
 
-
-
+    def save_model(self, request, obj, form, change):
+        if not obj.pk:
+            obj.created_by = request.user
+        # obj.modified_by = request.user
+        super().save_model(request, obj, form, change)
 
 
 

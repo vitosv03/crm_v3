@@ -1,3 +1,4 @@
+import self as self
 from django.conf import settings
 from django.core.validators import RegexValidator
 from django.db import models
@@ -65,3 +66,33 @@ class ProjectsList(models.Model):
 
     def __str__(self):
         return self.p_name
+
+
+class Tags(models.Model):
+    tag = models.CharField(max_length=20)
+    date_created = models.DateTimeField(auto_now_add=True, blank=True)
+    date_updated = models.DateTimeField(auto_now=True, blank=True)
+
+    def __str__(self):
+        return self.tag
+
+
+class InterPlays(models.Model):
+    project = models.ForeignKey('ProjectsList', on_delete=models.CASCADE)
+    link_status = (('cl', 'by claim'), ('le', 'by letter'), ('si', 'by site'), ('co', 'by company'),)
+    link = models.CharField(max_length=2, choices=link_status, blank=True, default=None, help_text='select link')
+    description = models.TextField()
+    rating = models.IntegerField()
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True, blank=True)
+    date_updated = models.DateTimeField(auto_now=True, blank=True)
+    tag = models.ManyToManyField(Tags)
+
+    def get_client(self):
+        return ClientsInfo.objects.filter(projectslist__p_name=self.project)[0]
+
+    def get_absolute_url(self):
+        return reverse('***********', args=[str(self.id)])
+
+    def __str__(self):
+        return str(self.project)
