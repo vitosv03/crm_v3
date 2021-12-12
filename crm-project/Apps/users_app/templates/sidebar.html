@@ -25,64 +25,36 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="shopping-cart"></span>
-                  Client Detail
-                </a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link" href="{% url 'ClientAdd' %}">
                   <span data-feather="users"></span>
                   Client Add
                 </a>
               </li>
+
+
+              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>PROJECTS</span>
+              </h6>
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="bar-chart-2"></span>
-                  Reports
+                <a class="nav-link" href="{% url 'ProjectsList' %}">
+                  <span data-feather="file-text"></span>
+                  Projects List
                 </a>
               </li>
               <li class="nav-item">
+<!--                <a class="nav-link" href="{% url 'ClientAdd' %}">-->
                 <a class="nav-link" href="#">
-                  <span data-feather="layers"></span>
-                  Integrations
+                  <span data-feather="file-text"></span>
+                  Projects Add
                 </a>
               </li>
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                  <span>Saved reports</span>
+                </h6>
+
             </ul>
 
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>Saved reports</span>
-              <a class="d-flex align-items-center text-muted" href="#">
-                <span data-feather="plus-circle"></span>
-              </a>
-            </h6>
-            <ul class="nav flex-column mb-2">
-              <li class="nav-item">
 
-                <a class="nav-link" href="#">
-                  <span data-feather="file-text"></span>
-                  Add client
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file-text"></span>
-                  Last quarter
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file-text"></span>
-                  Social engagement
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'listUsers' %}">
-                  <span data-feather="file-text"></span>
-                  List Users
-                </a>
-              </li>
-            </ul>
           </div>
         </nav>
 

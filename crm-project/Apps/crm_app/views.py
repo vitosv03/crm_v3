@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from .models import ClientsInfo, ClientsPhones, ClientsEmails
+from .models import ClientsInfo, ClientsPhones, ClientsEmails, ProjectsList
 from .forms import ClientsInfoForm, ClientsPhonesFormSet, ClientsEmailsFormSet
 from django.forms import inlineformset_factory
 
@@ -107,6 +107,18 @@ class ClientDeleteView(DeleteView):
     template_name = 'client_delete.html'
     context_object_name = 'client'
     success_url = reverse_lazy('home')
+
+
+
+class ProjectsListView(ListView):
+    model = ProjectsList
+    template_name = 'projects_list.html'
+    context_object_name = 'projects'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Projects List'
+        return context
 
 
 
