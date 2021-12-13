@@ -51,3 +51,107 @@ ClientsInfo.clientsphones_set.all()
 
 <!--        {{ inlinesPhones.as_p }}-->
 <!--        {{ inlinesEmails.as_p }}-->
+
+
+
+надо сделать проверка заполнения полей на разницу дат
+
+
+ProjectsList
+projects
+
+ProjectsListView
+
+ProjectsDetailView
+
+ProjectsAddView
+
+ProjectsUpdateView
+
+ProjectsDeleteView
+
+1, создать вьюшку
+2, создать урл
+3, создать хтмл файл
+4, добавить ссылку в сайдбар
+или в другую страницу
+
+InterplaysList
+interplay
+
+Interplays
+
+InterplaysListView
+
+InterplaysDetailView
+
+InterplaysAddView
+
+InterplaysUpdateView
+
+InterplaysDeleteView
+
+    create ProjectsList
+    1. create ProjectsListView
+    2. add route to urls.py
+    3. create projects_list.html
+    4. add link to sidebar.ht
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    create ProjectsList
+    1. create ProjectsListView
+    2. add route to urls.py
+    3. create projects_list.html
+    4. add link to sidebar.html
+
+
+    create ProjectsDetailView
+    1. create ProjectsDetailView
+    2. add route to urls.py
+    3. create project_detail.html
+    4. add link to projects_list.html
+
+    create ProjectsAddView
+    1. create ProjectsDetailView
+    2. add route to urls.py
+    3. create project_detail.html
+    4. add link to sidebar.html
+
+
+    create ProjectsUpdateView
+    1. create ProjectsUpdateView
+    2. add route to urls.py
+    3. create project_update.html
+    4. add link to project_detail.html
+
+    create ProjectsDeleteView
+    1. create ProjectsDeleteView
+    2. add route to urls.py
+    3. create project_delete.html
+    4. add link to project_detail.html
+
+
+
+
+
+
+
+
+
+
+
+
