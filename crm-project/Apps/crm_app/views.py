@@ -187,6 +187,15 @@ class InterplaysListView(ListView):
         return context
 
 
+class InterplaysDetailView(DetailView):
+    model = InterPlaysList
+    template_name = 'interplay_detail.html'
+    context_object_name = 'interplay'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Interplay: ' + str(context['interplay'])
+        return context
 
 
 

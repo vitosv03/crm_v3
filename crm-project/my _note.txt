@@ -100,10 +100,17 @@ create InterplaysListView
 3. create interplays_list.html
 4. add link to sidebar.html
 
+create InterplaysDetailView
+1. create InterplaysDetailView
+2. add route to urls.py
+3. create interplay_detail.html
+4. add link to interplays_list.html
 
 
 
+<!--    <a href="{% url 'projectDelete' project.pk %}">Delete Interplay</a>-->
 
+<!--    <a href="{% url 'projectUpdate' project.pk %}">Edit Interplay</a>-->
 
 
 

@@ -1,0 +1,21 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block title %} {{ title }} {% endblock %}
+
+
+
+{% block content %}
+    <h1>Interplay Detail of {{ interplay.project }}</h1>
+    <a href="#">Edit Interplay</a>
+    <br>
+    <a href="#">Delete Interplay</a>
+    <p>{{ interplay.project }}</p>
+    <p>{{ interplay.get_client }}</p>
+    <p>{{ interplay.link}}</p>
+    <p>{{ interplay.description}}</p>
+    <p>{{ interplay.rating}}</p>
+    <p>{{ interplay.get_tag}}</p>
+    <p>{{ interplay.created_by }}</p>
+
+{% endblock %}
+

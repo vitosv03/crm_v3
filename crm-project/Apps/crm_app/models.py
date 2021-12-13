@@ -94,7 +94,7 @@ class InterPlaysList(models.Model):
         return ', '.join([tag.tag for tag in self.tag.all()])
 
     def get_absolute_url(self):
-        return reverse('ProjectDetail', args=[str(self.id)])
+        return reverse('InterplayDetail', args=[str(self.id)])
 
     def __str__(self):
         return str(self.project)
