@@ -55,7 +55,9 @@ ClientsInfo.clientsphones_set.all()
 
 
 надо сделать проверка заполнения полей на разницу дат
-
+пагинация
+копка добавить новый объект
+кнопка добавить еще
 
 ProjectsList
 projects
@@ -78,6 +80,7 @@ ProjectsDeleteView
 
 InterplaysList
 interplay
+interplays
 
 Interplays
 
@@ -91,12 +94,11 @@ InterplaysUpdateView
 
 InterplaysDeleteView
 
-    create ProjectsList
-    1. create ProjectsListView
-    2. add route to urls.py
-    3. create projects_list.html
-    4. add link to sidebar.ht
-
+create InterplaysListView
+1. create InterplaysListView
+2. add route to urls.py
+3. create interplays_list.html
+4. add link to sidebar.html
 
 
 

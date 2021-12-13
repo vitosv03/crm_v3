@@ -1,0 +1,43 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+<h5>{{ title }} <a href="{% url 'projectAdd' %}">___ADD new Interplay</a></h5>
+          <div class="table-responsive">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>Project</th>
+                  <th>Client</th>
+                  <th>Link</th>
+                  <th>Description</th>
+                  <th>Rating</th>
+                  <th>Tag</th>
+                  <th>Created_by</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              {% for interplay in interplays %}
+                    <tr>
+                      <td><a href="{{ interplay.get_absolute_url }}">{{ interplay.project }}</a></td>
+                      <td>{{ interplay.get_client }}</td>
+                      <td>{{ interplay.link }}</td>
+                      <td>{{ interplay.description}}</td>
+                      <td>{{ interplay.rating}}</td>
+                      <td>{{ interplay.get_tag}}</td>
+                      <td>{{ interplay.created_by }}</td>
+                    </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
+
+
+
+{% endblock %}
+
+
+

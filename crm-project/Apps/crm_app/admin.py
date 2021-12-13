@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext, gettext_lazy as _
 
-from .models import ClientsInfo, ClientsEmails, ClientsPhones, ProjectsList, Tags, InterPlays
+from .models import ClientsInfo, ClientsEmails, ClientsPhones, ProjectsList, Tags, InterPlaysList
 
 
 # Register your models here.
@@ -78,7 +78,7 @@ class TagsAdmin(admin.ModelAdmin):
     readonly_fields = ('date_created', 'date_updated', )
 
 
-@admin.register(InterPlays)
+@admin.register(InterPlaysList)
 class InterPlaysAdmin(admin.ModelAdmin):
     list_display = ('project', 'link', 'date_created', 'date_updated', 'get_client')
 

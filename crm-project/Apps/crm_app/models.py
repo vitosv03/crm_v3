@@ -1,4 +1,3 @@
-import self as self
 from django.conf import settings
 from django.core.validators import RegexValidator
 from django.db import models
@@ -77,7 +76,7 @@ class Tags(models.Model):
         return self.tag
 
 
-class InterPlays(models.Model):
+class InterPlaysList(models.Model):
     project = models.ForeignKey('ProjectsList', on_delete=models.CASCADE)
     link_status = (('cl', 'by claim'), ('le', 'by letter'), ('si', 'by site'), ('co', 'by company'),)
     link = models.CharField(max_length=2, choices=link_status, blank=True, default=None, help_text='select link')
@@ -91,8 +90,11 @@ class InterPlays(models.Model):
     def get_client(self):
         return ClientsInfo.objects.filter(projectslist__p_name=self.project)[0]
 
+    def get_tag(self):
+        return ', '.join([tag.tag for tag in self.tag.all()])
+
     def get_absolute_url(self):
-        return reverse('***********', args=[str(self.id)])
+        return reverse('ProjectDetail', args=[str(self.id)])
 
     def __str__(self):
         return str(self.project)
