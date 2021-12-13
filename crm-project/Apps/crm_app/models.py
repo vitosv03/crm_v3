@@ -90,6 +90,9 @@ class InterPlaysList(models.Model):
     def get_client(self):
         return ClientsInfo.objects.filter(projectslist__p_name=self.project)[0]
 
+    def get_link(self):
+        return self.get_link_display()
+
     def get_tag(self):
         return ', '.join([tag.tag for tag in self.tag.all()])
 
