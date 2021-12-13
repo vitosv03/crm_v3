@@ -78,7 +78,7 @@ ProjectsDeleteView
 4, добавить ссылку в сайдбар
 или в другую страницу
 
-InterplaysList
+InterPlaysList
 interplay
 interplays
 
@@ -111,6 +111,12 @@ create InterplaysAddView
 2. add route to urls.py
 3. create interplay_add.html
 4. add link to interplays_list.html
+
+create InterplaysUpdateView
+1. create InterplaysUpdateView
+2. add route to urls.py
+3. create interplay_update.html
+4. add link to interplays_detail.html
 
 
 <!--    <a href="{% url 'projectDelete' project.pk %}">Delete Interplay</a>-->

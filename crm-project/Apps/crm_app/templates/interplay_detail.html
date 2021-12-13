@@ -6,7 +6,7 @@
 
 {% block content %}
     <h1>Interplay Detail of {{ interplay.project }}</h1>
-    <a href="#">Edit Interplay</a>
+    <a href="{% url 'interplayUpdate' interplay.pk %}">Edit Interplay</a>
     <br>
     <a href="#">Delete Interplay</a>
     <p>{{ interplay.project }}</p>

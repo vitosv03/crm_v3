@@ -217,6 +217,21 @@ class InterplaysAddView(CreateView):
         return super().form_valid(form)
 
 
+class InterplaysUpdateView(UpdateView):
+    model = InterPlaysList
+    template_name = 'interplay_update.html'
+    # success_url = reverse_lazy('home')
+    # fields = '__all__'
+    fields = ['link', 'description', 'rating', 'tag', ]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'title of page'
+        return context
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return super().form_valid(form)
 
 
 
