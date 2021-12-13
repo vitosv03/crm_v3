@@ -198,6 +198,29 @@ class InterplaysDetailView(DetailView):
         return context
 
 
+class InterplaysAddView(CreateView):
+    model = InterPlaysList
+    template_name = 'interplay_add.html'
+    success_url = reverse_lazy('home')
+    # fields = '__all__'
+    fields = ['project', 'link', 'description', 'rating', 'tag', ]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'title of page'
+        return context
+
+    def form_valid(self, form):
+        edit_form = form.save(commit=False)
+        edit_form.created_by = self.request.user
+        self.object = form.save()
+        return super().form_valid(form)
+
+
+
+
+
+
 
 
 #
