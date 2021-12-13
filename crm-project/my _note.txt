@@ -118,6 +118,12 @@ create InterplaysUpdateView
 3. create interplay_update.html
 4. add link to interplays_detail.html
 
+create InterplaysDeleteView
+1. create InterplaysDeleteView
+2. add route to urls.py
+3. create interplay_delete.html
+4. add link to interplays_detail.html
+
 
 <!--    <a href="{% url 'projectDelete' project.pk %}">Delete Interplay</a>-->
 

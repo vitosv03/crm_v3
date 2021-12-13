@@ -8,7 +8,7 @@
     <h1>Interplay Detail of {{ interplay.project }}</h1>
     <a href="{% url 'interplayUpdate' interplay.pk %}">Edit Interplay</a>
     <br>
-    <a href="#">Delete Interplay</a>
+    <a href="{% url 'interplayDelete' interplay.pk %}">Delete Interplay</a>
     <p>{{ interplay.project }}</p>
     <p>{{ interplay.get_client }}</p>
     <p>{{ interplay.link}}</p>

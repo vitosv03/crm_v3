@@ -5,7 +5,6 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 from .models import ClientsInfo, ClientsPhones, ClientsEmails, ProjectsList, InterPlaysList
 from .forms import ClientsInfoForm, ClientsPhonesFormSet, ClientsEmailsFormSet
-from django.forms import inlineformset_factory
 
 
 # Create your views here.
@@ -234,7 +233,11 @@ class InterplaysUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-
+class InterplaysDeleteView(DeleteView):
+    model = InterPlaysList
+    template_name = 'interplay_delete.html'
+    context_object_name = 'interplay'
+    success_url = reverse_lazy('home')
 
 
 
