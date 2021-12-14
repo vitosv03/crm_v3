@@ -267,6 +267,16 @@ class TagsListView(ListView):
         return context
 
 
+class TagsDetailView(DetailView):
+    model = Tags
+    template_name = 'tag_detail.html'
+    context_object_name = 'tag'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Tag: ' + str(context['tag'])
+        return context
+
 
 class TagAddView(CreateView):
     model = Tags

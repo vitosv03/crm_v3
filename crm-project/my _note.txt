@@ -101,13 +101,17 @@ create TagsListView
 3. create tags_list.html
 4. add link to sidebar.html
 
+create TagsDetailView
+1. create TagsDetailView
+2. add route to urls.py
+3. create interplay_detail.html
+4. add link to tags_list.html
 
 create TagsAddView
 1. create TagsAddView
 2. add route to urls.py
 3. create tags_add.html
 4. add link to tags_list.html
-
 
 create TagsUpdateView
 1. create TagsUpdateView
