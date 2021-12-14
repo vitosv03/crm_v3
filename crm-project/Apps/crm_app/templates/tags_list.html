@@ -15,7 +15,7 @@
 
               {% for tag in tags %}
                     <tr>
-<!--                      <td><a href="{{ interplay.get_absolute_url }}">{{ interplay.project }}</a></td>-->
+                      <td><a href="{{ tag.get_absolute_url }}">{{ tag.tag }}</a></td>
                       <td>{{ tag.tag }}</td>
                     </tr>
                 {% endfor %}

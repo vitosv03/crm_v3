@@ -72,6 +72,9 @@ class Tags(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True)
 
+    def get_absolute_url(self):
+        return reverse('TagDetail', args=[str(self.id)])
+
     def __str__(self):
         return self.tag
 

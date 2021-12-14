@@ -1,0 +1,15 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+
+    <form method="post">
+        {% csrf_token %}
+        <p>Are you sure you want to DELETE {{ tag.tag }} ?</p>
+        <input type="submit" value="Confirm">
+    </form>
+
+
+{% endblock %}
+

@@ -281,9 +281,8 @@ class TagsDetailView(DetailView):
 class TagAddView(CreateView):
     model = Tags
     template_name = 'tag_add.html'
-    # success_url = reverse_lazy('home')
-    fields = '__all__'
-    # fields = ['project', 'link', 'description', 'rating', 'tag', ]
+    success_url = reverse_lazy('home')
+    fields = ['tag']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -308,6 +307,13 @@ class TagUpdateView(UpdateView):
     #     edit_form.created_by = self.request.user
     #     self.object = form.save()
     #     return super().form_valid(form)
+
+
+class TagsDeleteView(DeleteView):
+    model = Tags
+    template_name = 'tag_delete.html'
+    context_object_name = 'tag'
+    success_url = reverse_lazy('home')
 
 #
 # def CreateClientsInfoView(request):
