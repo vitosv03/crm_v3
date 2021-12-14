@@ -1,0 +1,17 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block title %} {{ title }} {% endblock %}
+
+
+
+{% block content %}
+    <h1>Tag Detail of {{ tag.tag }}</h1>
+    <a href="{% url 'tagUpdate' tag.pk %}">Tag Project</a>
+    <br>
+    <a href="{% url 'projectDelete' project.pk %}">Tag Project</a>
+    <p>{{ tag.tag }}</p>
+
+{% endblock %}
+
+
+
