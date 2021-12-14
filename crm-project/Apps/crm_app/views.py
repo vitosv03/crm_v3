@@ -14,6 +14,12 @@ def crmHome(request):
     return HttpResponse('<h1>Home --CRM-- </h1>')
 
 
+headers = {
+    'title': 'asc',
+    'date_created': 'asc',
+}
+
+
 # ClientsList
 class ClientsListView(ListView):
     model = ClientsInfo
@@ -27,14 +33,26 @@ class ClientsListView(ListView):
         context['title'] = 'Clients List'
         return context
 
+    # def get_queryset(self):
+    #     queryset = ClientsInfo.objects.all()
+    #     if self.request.GET.get('sort'):
+    #         selection = self.request.GET.get('sort')
+    #         if selection == 'asc':
+    #             queryset = ClientsInfo.objects.order_by('title')
+    #         elif selection == 'desc':
+    #             queryset = ClientsInfo.objects.order_by('-title')
+    #     return queryset
+
     def get_queryset(self):
         queryset = ClientsInfo.objects.all()
-        if self.request.GET.get('s_sort'):
-            selection = self.request.GET.get('s_sort')
-            if selection == '-title':
-                queryset = ClientsInfo.objects.order_by('-title')
-            elif selection == 'title':
-                queryset = ClientsInfo.objects.order_by('title')
+        sort = self.request.GET.get('sort')
+        if sort is not None:
+            if headers[sort] == "des":
+                queryset = ClientsInfo.objects.all().order_by(sort).reverse()
+                headers[sort] = "asc"
+            else:
+                queryset = ClientsInfo.objects.all().order_by(sort)
+                headers[sort] = "des"
         return queryset
 
 
@@ -295,6 +313,7 @@ class TagUpdateView(UpdateView):
     template_name = 'tag_add.html'
     success_url = reverse_lazy('home')
     fields = '__all__'
+
     # fields = ['project', 'link', 'description', 'rating', 'tag', ]
 
     def get_context_data(self, **kwargs):
@@ -349,4 +368,3 @@ class TagsDeleteView(DeleteView):
 #                   )
 #
 #     # new_form.title = 'petro'
-
