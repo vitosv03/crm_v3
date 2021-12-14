@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from .models import ClientsInfo, ClientsPhones, ClientsEmails, ProjectsList, InterPlaysList
+from .models import ClientsInfo, ClientsPhones, ClientsEmails, ProjectsList, InterPlaysList, Tags
 from .forms import ClientsInfoForm, ClientsPhonesFormSet, ClientsEmailsFormSet
 
 
@@ -14,15 +14,28 @@ def crmHome(request):
     return HttpResponse('<h1>Home --CRM-- </h1>')
 
 
+# ClientsList
 class ClientsListView(ListView):
     model = ClientsInfo
     template_name = 'clients_list.html'
     context_object_name = 'clients'
+    # ordering = ['title']
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Clients List'
         return context
+
+    def get_queryset(self):
+        queryset = ClientsInfo.objects.all()
+        if self.request.GET.get('s_sort'):
+            selection = self.request.GET.get('s_sort')
+            if selection == '-title':
+                queryset = ClientsInfo.objects.order_by('-title')
+            elif selection == 'title':
+                queryset = ClientsInfo.objects.order_by('title')
+        return queryset
 
 
 class ClientsDetailView(DetailView):
@@ -108,6 +121,7 @@ class ClientDeleteView(DeleteView):
     success_url = reverse_lazy('home')
 
 
+# ProjectsList
 class ProjectsListView(ListView):
     model = ProjectsList
     template_name = 'projects_list.html'
@@ -175,6 +189,7 @@ class ProjectsDeleteView(DeleteView):
     success_url = reverse_lazy('home')
 
 
+# InterplaysList
 class InterplaysListView(ListView):
     model = InterPlaysList
     template_name = 'interplays_list.html'
@@ -240,6 +255,49 @@ class InterplaysDeleteView(DeleteView):
     success_url = reverse_lazy('home')
 
 
+# Tags
+class TagsListView(ListView):
+    model = Tags
+    template_name = 'tags_list.html'
+    context_object_name = 'tags'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Tags List'
+        return context
+
+
+
+class TagAddView(CreateView):
+    model = Tags
+    template_name = 'tag_add.html'
+    # success_url = reverse_lazy('home')
+    fields = '__all__'
+    # fields = ['project', 'link', 'description', 'rating', 'tag', ]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'title of page'
+        return context
+
+
+class TagUpdateView(UpdateView):
+    model = Tags
+    template_name = 'tag_add.html'
+    success_url = reverse_lazy('home')
+    fields = '__all__'
+    # fields = ['project', 'link', 'description', 'rating', 'tag', ]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'title of page'
+        return context
+
+    # def form_valid(self, form):
+    #     edit_form = form.save(commit=False)
+    #     edit_form.created_by = self.request.user
+    #     self.object = form.save()
+    #     return super().form_valid(form)
 
 #
 # def CreateClientsInfoView(request):
@@ -275,3 +333,4 @@ class InterplaysDeleteView(DeleteView):
 #                   )
 #
 #     # new_form.title = 'petro'
+

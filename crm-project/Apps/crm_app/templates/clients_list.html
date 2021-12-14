@@ -3,7 +3,7 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block content %}
-<!--<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">-->
+
 <h5>{{ title }} <a href="{% url 'ClientAdd' %}">___ADD new Client__</a></h5>
           <div class="table-responsive">
             <table class="table table-striped table-sm">
@@ -33,7 +33,13 @@
               </tbody>
             </table>
           </div>
-<!--        </main>-->
+
+<form action="" method="get">
+  <input type="text" name="s_sort" value="">
+  <button type="submit" name="">
+    sort
+  </button>
+</form>
 
 
 {% endblock %}

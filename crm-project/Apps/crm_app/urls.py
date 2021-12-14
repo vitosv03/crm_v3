@@ -22,4 +22,8 @@ urlpatterns = [
     path('interplayUpdate/<int:pk>/', views.InterplaysUpdateView.as_view(), name='interplayUpdate'),
     path('interplayDelete/<int:pk>/', views.InterplaysDeleteView.as_view(), name='interplayDelete'),
 
+    path('TagsList/', views.TagsListView.as_view(), name='TagsList'),
+    path('tagAdd/', views.TagAddView.as_view(), name='tagAdd'),
+    path('tagUpdate/<int:pk>/', views.TagUpdateView.as_view(), name='tagUpdate'),
+
 ]

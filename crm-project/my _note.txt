@@ -78,21 +78,69 @@ ProjectsDeleteView
 4, добавить ссылку в сайдбар
 или в другую страницу
 
-InterPlaysList
-interplay
-interplays
+TagsList
+tag
+tags
 
-Interplays
+Tags
 
-InterplaysListView
+TagsListView
 
-InterplaysDetailView
+TagsDetailView
 
-InterplaysAddView
+TagsAddView
 
-InterplaysUpdateView
+TagsUpdateView
 
-InterplaysDeleteView
+TagsDeleteView
+
+
+create TagsListView
+1. create TagsListView
+2. add route to urls.py
+3. create tags_list.html
+4. add link to sidebar.html
+
+
+create TagsAddView
+1. create TagsAddView
+2. add route to urls.py
+3. create tags_add.html
+4. add link to tags_list.html
+
+
+create TagsUpdateView
+1. create TagsUpdateView
+2. add route to urls.py
+3. create tag_update.html
+4. add link to tag_detail.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 create InterplaysListView
 1. create InterplaysListView
@@ -130,7 +178,9 @@ create InterplaysDeleteView
 <!--    <a href="{% url 'projectUpdate' project.pk %}">Edit Interplay</a>-->
 
 
-
+http://127.0.0.1:8000/crm/tagAdd/
+http://127.0.0.1:8000/crm/tagAdd/?_to_field=id&_popup=1
+http://127.0.0.1:8000/crm/tagUpdate/1
 
 
 
