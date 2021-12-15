@@ -21,7 +21,7 @@ headers = {
 
 
 # ClientsList
-class ClientsListView(ListView):
+class ClientListView(ListView):
     model = ClientsInfo
     template_name = 'clients_list.html'
     context_object_name = 'clients'
@@ -65,7 +65,7 @@ class ClientsListView(ListView):
         return queryset
 
 
-class ClientsDetailView(DetailView):
+class ClientDetailView(DetailView):
     model = ClientsInfo
     template_name = 'client_detail.html'
     context_object_name = 'client'
@@ -76,7 +76,7 @@ class ClientsDetailView(DetailView):
         return context
 
 
-class ClientsAddView(CreateView):
+class ClientAddView(CreateView):
     model = ClientsInfo
     template_name = 'client_add.html'
     success_url = reverse_lazy('home')
@@ -149,7 +149,7 @@ class ClientDeleteView(DeleteView):
 
 
 # ProjectsList
-class ProjectsListView(ListView):
+class ProjectListView(ListView):
     model = ProjectsList
     template_name = 'projects_list.html'
     context_object_name = 'projects'
@@ -160,7 +160,7 @@ class ProjectsListView(ListView):
         return context
 
 
-class ProjectsDetailView(DetailView):
+class ProjectDetailView(DetailView):
     model = ProjectsList
     template_name = 'project_detail.html'
     context_object_name = 'project'
@@ -171,7 +171,7 @@ class ProjectsDetailView(DetailView):
         return context
 
 
-class ProjectsAddView(CreateView):
+class ProjectAddView(CreateView):
     model = ProjectsList
     template_name = 'project_add.html'
     success_url = reverse_lazy('home')
@@ -191,7 +191,7 @@ class ProjectsAddView(CreateView):
         return super().form_valid(form)
 
 
-class ProjectsUpdateView(UpdateView):
+class ProjectUpdateView(UpdateView):
     model = ProjectsList
     template_name = 'project_update.html'
     # success_url = reverse_lazy('home')
@@ -209,7 +209,7 @@ class ProjectsUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class ProjectsDeleteView(DeleteView):
+class ProjectDeleteView(DeleteView):
     model = ProjectsList
     template_name = 'project_delete.html'
     context_object_name = 'project'
@@ -217,7 +217,7 @@ class ProjectsDeleteView(DeleteView):
 
 
 # InterplaysList
-class InterplaysListView(ListView):
+class InterplayListView(ListView):
     model = InterPlaysList
     template_name = 'interplays_list.html'
     context_object_name = 'interplays'
@@ -228,7 +228,7 @@ class InterplaysListView(ListView):
         return context
 
 
-class InterplaysDetailView(DetailView):
+class InterplayDetailView(DetailView):
     model = InterPlaysList
     template_name = 'interplay_detail.html'
     context_object_name = 'interplay'
@@ -239,7 +239,7 @@ class InterplaysDetailView(DetailView):
         return context
 
 
-class InterplaysAddView(CreateView):
+class InterplayAddView(CreateView):
     model = InterPlaysList
     template_name = 'interplay_add.html'
     success_url = reverse_lazy('home')
@@ -280,7 +280,7 @@ class InterplaysAddView(CreateView):
         return super().form_valid(form)
 
 
-class InterplaysUpdateView(UpdateView):
+class InterplayUpdateView(UpdateView):
     model = InterPlaysList
     template_name = 'interplay_update.html'
     # success_url = reverse_lazy('home')
@@ -297,7 +297,7 @@ class InterplaysUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class InterplaysDeleteView(DeleteView):
+class InterplayDeleteView(DeleteView):
     model = InterPlaysList
     template_name = 'interplay_delete.html'
     context_object_name = 'interplay'
@@ -305,7 +305,7 @@ class InterplaysDeleteView(DeleteView):
 
 
 # Tags
-class TagsListView(ListView):
+class TagListView(ListView):
     model = Tags
     template_name = 'tags_list.html'
     context_object_name = 'tags'
@@ -316,7 +316,7 @@ class TagsListView(ListView):
         return context
 
 
-class TagsDetailView(DetailView):
+class TagDetailView(DetailView):
     model = Tags
     template_name = 'tag_detail.html'
     context_object_name = 'tag'
@@ -359,7 +359,7 @@ class TagUpdateView(UpdateView):
     #     return super().form_valid(form)
 
 
-class TagsDeleteView(DeleteView):
+class TagDeleteView(DeleteView):
     model = Tags
     template_name = 'tag_delete.html'
     context_object_name = 'tag'
