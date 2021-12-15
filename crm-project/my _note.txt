@@ -104,7 +104,7 @@ create TagsListView
 create TagsDetailView
 1. create TagsDetailView
 2. add route to urls.py
-3. create interplay_detail.html
+3. create tag_detail.html
 4. add link to tags_list.html
 
 create TagsAddView
@@ -119,29 +119,11 @@ create TagsUpdateView
 3. create tag_update.html
 4. add link to tag_detail.html
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+create TagsDeleteView
+1. create TagsDeleteView
+2. add route to urls.py
+3. create tag_delete.html
+4. add link to tag_detail.html
 
 
 

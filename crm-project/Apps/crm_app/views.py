@@ -26,11 +26,13 @@ class ClientsListView(ListView):
     template_name = 'clients_list.html'
     context_object_name = 'clients'
     # ordering = ['title']
-    paginate_by = 5
+    paginate_by = 2
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Clients List'
+        sort = self.request.GET.get('sort')
+        context['sort'] = sort
         return context
 
     # def get_queryset(self):
@@ -46,13 +48,20 @@ class ClientsListView(ListView):
     def get_queryset(self):
         queryset = ClientsInfo.objects.all()
         sort = self.request.GET.get('sort')
-        if sort is not None:
+        page = self.request.GET.get('page')
+        if page is None:
+            if sort is not None:
+                if headers[sort] == "des":
+                    queryset = ClientsInfo.objects.all().order_by(sort).reverse()
+                    headers[sort] = "asc"
+                else:
+                    queryset = ClientsInfo.objects.all().order_by(sort)
+                    headers[sort] = "des"
+        elif sort is not None:
             if headers[sort] == "des":
-                queryset = ClientsInfo.objects.all().order_by(sort).reverse()
-                headers[sort] = "asc"
-            else:
                 queryset = ClientsInfo.objects.all().order_by(sort)
-                headers[sort] = "des"
+            elif headers[sort] == "asc":
+                queryset = ClientsInfo.objects.all().order_by(sort).reverse()
         return queryset
 
 
@@ -237,6 +246,27 @@ class InterplaysAddView(CreateView):
     # fields = '__all__'
     fields = ['project', 'link', 'description', 'rating', 'tag', ]
 
+    # def __init__(self, *args, **kwargs):
+    #     super(InterplaysAddView, self).__init__(self, *args, **kwargs)
+    #     # self.fields['description'].queryset = Project.objects.filter(Project.status == 2)
+    #     self.field['description'] = 'dfd'
+
+    # def get_initial(self, *args, **kwargs):
+    #     initial = super(InterplaysAddView, self).get_initial(**kwargs)
+    #     data = self.request.GET.get('data')
+    #     if data is not None:
+    #         print(data)
+    #         self.initial['project'] = data
+    #     return initial
+    #
+    # def get_initial(self, *args, **kwargs):
+    #     initial = super(InterplaysAddView, self).get_initial(**kwargs)
+    #     # data = self.request.GET.get('data')
+    #     # if data is not None:
+    #     #     print(data)
+    #     self.initial['description']  = self.id
+    #     return initial
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'title of page'
@@ -245,6 +275,7 @@ class InterplaysAddView(CreateView):
     def form_valid(self, form):
         edit_form = form.save(commit=False)
         edit_form.created_by = self.request.user
+        form.instance.description = 'sdfsdf'
         self.object = form.save()
         return super().form_valid(form)
 
