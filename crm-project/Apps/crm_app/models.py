@@ -43,7 +43,7 @@ class ClientsInfo(models.Model):
         return ", ".join([e.email for e in self.clientsemails_set.all()])
 
     def get_absolute_url(self):
-        return reverse('ClientDetail', args=[str(self.id)])
+        return reverse('client_detail', args=[str(self.id)])
 
     def __str__(self):
         return self.title
@@ -61,7 +61,7 @@ class ProjectsList(models.Model):
     date_updated = models.DateTimeField(auto_now=True, blank=True)
 
     def get_absolute_url(self):
-        return reverse('ProjectDetail', args=[str(self.id)])
+        return reverse('project_detail', args=[str(self.id)])
 
     def __str__(self):
         return self.p_name
@@ -73,7 +73,7 @@ class Tags(models.Model):
     date_updated = models.DateTimeField(auto_now=True, blank=True)
 
     def get_absolute_url(self):
-        return reverse('TagDetail', args=[str(self.id)])
+        return reverse('tag_detail', args=[str(self.id)])
 
     def __str__(self):
         return self.tag
@@ -100,7 +100,7 @@ class InterPlaysList(models.Model):
         return ', '.join([tag.tag for tag in self.tag.all()])
 
     def get_absolute_url(self):
-        return reverse('InterplayDetail', args=[str(self.id)])
+        return reverse('interplay_detail', args=[str(self.id)])
 
     def __str__(self):
         return str(self.project)

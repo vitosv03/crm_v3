@@ -6,9 +6,9 @@
 
 {% block content %}
     <h1>Tag Detail of {{ tag.tag }}</h1>
-    <a href="{% url 'tagUpdate' tag.pk %}">Update Tag</a>
+    <a href="{% url 'tag_update' tag.pk %}">Update Tag</a>
     <br>
-    <a href="{% url 'tagDelete' tag.pk %}">Delete Tag</a>
+    <a href="{% url 'tag_delete' tag.pk %}">Delete Tag</a>
     <p>{{ tag.tag }}</p>
 
 {% endblock %}

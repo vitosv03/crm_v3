@@ -6,9 +6,9 @@
 
 {% block content %}
 <h1>Clients Detail of {{ client.title }}</h1>
-<a href="{% url 'clientUpdate' client.pk %}">Edit Client</a>
+<a href="{% url 'client_update' client.pk %}">Edit Client</a>
 <br>
-<a href="{% url 'clientDelete' client.pk %}">Delete Client</a>
+<a href="{% url 'client_delete' client.pk %}">Delete Client</a>
     <p>{{ client.head }}</p>
     <p>{{ client.summary }}</p>
     <p>{{ client.created_by }}</p>
