@@ -31,14 +31,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'Apps.crm_app',
-    'Apps.users_app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
+    'Apps.crm_app',
+    'Apps.users_app',
 ]
 
 INSTALLED_APPS += ["django_createsuperuser"]

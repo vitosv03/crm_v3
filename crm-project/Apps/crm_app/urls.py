@@ -35,6 +35,7 @@ urlpatterns = [
     path('', views.crmHome, name='crmHome'),
 
     path('client/', include([
+        path('list_2/', views.ClientListView_2.as_view(), name='client_list_2'),
         path('list/', views.ClientListView.as_view(), name='client_list'),
         path('add/', views.ClientAddView.as_view(), name='client_add'),
         path('<int:pk>/detail/', views.ClientDetailView.as_view(), name='client_detail'),
