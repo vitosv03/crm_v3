@@ -7,6 +7,8 @@ class ClientsInfoFilter(django_filters.FilterSet):
 
     class Meta:
         model = ClientsInfo
-        fields = [
-            'title',
-        ]
+        fields = {
+            'title': ['icontains'],
+
+        }
+
