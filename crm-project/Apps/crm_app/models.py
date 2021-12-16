@@ -79,8 +79,16 @@ class Tags(models.Model):
         return self.tag
 
 
+# class ClientProjectManager(models.Manager):
+#     def get_queryset(self):
+#         return super().get_queryset().filter(author='Roald Dahl')
+
+
 class InterPlaysList(models.Model):
     project = models.ForeignKey('ProjectsList', on_delete=models.CASCADE)
+    # objects = models.Manager()
+    # client = ClientProjectManager()
+    # client = ClientsInfo.objects.get(projectslist__p_name=project)
     link_status = (('cl', 'by claim'), ('le', 'by letter'), ('si', 'by site'), ('co', 'by company'),)
     link = models.CharField(max_length=2, choices=link_status, blank=True, default=None, help_text='select link')
     description = models.TextField()
@@ -90,8 +98,8 @@ class InterPlaysList(models.Model):
     date_updated = models.DateTimeField(auto_now=True, blank=True)
     tag = models.ManyToManyField(Tags)
 
-    def get_client(self):
-        return ClientsInfo.objects.filter(projectslist__p_name=self.project)[0]
+    def client(self):
+        return ClientsInfo.objects.get(projectslist__p_name=self.project)
 
     def get_link(self):
         return self.get_link_display()

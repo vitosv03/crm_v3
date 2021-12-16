@@ -80,7 +80,7 @@ class TagsAdmin(admin.ModelAdmin):
 
 @admin.register(InterPlaysList)
 class InterPlaysAdmin(admin.ModelAdmin):
-    list_display = ('project', 'link', 'date_created', 'date_updated', 'get_client')
+    list_display = ('project', 'link', 'date_created', 'date_updated', 'client')
 
 
     readonly_fields = ('date_created', 'date_updated', 'created_by')
