@@ -5,7 +5,8 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 from .models import ClientsInfo, ClientsPhones, ClientsEmails, ProjectsList, InterPlaysList, Tags
 from .forms import ClientsInfoForm, ClientsPhonesFormSet, ClientsEmailsFormSet
-from .filters import ClientsInfoFilter
+# from .filters import ClientsInfoFilter, FilteredListView, ClientFilterSet
+from .filters import ClientsInfoFilter, FilteredListView
 
 
 # Create your views here.
@@ -71,7 +72,7 @@ class ClientListView_2(ListView):
     template_name = 'clients_list_2.html'
     context_object_name = 'clients'
     # ordering = ['title']
-    # paginate_by = 2
+    paginate_by = 3
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -81,34 +82,13 @@ class ClientListView_2(ListView):
         context['filter'] = ClientsInfoFilter(self.request.GET, queryset=self.get_queryset())
         return context
 
-    # def get_queryset(self):
-    #     queryset = ClientsInfo.objects.all()
-    #     if self.request.GET.get('sort'):
-    #         selection = self.request.GET.get('sort')
-    #         if selection == 'asc':
-    #             queryset = ClientsInfo.objects.order_by('title')
-    #         elif selection == 'desc':
-    #             queryset = ClientsInfo.objects.order_by('-title')
-    #     return queryset
 
-    def get_queryset(self):
-        queryset = ClientsInfo.objects.all()
-        sort = self.request.GET.get('sort')
-        page = self.request.GET.get('page')
-        if page is None:
-            if sort is not None:
-                if headers[sort] == "des":
-                    queryset = ClientsInfo.objects.all().order_by(sort).reverse()
-                    headers[sort] = "asc"
-                else:
-                    queryset = ClientsInfo.objects.all().order_by(sort)
-                    headers[sort] = "des"
-        elif sort is not None:
-            if headers[sort] == "des":
-                queryset = ClientsInfo.objects.all().order_by(sort)
-            elif headers[sort] == "asc":
-                queryset = ClientsInfo.objects.all().order_by(sort).reverse()
-        return queryset
+class ClientListView_3(FilteredListView):
+    # model = ClientsInfo
+    template_name = 'clients_list_3.html'
+    context_object_name = 'clients'
+    # filterset_class = ClientFilterSet
+    paginate_by = 3
 
 
 class ClientDetailView(DetailView):
