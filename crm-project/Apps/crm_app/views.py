@@ -66,45 +66,12 @@ class ClientListView(ListView):
                 queryset = ClientsInfo.objects.all().order_by(sort).reverse()
         return queryset
 
-
-# class ClientListView_2(ListView):
-#     model = ClientsInfo
-#     template_name = 'clients_list_2.html'
-#     context_object_name = 'clients'
-#     # ordering = ['title']
-#     paginate_by = 3
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['title'] = 'Clients List'
-#         # sort = self.request.GET.get('sort')
-#         # context['sort'] = sort
-#         context['filter'] = ClientsInfoFilter(self.request.GET, queryset=self.get_queryset())
-#         return context
-
-
-# class ClientListView_2(ListView):
-#     paginate_by = 3
-#     model = ClientsInfo
-#     template_name = 'clients_list_2.html'
-#     context_object_name = 'clients'
-#     # ordering = ['title']
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['title'] = 'Clients List'
-#         # sort = self.request.GET.get('sort')
-#         # context['sort'] = sort
-#         context['filter'] = ClientsInfoFilter(self.request.GET, queryset=self.get_queryset())
-#         return context
-
-
-# class ClientListView_2(ListView):
-class FilteredClientListView(ListView):
+class ClientListView_2(ListView):
     model = ClientsInfo
+    filterset_class = ClientsInfoFilter
     template_name = 'clients_list_2.html'
     context_object_name = 'clients'
-    filterset_class = None
+
     paginate_by = 2
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -112,30 +79,10 @@ class FilteredClientListView(ListView):
         return context
 
     def get_queryset(self):
-        # queryset = super().get_queryset()
-        queryset = ClientsInfo.objects.all()
+        queryset = super().get_queryset()
+        # queryset = ClientsInfo.objects.all()
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
         return self.filterset.qs.distinct()
-
-
-class ClientListView_2(FilteredClientListView):
-    filterset_class = ClientsInfoFilter
-
-
-
-# class ClientListView_3(ListView):
-#     # model = ClientsInfo
-#     template_name = 'clients_list_3.html'
-#     context_object_name = 'clients'
-#     # filterset_class = ClientFilterSet
-#     paginate_by = 3
-#
-#     # def get_context_data(self, **kwargs):
-#     #     context = super().get_context_data(**kwargs)
-#     #     context['title'] = 'Clients List'
-#     #     value = self.request.GET.get('value')
-#     #     context['sort'] = value
-#     #     return context
 
 
 class ClientDetailView(DetailView):
