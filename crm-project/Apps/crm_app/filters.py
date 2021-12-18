@@ -1,7 +1,5 @@
 import django_filters
 from django import forms
-from django_filters import ModelChoiceFilter
-from networkx import project
 
 from .models import ClientsInfo, ProjectsList, InterPlaysList
 
