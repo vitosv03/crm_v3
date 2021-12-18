@@ -244,6 +244,7 @@ class InterplayListView(ListView):
     template_name = 'interplays_list.html'
     context_object_name = 'interplays'
     filterset_class = InterplaysFilter
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -255,7 +256,6 @@ class InterplayListView(ListView):
         queryset = super().get_queryset()
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
         return self.filterset.qs.distinct()
-
 
 
 class InterplayDetailView(DetailView):
@@ -305,7 +305,7 @@ class InterplayAddView(CreateView):
     def form_valid(self, form):
         edit_form = form.save(commit=False)
         edit_form.created_by = self.request.user
-        form.instance.description = 'sdfsdf'
+        # edit_form.client = ClientsInfo.objects.filter(projectslist__p_name='ddf')[0]
         self.object = form.save()
         return super().form_valid(form)
 

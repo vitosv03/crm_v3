@@ -169,7 +169,10 @@ http://127.0.0.1:8000/crm/tagAdd/?_to_field=id&_popup=1
 http://127.0.0.1:8000/crm/tagUpdate/1
 
 
-
+from C:\\Users\\Professional\\PycharmProjects\\CRM\\crm_v3\\crm-project\\Apps\\users_app\\models import ClientsInfo,
+ClientsPhones, ClientsEmails, ProjectsList, InterPlaysList, Tags
+a = ClientsInfo.objects.filter(projectslist__p_name='ddf')[0]
+print(a)
 
 
 
