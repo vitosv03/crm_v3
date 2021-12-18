@@ -41,37 +41,33 @@ class ClientsInfoFilter(django_filters.FilterSet):
 class InterplaysFilter(django_filters.FilterSet):
     q_set = InterPlaysList.objects.values_list('project')
 
-    filter_project = django_filters.ModelChoiceFilter(
+    # project = django_filters.CharFilter(field_name='client')
+
+    project = django_filters.ModelChoiceFilter(
         label='Project',
         queryset=ProjectsList.objects.filter(pk__in=q_set),
-        method='filter_by_order',
         widget=forms.Select(attrs={'onchange': "this.form.submit()"})
     )
-
-
+    #
+    #
+    rr = ClientsInfo.objects.filter(projectslist__pk__in=q_set).values_list('id')
+    print(rr)
+    print(q_set)
     filter_client = django_filters.ModelChoiceFilter(
         label='Client',
         queryset=ClientsInfo.objects.filter(projectslist__pk__in=q_set),
-        method='filter_by_order',
+        # method='filter_by_list',
         widget=forms.Select(attrs={'onchange': "this.form.submit()"})
     )
 
 
     class Meta:
         model = ProjectsList
-        # fields = {'title': ['icontains'], }
-        # fields = dict(title=['icontains'],)
         # fields = ['filter_project', 'filter_client']
-        fields = ['filter_project', ]
+        fields = ['project', ]
 
-    def filter_by_order(self, queryset, name, value):
-        if value == 'title_acs':
-            sorting = 'title'
-        elif value == 'title_desc':
-            sorting = '-title'
-        elif value == 'created_acs':
-            sorting = 'date_created'
-        elif value == 'created_desc':
-            sorting = '-date_created'
-        return queryset.order_by(sorting)
+    # def filter_by_list(self, queryset, name, value):
+    #     return queryset.filter(**{
+    #             name: value,
+    #         })
 

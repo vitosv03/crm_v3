@@ -181,6 +181,7 @@ class ProjectListView(ListView):
         return context
 
 
+
 class ProjectDetailView(DetailView):
     model = ProjectsList
     template_name = 'project_detail.html'
