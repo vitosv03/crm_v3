@@ -50,15 +50,21 @@ class InterplaysFilter(django_filters.FilterSet):
     client = django_filters.ModelChoiceFilter(
         label='Client',
         queryset=ClientsInfo.objects.filter(projectslist__pk__in=q_set),
-        method='filter_by_client',
         widget=forms.Select(attrs={'onchange': "this.form.submit()"})
     )
+
+    # client = django_filters.ModelChoiceFilter(
+    #     label='Client',
+    #     queryset=ClientsInfo.objects.filter(projectslist__pk__in=q_set),
+    #     # method='filter_by_client',
+    #     widget=forms.Select(attrs={'onchange': "this.form.submit()"})
+    # )
 
     class Meta:
         model = ProjectsList
         fields = ['project', 'client']
 
-    def filter_by_client(self, queryset, name, value):
-        q_set = ProjectsList.objects.filter(client=value).values_list('id', flat=True)[0]
-        return queryset.filter(project_id=q_set)
+    # def filter_by_client(self, queryset, name, value):
+    #     q_set = ProjectsList.objects.filter(client=value).values_list('id', flat=True)[0]
+    #     return queryset.filter(project_id=q_set)
 

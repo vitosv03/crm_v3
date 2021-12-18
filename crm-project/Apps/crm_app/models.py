@@ -97,12 +97,7 @@ class InterPlaysList(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True)
     tag = models.ManyToManyField(Tags)
-    # client = models.CharField(max_length=100, blank=True)
-
-    @property
-    def client(self):
-        return ClientsInfo.objects.get(projectslist__p_name=self.project)
-
+    client = models.CharField(max_length=100, blank=True)
 
     def get_link(self):
         return self.get_link_display()
@@ -113,11 +108,11 @@ class InterPlaysList(models.Model):
     def get_absolute_url(self):
         return reverse('interplay_detail', args=[str(self.id)])
 
-    # def save(self, *args, **kwargs):
-    #     self.client = self.get_client
-    #     super(InterPlaysList, self).save(*args, **kwargs)
-    #     print('client', self.client)
-    #     print('get_client', self.get_client)
+    def save(self, *args, **kwargs):
+        # self.client = self.get_client
+        self.client = ClientsInfo.objects.filter(
+            projectslist__p_name=self.project).values_list('title', flat=True)[0]
+        super(InterPlaysList, self).save(*args, **kwargs)
 
     def __str__(self):
         return str(self.project)
