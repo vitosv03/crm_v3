@@ -90,6 +90,14 @@ class ClientListView_3(FilteredListView):
     # filterset_class = ClientFilterSet
     paginate_by = 3
 
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['title'] = 'Clients List'
+    #     value = self.request.GET.get('value')
+    #     context['sort'] = value
+    #     return context
+
+
 
 class ClientDetailView(DetailView):
     model = ClientsInfo
