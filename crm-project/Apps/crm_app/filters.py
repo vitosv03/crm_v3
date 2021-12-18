@@ -1,4 +1,5 @@
 import django_filters
+from django import forms
 from django.views.generic import ListView
 
 from .models import ClientsInfo
@@ -8,28 +9,35 @@ class ClientsInfoFilter(django_filters.FilterSet):
     CHOICES = (
         ('by title acs', 'title acs'),
         ('by title desc', 'title desc'),
-        ('by date_created acs', 'date_created acs'),
-        ('by date_created desc', 'date_created desc'),
+        ('by date_created acs', 'created acs'),
+        ('by date_created desc', 'created desc'),
     )
-    ordering = django_filters.ChoiceFilter(label='Sort by', choices=CHOICES, method='filter_by_order')
+    sort = django_filters.ChoiceFilter(
+        label='Sort by',
+        choices=CHOICES,
+        method='filter_by_order',
+        widget=forms.Select(attrs={'onchange' : "this.form.submit()"})
+    )
 
     class Meta:
         model = ClientsInfo
         # fields = {'title': ['icontains'], }
         # fields = dict(title=['icontains'],)
-        fields = ['ordering', ]
+        fields = ['sort', ]
 
     def filter_by_order(self, queryset, name, value):
         # title_sort = 'title' if value == 'asc' else '-title'
+        # global sorting
         if value == 'by title acs':
-            title_sort = 'title'
+            sorting = 'title'
         elif value == 'by title desc':
-            title_sort = '-title'
+            sorting = '-title'
         elif value == 'by date_created acs':
-            title_sort = 'date_created'
+            sorting = 'date_created'
         elif value == 'by date_created desc':
-            title_sort = '-date_created'
-        return queryset.order_by(title_sort)
+            sorting = '-date_created'
+        print(sorting)
+        return queryset.order_by(sorting)
 
 
 class FilteredListView(ListView):
