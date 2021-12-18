@@ -37,16 +37,6 @@ class ClientListView(ListView):
         context['sort'] = sort
         return context
 
-    # def get_queryset(self):
-    #     queryset = ClientsInfo.objects.all()
-    #     if self.request.GET.get('sort'):
-    #         selection = self.request.GET.get('sort')
-    #         if selection == 'asc':
-    #             queryset = ClientsInfo.objects.order_by('title')
-    #         elif selection == 'desc':
-    #             queryset = ClientsInfo.objects.order_by('-title')
-    #     return queryset
-
     def get_queryset(self):
         queryset = ClientsInfo.objects.all()
         sort = self.request.GET.get('sort')

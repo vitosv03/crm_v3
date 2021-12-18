@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, MaxValueValidator, MinValueValidator
 from django.db import models
 
 # Create your models here.
@@ -79,20 +79,12 @@ class Tags(models.Model):
         return self.tag
 
 
-# class ClientProjectManager(models.Manager):
-#     def get_queryset(self):
-#         return super().get_queryset().filter(author='Roald Dahl')
-
-
 class InterPlaysList(models.Model):
     project = models.ForeignKey('ProjectsList', on_delete=models.CASCADE)
-    # objects = models.Manager()
-    # client = ClientProjectManager()
-    # client = ClientsInfo.objects.get(projectslist__p_name=project)
     link_status = (('cl', 'by claim'), ('le', 'by letter'), ('si', 'by site'), ('co', 'by company'),)
     link = models.CharField(max_length=2, choices=link_status, blank=True, default=None, help_text='select link')
     description = models.TextField()
-    rating = models.IntegerField()
+    rating = models.SmallIntegerField(validators=[MinValueValidator(-5), MaxValueValidator(5)])
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True)
