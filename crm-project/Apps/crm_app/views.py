@@ -6,7 +6,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import ClientsInfo, ClientsPhones, ClientsEmails, ProjectsList, InterPlaysList, Tags
 from .forms import ClientsInfoForm, ClientsPhonesFormSet, ClientsEmailsFormSet
 # from .filters import ClientsInfoFilter, FilteredListView, ClientFilterSet
-from .filters import ClientsInfoFilter
+from .filters import ClientsInfoFilter, InterplaysFilter
 
 
 # Create your views here.
@@ -65,6 +65,7 @@ class ClientListView(ListView):
             elif headers[sort] == "asc":
                 queryset = ClientsInfo.objects.all().order_by(sort).reverse()
         return queryset
+
 
 class ClientListView_2(ListView):
     model = ClientsInfo
@@ -241,11 +242,19 @@ class InterplayListView(ListView):
     model = InterPlaysList
     template_name = 'interplays_list.html'
     context_object_name = 'interplays'
+    filterset_class = InterplaysFilter
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Interplays List'
+        context['filter'] = self.filterset
         return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        return self.filterset.qs.distinct()
+
 
 
 class InterplayDetailView(DetailView):
