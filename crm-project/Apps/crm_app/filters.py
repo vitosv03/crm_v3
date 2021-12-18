@@ -25,7 +25,6 @@ class ClientsInfoFilter(django_filters.FilterSet):
         fields = ['sort', ]
 
     def filter_by_order(self, queryset, name, value):
-        # title_sort = 'title' if value == 'asc' else '-title'
         if value == 'title_acs':
             sorting = 'title'
         elif value == 'title_desc':
@@ -34,6 +33,5 @@ class ClientsInfoFilter(django_filters.FilterSet):
             sorting = 'date_created'
         elif value == 'created_desc':
             sorting = '-date_created'
-        # print(sorting)
         return queryset.order_by(sorting)
 
