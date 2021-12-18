@@ -71,8 +71,8 @@ class ClientListView_2(ListView):
     filterset_class = ClientsInfoFilter
     template_name = 'clients_list_2.html'
     context_object_name = 'clients'
-
     paginate_by = 2
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filter'] = self.filterset

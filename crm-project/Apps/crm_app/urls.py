@@ -1,41 +1,10 @@
 from django.urls import path, include
 from . import views
 
-# urlpatterns = [
-#     path('', views.crmHome, name='crmHome'),
-#
-#     path('ClientsList/', views.ClientsListView.as_view(), name='ClientsList'),
-#     path('client/<int:pk>/', views.ClientsDetailView.as_view(), name='ClientDetail'),
-#     path('clientAdd/', views.ClientsAddView.as_view(), name='ClientAdd'),
-#     path('clientUpdate/<int:pk>/', views.ClientUpdateView.as_view(), name='clientUpdate'),
-#     path('clientDelete/<int:pk>/', views.ClientDeleteView.as_view(), name='clientDelete'),
-#
-#     path('ProjectsList/', views.ProjectsListView.as_view(), name='ProjectsList'),
-#     path('project/<int:pk>/', views.ProjectsDetailView.as_view(), name='ProjectDetail'),
-#     path('projectAdd/', views.ProjectsAddView.as_view(), name='projectAdd'),
-#     path('projectUpdate/<int:pk>/', views.ProjectsUpdateView.as_view(), name='projectUpdate'),
-#     path('projectDelete/<int:pk>/', views.ProjectsDeleteView.as_view(), name='projectDelete'),
-#
-#     path('InterplaysList/', views.InterplaysListView.as_view(), name='InterplaysList'),
-#     path('interplay/<int:pk>/', views.InterplaysDetailView.as_view(), name='InterplayDetail'),
-#     path('interplayAdd/', views.InterplaysAddView.as_view(), name='interplayAdd'),
-#     path('interplayUpdate/<int:pk>/', views.InterplaysUpdateView.as_view(), name='interplayUpdate'),
-#     path('interplayDelete/<int:pk>/', views.InterplaysDeleteView.as_view(), name='interplayDelete'),
-#
-#     path('TagsList/', views.TagsListView.as_view(), name='TagsList'),
-#     path('tag/<int:pk>/', views.TagsDetailView.as_view(), name='TagDetail'),
-#     path('tagAdd/', views.TagAddView.as_view(), name='tagAdd'),
-#     path('tagUpdate/<int:pk>/', views.TagUpdateView.as_view(), name='tagUpdate'),
-#     path('tagDelete/<int:pk>/', views.TagsDeleteView.as_view(), name='tagDelete'),
-#
-# ]
-
-
 urlpatterns = [
     path('', views.crmHome, name='crmHome'),
 
     path('client/', include([
-        # path('list_3/', views.ClientListView_3.as_view(), name='client_list_3'),
         path('list_2/', views.ClientListView_2.as_view(), name='client_list_2'),
         path('list/', views.ClientListView.as_view(), name='client_list'),
         path('add/', views.ClientAddView.as_view(), name='client_add'),
