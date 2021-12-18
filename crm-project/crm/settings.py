@@ -70,6 +70,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries':{
+                'my_tags': 'Apps.crm_app.templatetags.my_tags',
+            }
+
         },
     },
 ]
