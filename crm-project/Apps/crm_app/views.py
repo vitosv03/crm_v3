@@ -25,7 +25,7 @@ headers = {
 # ClientsList
 class ClientListView(ListView):
     model = ClientsInfo
-    template_name = 'clients_list.html'
+    template_name = 'client/clients_list.html'
     context_object_name = 'clients'
     # ordering = ['title']
     paginate_by = 2
@@ -60,7 +60,7 @@ class ClientListView(ListView):
 class ClientListView_2(ListView):
     model = ClientsInfo
     filterset_class = ClientsInfoFilter
-    template_name = 'clients_list_2.html'
+    template_name = 'client/clients_list_2.html'
     context_object_name = 'clients'
     paginate_by = 2
 
@@ -78,7 +78,7 @@ class ClientListView_2(ListView):
 
 class ClientDetailView(DetailView):
     model = ClientsInfo
-    template_name = 'client_detail.html'
+    template_name = 'client/client_detail.html'
     context_object_name = 'client'
 
     def get_context_data(self, **kwargs):
@@ -89,7 +89,7 @@ class ClientDetailView(DetailView):
 
 class ClientAddView(CreateView):
     model = ClientsInfo
-    template_name = 'client_add.html'
+    template_name = 'client/client_add.html'
     success_url = reverse_lazy('home')
     # fields = '__all__'
     fields = ['title', 'head', 'summary', 'address', ]
@@ -123,7 +123,7 @@ class ClientAddView(CreateView):
 
 class ClientUpdateView(UpdateView):
     model = ClientsInfo
-    template_name = 'client_update.html'
+    template_name = 'client/client_update.html'
     # fields = '__all__'
     fields = ['title', 'head', 'summary', 'address', ]
 
@@ -154,7 +154,7 @@ class ClientUpdateView(UpdateView):
 
 class ClientDeleteView(DeleteView):
     model = ClientsInfo
-    template_name = 'client_delete.html'
+    template_name = 'client/client_delete.html'
     context_object_name = 'client'
     success_url = reverse_lazy('home')
 
@@ -162,7 +162,7 @@ class ClientDeleteView(DeleteView):
 # ProjectsList
 class ProjectListView(ListView):
     model = ProjectsList
-    template_name = 'projects_list.html'
+    template_name = 'project/projects_list.html'
     context_object_name = 'projects'
 
     def get_context_data(self, **kwargs):
@@ -174,7 +174,7 @@ class ProjectListView(ListView):
 
 class ProjectDetailView(DetailView):
     model = ProjectsList
-    template_name = 'project_detail.html'
+    template_name = 'project/project_detail.html'
     context_object_name = 'project'
 
     def get_context_data(self, **kwargs):
@@ -185,7 +185,7 @@ class ProjectDetailView(DetailView):
 
 class ProjectAddView(CreateView):
     model = ProjectsList
-    template_name = 'project_add.html'
+    template_name = 'project/project_add.html'
     success_url = reverse_lazy('home')
     # fields = '__all__'
     fields = ['client', 'p_name', 'description',
@@ -205,7 +205,7 @@ class ProjectAddView(CreateView):
 
 class ProjectUpdateView(UpdateView):
     model = ProjectsList
-    template_name = 'project_update.html'
+    template_name = 'project/project_update.html'
     # success_url = reverse_lazy('home')
     # fields = '__all__'
     fields = ['client', 'p_name', 'description',
@@ -223,7 +223,7 @@ class ProjectUpdateView(UpdateView):
 
 class ProjectDeleteView(DeleteView):
     model = ProjectsList
-    template_name = 'project_delete.html'
+    template_name = 'project/project_delete.html'
     context_object_name = 'project'
     success_url = reverse_lazy('home')
 
@@ -231,7 +231,7 @@ class ProjectDeleteView(DeleteView):
 # InterplaysList
 class InterplayListView(ListView):
     model = InterPlaysList
-    template_name = 'interplays_list.html'
+    template_name = 'interplay/interplays_list.html'
     context_object_name = 'interplays'
     filterset_class = InterplaysFilter
     paginate_by = 10
@@ -250,7 +250,7 @@ class InterplayListView(ListView):
 
 class InterplayDetailView(DetailView):
     model = InterPlaysList
-    template_name = 'interplay_detail.html'
+    template_name = 'interplay/interplay_detail.html'
     context_object_name = 'interplay'
 
     def get_context_data(self, **kwargs):
@@ -261,7 +261,7 @@ class InterplayDetailView(DetailView):
 
 class InterplayAddView(CreateView):
     model = InterPlaysList
-    template_name = 'interplay_add.html'
+    template_name = 'interplay/interplay_add.html'
     success_url = reverse_lazy('home')
     # fields = '__all__'
     fields = ['project', 'link', 'description', 'rating', 'tag', ]
@@ -302,7 +302,7 @@ class InterplayAddView(CreateView):
 
 class InterplayUpdateView(UpdateView):
     model = InterPlaysList
-    template_name = 'interplay_update.html'
+    template_name = 'interplay/interplay_update.html'
     # success_url = reverse_lazy('home')
     # fields = '__all__'
     fields = ['link', 'description', 'rating', 'tag', ]
@@ -319,7 +319,7 @@ class InterplayUpdateView(UpdateView):
 
 class InterplayDeleteView(DeleteView):
     model = InterPlaysList
-    template_name = 'interplay_delete.html'
+    template_name = 'interplay/interplay_delete.html'
     context_object_name = 'interplay'
     success_url = reverse_lazy('home')
 
@@ -327,7 +327,7 @@ class InterplayDeleteView(DeleteView):
 # Tags
 class TagListView(ListView):
     model = Tags
-    template_name = 'tags_list.html'
+    template_name = 'tag/tags_list.html'
     context_object_name = 'tags'
 
     def get_context_data(self, **kwargs):
@@ -338,7 +338,7 @@ class TagListView(ListView):
 
 class TagDetailView(DetailView):
     model = Tags
-    template_name = 'tag_detail.html'
+    template_name = 'tag/tag_detail.html'
     context_object_name = 'tag'
 
     def get_context_data(self, **kwargs):
@@ -349,7 +349,7 @@ class TagDetailView(DetailView):
 
 class TagAddView(CreateView):
     model = Tags
-    template_name = 'tag_add.html'
+    template_name = 'tag/tag_add.html'
     success_url = reverse_lazy('home')
     fields = ['tag']
 
@@ -361,7 +361,7 @@ class TagAddView(CreateView):
 
 class TagUpdateView(UpdateView):
     model = Tags
-    template_name = 'tag_add.html'
+    template_name = 'tag/tag_add.html'
     success_url = reverse_lazy('home')
     fields = '__all__'
 
@@ -381,7 +381,7 @@ class TagUpdateView(UpdateView):
 
 class TagDeleteView(DeleteView):
     model = Tags
-    template_name = 'tag_delete.html'
+    template_name = 'tag/tag_delete.html'
     context_object_name = 'tag'
     success_url = reverse_lazy('home')
 
