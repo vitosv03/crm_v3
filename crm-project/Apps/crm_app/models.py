@@ -99,9 +99,6 @@ class InterPlaysList(models.Model):
     tag = models.ManyToManyField(Tags)
     client = models.CharField(max_length=100, blank=True)
 
-    def get_tag(self):
-        return ', '.join([tag.tag for tag in self.tag.all()])
-
     def get_absolute_url(self):
         return reverse('interplay_detail', args=[str(self.id)])
 
