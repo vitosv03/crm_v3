@@ -82,6 +82,6 @@ class InterplaysFilter(django_filters.FilterSet):
 
     class Meta:
         model = ProjectsList
-        fields = ['project', 'client', 'sort']
+        fields = ['project', 'client', 'sort', ]
 
 

@@ -99,9 +99,6 @@ class InterPlaysList(models.Model):
     tag = models.ManyToManyField(Tags)
     client = models.CharField(max_length=100, blank=True)
 
-    def get_link(self):
-        return self.get_link_display()
-
     def get_tag(self):
         return ', '.join([tag.tag for tag in self.tag.all()])
 
@@ -109,7 +106,6 @@ class InterPlaysList(models.Model):
         return reverse('interplay_detail', args=[str(self.id)])
 
     def save(self, *args, **kwargs):
-        # self.client = self.get_client
         self.client = ClientsInfo.objects.filter(
             projectslist__p_name=self.project).values_list('title', flat=True)[0]
         super(InterPlaysList, self).save(*args, **kwargs)

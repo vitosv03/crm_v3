@@ -14,7 +14,7 @@
     <p>{{ interplay.link}}</p>
     <p>{{ interplay.description}}</p>
     <p>{{ interplay.rating}}</p>
-    <p>{{ interplay.get_tag}}</p>
+    <p>{% for tag in interplay.tag.all %} {{ tag }},{% endfor %}</p>
     <p>{{ interplay.created_by }}</p>
 
 {% endblock %}

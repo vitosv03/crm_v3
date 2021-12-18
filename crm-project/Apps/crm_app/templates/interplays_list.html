@@ -27,10 +27,10 @@
                     <tr>
                       <td><a href="{{ interplay.get_absolute_url }}">{{ interplay.project }}</a></td>
                       <td>{{ interplay.client }}</td>
-                      <td>{{ interplay.get_link }}</td>
+                      <td>{{ interplay.get_link_display }}</td>
                       <td>{{ interplay.description}}</td>
                       <td>{{ interplay.rating}}</td>
-                      <td>{{ interplay.get_tag}}</td>
+                      <td>{% for tag in interplay.tag.all %} {{ tag }}, {% endfor %}</td>
                       <td>{{ interplay.created_by }}</td>
                     </tr>
                 {% endfor %}
