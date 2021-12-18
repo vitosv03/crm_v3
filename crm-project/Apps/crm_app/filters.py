@@ -20,8 +20,6 @@ class ClientsInfoFilter(django_filters.FilterSet):
 
     class Meta:
         model = ClientsInfo
-        # fields = {'title': ['icontains'], }
-        # fields = dict(title=['icontains'],)
         fields = ['sort', ]
 
     def filter_by_order(self, queryset, name, value):
@@ -51,18 +49,39 @@ class InterplaysFilter(django_filters.FilterSet):
         widget=forms.Select(attrs={'onchange': "this.form.submit()"})
     )
 
-    # client = django_filters.ModelChoiceFilter(
-    #     label='Client',
-    #     queryset=ClientsInfo.objects.filter(projectslist__pk__in=q_set),
-    #     # method='filter_by_client',
-    #     widget=forms.Select(attrs={'onchange': "this.form.submit()"})
-    # )
+    SORT_CHOICES = (
+        ('client_acs', 'client acs'),
+        ('client_desc', 'client desc'),
+        ('project_acs', 'project acs'),
+        ('project_desc', 'project desc'),
+        ('created_acs', 'created acs'),
+        ('created_desc', 'created desc'),
+    )
+    sort = django_filters.ChoiceFilter(
+        label='Sort by',
+        choices=SORT_CHOICES,
+        method='filter_by_order',
+        widget=forms.Select(attrs={'onchange': "this.form.submit()"})
+    )
+
+    def filter_by_order(self, queryset, name, value):
+        if value == 'client_acs':
+            sorting = 'client'
+        elif value == 'client_desc':
+            sorting = '-client'
+        elif value == 'project_acs':
+            sorting = 'project'
+        elif value == 'project_desc':
+            sorting = '-project'
+        elif value == 'created_acs':
+            sorting = 'date_created'
+        elif value == 'created_desc':
+            sorting = '-date_created'
+        return queryset.order_by(sorting)
+
 
     class Meta:
         model = ProjectsList
-        fields = ['project', 'client']
+        fields = ['project', 'client', 'sort']
 
-    # def filter_by_client(self, queryset, name, value):
-    #     q_set = ProjectsList.objects.filter(client=value).values_list('id', flat=True)[0]
-    #     return queryset.filter(project_id=q_set)
 
