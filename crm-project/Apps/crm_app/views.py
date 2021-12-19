@@ -54,7 +54,7 @@ class ClientListView(ListView):
                 queryset = ClientsInfo.objects.all().order_by(sort)
             elif headers[sort] == "asc":
                 queryset = ClientsInfo.objects.all().order_by(sort).reverse()
-        return queryset
+        return queryset.select_related('created_by')
 
 
 class ClientListView_2(ListView):
@@ -73,7 +73,7 @@ class ClientListView_2(ListView):
         queryset = super().get_queryset()
         # queryset = ClientsInfo.objects.all()
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
-        return self.filterset.qs.distinct()
+        return self.filterset.qs.distinct().select_related('created_by')
 
 
 class ClientDetailView(DetailView):
@@ -171,7 +171,6 @@ class ProjectListView(ListView):
         return context
 
 
-
 class ProjectDetailView(DetailView):
     model = ProjectsList
     template_name = 'project/project_detail.html'
@@ -245,7 +244,7 @@ class InterplayListView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
-        return self.filterset.qs.distinct()
+        return self.filterset.qs.distinct().select_related('created_by')
 
 
 class InterplayDetailView(DetailView):
