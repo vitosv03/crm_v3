@@ -18,7 +18,8 @@ class ClientsInfoFilter(django_filters.FilterSet):
         model = ClientsInfo
         fields = ['sort', ]
 
-    def filter_by_order(self, queryset, name, value):
+    @staticmethod
+    def filter_by_order(queryset, name, value):
         if value == 'title_acs':
             sorting = 'title'
         elif value == 'title_desc':
@@ -52,7 +53,8 @@ class InterplaysFilter(django_filters.FilterSet):
         widget=forms.Select(attrs={'onchange': "this.form.submit()"})
     )
 
-    def filter_by_order(self, queryset, name, value):
+    @staticmethod
+    def filter_by_order(queryset, name, value):
         if value == 'client_acs':
             sorting = 'client'
         elif value == 'client_desc':
@@ -66,7 +68,6 @@ class InterplaysFilter(django_filters.FilterSet):
         elif value == 'created_desc':
             sorting = '-date_created'
         return queryset.order_by(sorting)
-
 
     class Meta:
         model = ProjectsList
