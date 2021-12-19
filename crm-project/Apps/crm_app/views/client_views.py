@@ -1,12 +1,10 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from ..models import ClientsInfo, ProjectsList, InterPlaysList, Tags
+from ..models import ClientsInfo
 from ..forms import ClientsPhonesFormSet, ClientsEmailsFormSet
-from ..filters import ClientsInfoFilter, InterplaysFilter
+from ..filters import ClientsInfoFilter
 
 
 headers = {
@@ -15,7 +13,6 @@ headers = {
 }
 
 class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-# class ClientListView(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
     model = ClientsInfo
     template_name = 'client/clients_list.html'
