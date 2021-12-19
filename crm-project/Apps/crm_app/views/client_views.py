@@ -5,12 +5,14 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from ..models import ClientsInfo
 from ..forms import ClientsPhonesFormSet, ClientsEmailsFormSet
 from ..filters import ClientsInfoFilter
+from ..utils import headers
 
 
-headers = {
-    'title': 'asc',
-    'date_created': 'asc',
-}
+# headers = {
+#     'title': 'asc',
+#     'date_created': 'asc',
+# }
+
 
 class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     login_url = reverse_lazy('login')

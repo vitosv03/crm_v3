@@ -1,5 +1,3 @@
-from django import forms
-from django.contrib.auth.forms import AuthenticationForm
 from django.forms import ModelForm
 from django.forms.models import inlineformset_factory
 from .models import ClientsInfo, ClientsPhones, ClientsEmails

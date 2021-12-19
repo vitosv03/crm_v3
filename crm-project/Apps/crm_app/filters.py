@@ -2,18 +2,14 @@ import django_filters
 from django import forms
 
 from .models import ClientsInfo, ProjectsList, InterPlaysList
+from .utils import SORT_CHOICES_InterplaysFilter, SORT_CHOICES_ClientsInfoFilter
 
 
 class ClientsInfoFilter(django_filters.FilterSet):
-    SORT_CHOICES = (
-        ('title_acs', 'title acs'),
-        ('title_desc', 'title desc'),
-        ('created_acs', 'created acs'),
-        ('created_desc', 'created desc'),
-    )
+
     sort = django_filters.ChoiceFilter(
         label='Sort by',
-        choices=SORT_CHOICES,
+        choices=SORT_CHOICES_ClientsInfoFilter,
         method='filter_by_order',
         widget=forms.Select(attrs={'onchange': "this.form.submit()"})
     )
@@ -49,17 +45,9 @@ class InterplaysFilter(django_filters.FilterSet):
         widget=forms.Select(attrs={'onchange': "this.form.submit()"})
     )
 
-    SORT_CHOICES = (
-        ('client_acs', 'client acs'),
-        ('client_desc', 'client desc'),
-        ('project_acs', 'project acs'),
-        ('project_desc', 'project desc'),
-        ('created_acs', 'created acs'),
-        ('created_desc', 'created desc'),
-    )
     sort = django_filters.ChoiceFilter(
         label='Sort by',
-        choices=SORT_CHOICES,
+        choices=SORT_CHOICES_InterplaysFilter,
         method='filter_by_order',
         widget=forms.Select(attrs={'onchange': "this.form.submit()"})
     )

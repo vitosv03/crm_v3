@@ -4,6 +4,7 @@ from django.db import models
 
 # Create your models here.
 from django.urls import reverse
+from .utils import link_status_InterPlaysListModel
 
 
 class ClientsPhones(models.Model):
@@ -107,8 +108,7 @@ class Tags(models.Model):
 
 class InterPlaysList(models.Model):
     project = models.ForeignKey('ProjectsList', on_delete=models.CASCADE)
-    link_status = (('cl', 'by claim'), ('le', 'by letter'), ('si', 'by site'), ('co', 'by company'),)
-    link = models.CharField(max_length=2, choices=link_status, blank=True, default=None, help_text='select link')
+    link = models.CharField(max_length=2, choices=link_status_InterPlaysListModel, blank=True, default=None, help_text='select link')
     description = models.TextField()
     rating = models.SmallIntegerField(validators=[MinValueValidator(-5), MaxValueValidator(5)])
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
