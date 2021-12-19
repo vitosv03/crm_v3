@@ -1,3 +1,5 @@
+
+
 from django.conf import settings
 from django.core.validators import RegexValidator, MaxValueValidator, MinValueValidator
 from django.db import models
@@ -13,6 +15,11 @@ class ClientsPhones(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True)
 
+    class Meta:
+        verbose_name = 'ClientsPhones'
+        verbose_name_plural = 'ClientsPhones'
+        ordering = ['-date_created']
+
     def __str__(self):
         return self.phoneNumber
 
@@ -22,6 +29,11 @@ class ClientsEmails(models.Model):
     client = models.ForeignKey('ClientsInfo', on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True)
+
+    class Meta:
+        verbose_name = 'ClientsEmails'
+        verbose_name_plural = 'ClientsEmails'
+        ordering = ['-date_created']
 
     def __str__(self):
         return self.email
@@ -45,6 +57,11 @@ class ClientsInfo(models.Model):
     def get_absolute_url(self):
         return reverse('client_detail', args=[str(self.id)])
 
+    class Meta:
+        verbose_name = 'ClientsInfo'
+        verbose_name_plural = 'ClientsInfo'
+        ordering = ['-date_created']
+
     def __str__(self):
         return self.title
 
@@ -63,6 +80,11 @@ class ProjectsList(models.Model):
     def get_absolute_url(self):
         return reverse('project_detail', args=[str(self.id)])
 
+    class Meta:
+        verbose_name = 'ProjectsList'
+        verbose_name_plural = 'ProjectsList'
+        ordering = ['-date_created']
+
     def __str__(self):
         return self.p_name
 
@@ -74,6 +96,11 @@ class Tags(models.Model):
 
     def get_absolute_url(self):
         return reverse('tag_detail', args=[str(self.id)])
+
+    class Meta:
+        verbose_name = 'Tags'
+        verbose_name_plural = 'Tags'
+        ordering = ['-date_created']
 
     def __str__(self):
         return self.tag
@@ -98,6 +125,11 @@ class InterPlaysList(models.Model):
         self.client = ClientsInfo.objects.filter(
             projectslist__p_name=self.project).values_list('title', flat=True)[0]
         super(InterPlaysList, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'InterPlaysList'
+        verbose_name_plural = 'InterPlaysList'
+        ordering = ['-date_created']
 
     def __str__(self):
         return str(self.project)
