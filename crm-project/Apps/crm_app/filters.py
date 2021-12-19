@@ -6,17 +6,11 @@ from .utils import SORT_CHOICES_InterplaysFilter, SORT_CHOICES_ClientsInfoFilter
 
 
 class ClientsInfoFilter(django_filters.FilterSet):
-
     sort = django_filters.ChoiceFilter(
         label='Sort by',
         choices=SORT_CHOICES_ClientsInfoFilter,
         method='filter_by_order',
-        widget=forms.Select(attrs={'onchange': "this.form.submit()"})
-    )
-
-    class Meta:
-        model = ClientsInfo
-        fields = ['sort', ]
+        widget=forms.Select(attrs={'onchange': "this.form.submit()"}))
 
     @staticmethod
     def filter_by_order(queryset, name, value):
@@ -30,28 +24,26 @@ class ClientsInfoFilter(django_filters.FilterSet):
             sorting = '-date_created'
         return queryset.order_by(sorting)
 
+    class Meta:
+        model = ClientsInfo
+        fields = ['sort', ]
+
 
 class InterplaysFilter(django_filters.FilterSet):
     q_set = InterPlaysList.objects.values_list('project')
-
     project = django_filters.ModelChoiceFilter(
         label='Project',
         queryset=ProjectsList.objects.filter(pk__in=q_set),
-        widget=forms.Select(attrs={'onchange': "this.form.submit()"})
-    )
-
+        widget=forms.Select(attrs={'onchange': "this.form.submit()"}))
     client = django_filters.ModelChoiceFilter(
         label='Client',
         queryset=ClientsInfo.objects.filter(projectslist__pk__in=q_set),
-        widget=forms.Select(attrs={'onchange': "this.form.submit()"})
-    )
-
+        widget=forms.Select(attrs={'onchange': "this.form.submit()"}))
     sort = django_filters.ChoiceFilter(
         label='Sort by',
         choices=SORT_CHOICES_InterplaysFilter,
         method='filter_by_order',
-        widget=forms.Select(attrs={'onchange': "this.form.submit()"})
-    )
+        widget=forms.Select(attrs={'onchange': "this.form.submit()"}))
 
     @staticmethod
     def filter_by_order(queryset, name, value):
