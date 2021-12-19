@@ -1,8 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.urls import reverse_lazy
+
 from .models import Users
-
-
+from django.contrib.auth.views import LoginView
+from .forms import LoginUserForm
 # Create your views here.
 
 def usersHome(request):
@@ -25,3 +27,15 @@ def listUsers(request):
                   dict(all_users=all_users)
                   )
 
+
+class LoginUserView(LoginView):
+    form_class = LoginUserForm
+    template_name = 'login.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Login'
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('home')

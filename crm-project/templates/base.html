@@ -43,7 +43,11 @@
     </nav>
 
     <div class="container-fluid">
-    {% include 'sidebar.html' %}
+      {% block sidebar %}
+        {% include 'sidebar.html' %}
+        {% include 'scripts.html' %}
+      {% endblock %}
+
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       {% block content %}
       {% endblock %}
@@ -73,35 +77,10 @@
 
 
 
-<!--        {% if is_paginated %}-->
-<!--            <div class="pagination">-->
-<!--                <span class="page-links">-->
-<!--                    {% if page_obj.has_previous %}-->
-<!--&lt;!&ndash;                        {% if sort %}&ndash;&gt;-->
-<!--&lt;!&ndash;                            <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}&sort={{ sort }}">previous</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                        {% else %}&ndash;&gt;-->
-<!--                            <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>-->
-<!--&lt;!&ndash;                        {% endif %}&ndash;&gt;-->
-<!--                    {% endif %}-->
-<!--                    <span class="page-current">-->
-<!--                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.-->
-<!--                    </span>-->
-<!--                    {% if page_obj.has_next %}-->
-<!--&lt;!&ndash;                        {% if sort %}&ndash;&gt;-->
-<!--&lt;!&ndash;                            <a href="{{ request.path }}?page={{ page_obj.next_page_number }}&sort={{ sort }}">next</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                        {% else %}&ndash;&gt;-->
-<!--                            <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>-->
-<!--&lt;!&ndash;                        {% endif %}&ndash;&gt;-->
-<!--                    {% endif %}-->
-<!--                </span>-->
-<!--            </div>-->
-<!--        {% endif %}-->
-
-
 
     </main>
     </div>
 
-     {% include 'scripts.html' %}
+
   </body>
 </html>

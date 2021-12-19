@@ -3,7 +3,13 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="{% url 'home' %}">
+                <ul class="nav-link active" >
+                  <span data-feather="users"></span>
+                  User: {{ user.get_username }}
+              </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="{% url 'home' %}">
                   <span data-feather="home"></span>
                   Home <span class="sr-only">(current)</span>
                 </a>
