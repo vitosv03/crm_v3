@@ -1,5 +1,6 @@
+from django.contrib.auth import logout
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
 from .models import Users
@@ -39,3 +40,8 @@ class LoginUserView(LoginView):
 
     def get_success_url(self):
         return reverse_lazy('home')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')

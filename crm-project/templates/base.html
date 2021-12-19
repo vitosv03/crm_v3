@@ -37,7 +37,7 @@
       <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Sign out</a>
+          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
         </li>
       </ul>
     </nav>
@@ -51,7 +51,6 @@
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       {% block content %}
       {% endblock %}
-
 
     {% if is_paginated %}
       <div class="pagination">
@@ -74,13 +73,8 @@
       </div>
     {% endif %}
 
-
-
-
-
     </main>
     </div>
-
 
   </body>
 </html>
