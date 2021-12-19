@@ -1,5 +1,3 @@
-
-
 from django.conf import settings
 from django.core.validators import RegexValidator, MaxValueValidator, MinValueValidator
 from django.db import models
@@ -61,6 +59,7 @@ class ClientsInfo(models.Model):
         verbose_name = 'ClientsInfo'
         verbose_name_plural = 'ClientsInfo'
         ordering = ['-date_created']
+        # permissions = (("clients_info_edit", "Edit Client Information"),)
 
     def __str__(self):
         return self.title

@@ -1,12 +1,11 @@
-
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from .models import ClientsInfo, ClientsPhones, ClientsEmails, ProjectsList, InterPlaysList, Tags
-from .forms import ClientsInfoForm, ClientsPhonesFormSet, ClientsEmailsFormSet
-# from .filters import ClientsInfoFilter, FilteredListView, ClientFilterSet
+from .models import ClientsInfo, ProjectsList, InterPlaysList, Tags
+from .forms import ClientsPhonesFormSet, ClientsEmailsFormSet
 from .filters import ClientsInfoFilter, InterplaysFilter
 
 
@@ -24,12 +23,14 @@ headers = {
 
 
 # ClientsList
-class ClientListView(ListView):
+class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+# class ClientListView(LoginRequiredMixin, ListView):
+    login_url = reverse_lazy('login')
     model = ClientsInfo
     template_name = 'client/clients_list.html'
     context_object_name = 'clients'
-    # ordering = ['title']
     paginate_by = 2
+    permission_required = 'crm_app.view_clientsinfo'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -58,12 +59,13 @@ class ClientListView(ListView):
         return queryset.select_related('created_by')
 
 
-class ClientListView_2(ListView):
+class ClientListView_2(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = ClientsInfo
     filterset_class = ClientsInfoFilter
     template_name = 'client/clients_list_2.html'
     context_object_name = 'clients'
     paginate_by = 2
+    permission_required = 'crm_app.view_clientsinfo'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -77,10 +79,11 @@ class ClientListView_2(ListView):
         return self.filterset.qs.distinct().select_related('created_by')
 
 
-class ClientDetailView(DetailView):
+class ClientDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = ClientsInfo
     template_name = 'client/client_detail.html'
     context_object_name = 'client'
+    permission_required = 'crm_app.view_clientsinfo'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -88,12 +91,12 @@ class ClientDetailView(DetailView):
         return context
 
 
-class ClientAddView(CreateView):
+class ClientAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = ClientsInfo
     template_name = 'client/client_add.html'
     success_url = reverse_lazy('home')
-    # fields = '__all__'
     fields = ['title', 'head', 'summary', 'address', ]
+    permission_required = 'crm_app.add_clientsinfo'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -122,11 +125,12 @@ class ClientAddView(CreateView):
         return super().form_valid(form)
 
 
-class ClientUpdateView(UpdateView):
+class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = ClientsInfo
     template_name = 'client/client_update.html'
     # fields = '__all__'
     fields = ['title', 'head', 'summary', 'address', ]
+    permission_required = 'crm_app.change_clientsinfo'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -153,18 +157,20 @@ class ClientUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class ClientDeleteView(DeleteView):
+class ClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = ClientsInfo
     template_name = 'client/client_delete.html'
     context_object_name = 'client'
     success_url = reverse_lazy('home')
+    permission_required = 'crm_app.delete_clientsinfo'
 
 
 # ProjectsList
-class ProjectListView(ListView):
+class ProjectListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = ProjectsList
     template_name = 'project/projects_list.html'
     context_object_name = 'projects'
+    permission_required = 'crm_app.view_projectlist'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -172,10 +178,11 @@ class ProjectListView(ListView):
         return context
 
 
-class ProjectDetailView(DetailView):
+class ProjectDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = ProjectsList
     template_name = 'project/project_detail.html'
     context_object_name = 'project'
+    permission_required = 'crm_app.view_projectlist'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -183,13 +190,14 @@ class ProjectDetailView(DetailView):
         return context
 
 
-class ProjectAddView(CreateView):
+class ProjectAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = ProjectsList
     template_name = 'project/project_add.html'
     success_url = reverse_lazy('home')
     # fields = '__all__'
     fields = ['client', 'p_name', 'description',
               'date_begin', 'date_end', 'value', ]
+    permission_required = 'crm_app.add_projectlist'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -203,13 +211,14 @@ class ProjectAddView(CreateView):
         return super().form_valid(form)
 
 
-class ProjectUpdateView(UpdateView):
+class ProjectUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = ProjectsList
     template_name = 'project/project_update.html'
     # success_url = reverse_lazy('home')
     # fields = '__all__'
     fields = ['client', 'p_name', 'description',
               'date_begin', 'date_end', 'value', ]
+    permission_required = 'crm_app.change_projectlist'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -221,20 +230,22 @@ class ProjectUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class ProjectDeleteView(DeleteView):
+class ProjectDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = ProjectsList
     template_name = 'project/project_delete.html'
     context_object_name = 'project'
     success_url = reverse_lazy('home')
+    permission_required = 'crm_app.delete_projectlist'
 
 
 # InterplaysList
-class InterplayListView(ListView):
+class InterplayListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = InterPlaysList
     template_name = 'interplay/interplays_list.html'
     context_object_name = 'interplays'
     filterset_class = InterplaysFilter
     paginate_by = 10
+    permission_required = 'crm_app.view_interplays'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -248,10 +259,11 @@ class InterplayListView(ListView):
         return self.filterset.qs.distinct().select_related('created_by')
 
 
-class InterplayDetailView(DetailView):
+class InterplayDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = InterPlaysList
     template_name = 'interplay/interplay_detail.html'
     context_object_name = 'interplay'
+    permission_required = 'crm_app.view_interplays'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -259,12 +271,13 @@ class InterplayDetailView(DetailView):
         return context
 
 
-class InterplayAddView(CreateView):
+class InterplayAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = InterPlaysList
     template_name = 'interplay/interplay_add.html'
     success_url = reverse_lazy('home')
     # fields = '__all__'
     fields = ['project', 'link', 'description', 'rating', 'tag', ]
+    permission_required = 'crm_app.add_interplays'
 
     # def __init__(self, *args, **kwargs):
     #     super(InterplaysAddView, self).__init__(self, *args, **kwargs)
@@ -300,12 +313,13 @@ class InterplayAddView(CreateView):
         return super().form_valid(form)
 
 
-class InterplayUpdateView(UpdateView):
+class InterplayUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = InterPlaysList
     template_name = 'interplay/interplay_update.html'
     # success_url = reverse_lazy('home')
     # fields = '__all__'
     fields = ['link', 'description', 'rating', 'tag', ]
+    permission_required = 'crm_app.change_interplays'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -317,18 +331,20 @@ class InterplayUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class InterplayDeleteView(DeleteView):
+class InterplayDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = InterPlaysList
     template_name = 'interplay/interplay_delete.html'
     context_object_name = 'interplay'
     success_url = reverse_lazy('home')
+    permission_required = 'crm_app.delete_interplays'
 
 
 # Tags
-class TagListView(ListView):
+class TagListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Tags
     template_name = 'tag/tags_list.html'
     context_object_name = 'tags'
+    permission_required = 'crm_app.view_tags'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -336,10 +352,11 @@ class TagListView(ListView):
         return context
 
 
-class TagDetailView(DetailView):
+class TagDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Tags
     template_name = 'tag/tag_detail.html'
     context_object_name = 'tag'
+    permission_required = 'crm_app.view_tags'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -347,11 +364,12 @@ class TagDetailView(DetailView):
         return context
 
 
-class TagAddView(CreateView):
+class TagAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Tags
     template_name = 'tag/tag_add.html'
     success_url = reverse_lazy('home')
     fields = ['tag']
+    permission_required = 'crm_app.add_tags'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -359,11 +377,12 @@ class TagAddView(CreateView):
         return context
 
 
-class TagUpdateView(UpdateView):
+class TagUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Tags
     template_name = 'tag/tag_add.html'
     success_url = reverse_lazy('home')
     fields = '__all__'
+    permission_required = 'crm_app.change_tags'
 
     # fields = ['project', 'link', 'description', 'rating', 'tag', ]
 
@@ -379,11 +398,12 @@ class TagUpdateView(UpdateView):
     #     return super().form_valid(form)
 
 
-class TagDeleteView(DeleteView):
+class TagDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Tags
     template_name = 'tag/tag_delete.html'
     context_object_name = 'tag'
     success_url = reverse_lazy('home')
+    permission_required = 'crm_app.delete_tags'
 
 #
 # def CreateClientsInfoView(request):
