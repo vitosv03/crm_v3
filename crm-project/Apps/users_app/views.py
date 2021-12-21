@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, UpdateView
 
 from .models import Users
 from django.contrib.auth.views import LoginView
@@ -67,3 +67,29 @@ class UserDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'User: ' + str(context['user'])
         return context
+
+
+# class TagUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class UserUpdateView(LoginRequiredMixin, UpdateView):
+    model = Users
+    template_name = 'user_update.html'
+    # success_url = reverse_lazy('home')
+    # success_url = reverse_lazy('user_detail request.user.id')
+    # fields = '__all__'
+    # permission_required = 'users_app.change_user'
+
+    fields = ['username', 'first_name', 'last_name', 'email', 'image', ]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'title of page'
+        return context
+
+    # def form_valid(self, form):
+    #     if self.request.method == 'POST':
+    #         form = self.request.POST, self.request.FILES
+    #     if form.is_valid():
+    #         form.save()
+    #     return super().form_valid(form)
+
+

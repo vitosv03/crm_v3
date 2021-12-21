@@ -6,10 +6,17 @@
 
 {% block content %}
     <h1>User Detail of {{ user.get_username }}</h1>
+    <a href="{% url 'user_update' user.pk %}?next={{ request.path }}">Update User</a>
+<!--    <a href="{% url 'user_update' user.pk %}">Update User</a>-->
     <p>{{ user.get_username }}</p>
     <p>{{ user.email }}</p>
-    {% if  user.image %}
-        <p><img src="{{ user.image.url }}" width="100" height="100"></p>
+    <p>{{ user.first_name }}</p>
+    <p>{{ user.last_name }}</p>
+
+    {% if user.image %}
+        <img src="{{ user.image.url }}" width="100" height="100">
+    {% else %}
+        <img class="img-fluid" src="{% static 'image/manager_icon.png' %}" width="100" height="100">
     {% endif %}
 
 
