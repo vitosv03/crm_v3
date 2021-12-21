@@ -15,7 +15,8 @@ class Users(AbstractUser):
         return reverse('user-detail', args=[str(self.id)])
 
     def __str__(self):
-        return self.username + ' ' + self.email
+        return self.username
+        # return self.username + ' ' + self.email
 
 
 

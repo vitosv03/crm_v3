@@ -8,12 +8,6 @@ from ..filters import ClientsInfoFilter
 from ..utils import headers
 
 
-# headers = {
-#     'title': 'asc',
-#     'date_created': 'asc',
-# }
-
-
 class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     login_url = reverse_lazy('login')
     model = ClientsInfo

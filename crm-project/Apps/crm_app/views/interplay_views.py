@@ -14,10 +14,12 @@ class InterplayListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     paginate_by = 10
     permission_required = 'crm_app.view_interplays'
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Interplays List'
         context['filter'] = self.filterset
+        # print(self.request.user)
         return context
 
     def get_queryset(self):

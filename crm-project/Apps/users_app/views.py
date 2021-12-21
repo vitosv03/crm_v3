@@ -1,7 +1,9 @@
 from django.contrib.auth import logout
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.views.generic import ListView
 
 from .models import Users
 from django.contrib.auth.views import LoginView
@@ -15,18 +17,12 @@ def usersHome(request):
 
 def home(request):
     current_user = request.user
-    return render(request,
-                  'home.html',
-                  dict(user=current_user)
-                  )
+    return render(request, 'home.html', dict(user=current_user) )
 
 
 def listUsers(request):
     all_users = Users.objects.all()
-    return render(request,
-                  'list_users.html',
-                  dict(all_users=all_users)
-                  )
+    return render(request,'list_users.html', dict(all_users=all_users))
 
 
 class LoginUserView(LoginView):
@@ -45,3 +41,16 @@ class LoginUserView(LoginView):
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+
+# class TagListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class UsersListView(LoginRequiredMixin, ListView):
+    model = Users
+    template_name = 'users_list.html'
+    context_object_name = 'users'
+    # permission_required = 'crm_app.view_tags'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'User List'
+        return context

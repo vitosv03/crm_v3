@@ -1,5 +1,8 @@
+from urllib import request
+
 import django_filters
 from django import forms
+from django.contrib.messages.storage import session
 
 from .models import ClientsInfo, ProjectsList, InterPlaysList
 from .utils import SORT_CHOICES_InterplaysFilter, SORT_CHOICES_ClientsInfoFilter
@@ -45,6 +48,16 @@ class InterplaysFilter(django_filters.FilterSet):
         method='filter_by_order',
         widget=forms.Select(attrs={'onchange': "this.form.submit()"}))
 
+    # a = InterPlaysList.objects.all().filter(created_by=1).values_list('created_by')
+    # print('---',a)
+    # created_by = django_filters.ModelChoiceFilter(
+    #     field_name='created_by',
+    #     label='created_by',
+    #     queryset=InterPlaysList.objects.only('created_by'),
+    #     widget=forms.Select(attrs={'onchange': "this.form.submit()"})
+    # )
+
+    # # print(session.user)
     @staticmethod
     def filter_by_order(queryset, name, value):
         if value == 'client_acs':
@@ -63,6 +76,6 @@ class InterplaysFilter(django_filters.FilterSet):
 
     class Meta:
         model = ProjectsList
-        fields = ['project', 'client', 'sort', ]
+        fields = ['project', 'client', 'sort', 'created_by' ]
 
 
