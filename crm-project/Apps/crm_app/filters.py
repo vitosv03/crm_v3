@@ -3,6 +3,7 @@ from urllib import request
 import django_filters
 from django import forms
 from django.contrib.messages.storage import session
+from django.forms import Select
 from django_filters.widgets import LinkWidget, SuffixedMultiWidget, CSVWidget, LookupChoiceWidget, QueryArrayWidget
 
 from .models import ClientsInfo, ProjectsList, InterPlaysList
@@ -10,46 +11,70 @@ from .utils import SORT_CHOICES_InterplaysFilter, SORT_CHOICES_ClientsInfoFilter
 
 
 class ClientsInfoFilter(django_filters.FilterSet):
-    sort = django_filters.ChoiceFilter(
-        label='Sort by',
-        choices=SORT_CHOICES_ClientsInfoFilter,
-        method='filter_by_order',
-        widget=forms.Select(attrs={'onchange': "this.form.submit()"}))
+    sort = django_filters.OrderingFilter(
+        # widget=SuffixedMultiWidget,
+        # attrs={'onchange': 'this.form.submit()'},
 
-    @staticmethod
-    def filter_by_order(queryset, name, value):
-        if value == 'title_acs':
-            sorting = 'title'
-        elif value == 'title_desc':
-            sorting = '-title'
-        elif value == 'created_acs':
-            sorting = 'date_created'
-        elif value == 'created_desc':
-            sorting = '-date_created'
-        return queryset.order_by(sorting)
+        label='Sort by',
+        fields=('title',
+                'date_created',
+                ),
+        choices=(
+            ('title', 'title_acs'),
+            ('-title', 'title_desc'),
+            ('date_created', 'date_created'),
+            ('-date_created', 'created_desc'),
+         ),
+        field_labels={
+            'title', 'title_acs',
+            '-title', 'title_desc',
+            'date_created', 'date_created',
+            '-date_created', 'created_desc',
+        },
+     )
 
     class Meta:
-        model = ClientsInfo
-        fields = ['sort', ]
+         model = ClientsInfo
+         fields = ['sort', ]
+
+# sort = django_filters.ChoiceFilter(
+    #     label='Sort by',
+    #     choices=SORT_CHOICES_ClientsInfoFilter,
+    #     method='filter_by_order',
+    #     widget=forms.Select(attrs={'onchange': "this.form.submit()"}))
+    #
+    # @staticmethod
+    # def filter_by_order(queryset, name, value):
+    #     if value == 'title_acs':
+    #         sorting = 'title'
+    #     elif value == 'title_desc':
+    #         sorting = '-title'
+    #     elif value == 'created_acs':
+    #         sorting = 'date_created'
+    #     elif value == 'created_desc':
+    #         sorting = '-date_created'
+    #     return queryset.order_by(sorting)
+
+
 
 
 class InterplaysFilter(django_filters.FilterSet):
     q_set = InterPlaysList.objects.values_list('project')
 
     project = django_filters.ModelChoiceFilter(
-        # label='Project',
+        label='Project',
         queryset=ProjectsList.objects.filter(pk__in=q_set),
-        # widget=forms.Select(attrs={'onchange': "this.form.submit()"})
+        widget=forms.Select(attrs={'onchange': "this.form.submit()"})
     )
 
     client = django_filters.ModelChoiceFilter(
-        # label='Client',
+        label='Client',
         queryset=ClientsInfo.objects.filter(projectslist__pk__in=q_set),
-        # widget=forms.Select(attrs={'onchange': "this.form.submit()"})
+        widget=forms.Select(attrs={'onchange': "this.form.submit()"})
     )
 
     sort = django_filters.OrderingFilter(
-        # label='Sort by',
+        label='Sort by',
         fields=('client',
                 'project',
                 'date_created',
@@ -93,6 +118,7 @@ class InterplaysFilter(django_filters.FilterSet):
     #     elif value == 'created_desc':
     #         sorting = '-date_created'
     #     return queryset.order_by(sorting)
+
 
     class Meta:
         model = ProjectsList
