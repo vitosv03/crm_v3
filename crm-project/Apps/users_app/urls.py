@@ -10,6 +10,7 @@ urlpatterns = [
 
     path('user/', include([
         path('list/', views.UsersListView.as_view(), name='user_list'),
+        path('<int:pk>/detail/', views.UserDetailView.as_view(), name='user_detail'),
         # path('add/', tag_views.TagAddView.as_view(), name='tag_add'),
         # path('<int:pk>/detail/', tag_views.TagDetailView.as_view(), name='tag_detail'),
         # path('<int:pk>/update/', tag_views.TagUpdateView.as_view(), name='tag_update'),

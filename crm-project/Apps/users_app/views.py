@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from .models import Users
 from django.contrib.auth.views import LoginView
@@ -53,4 +53,17 @@ class UsersListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'User List'
+        return context
+
+
+# class TagDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+class UserDetailView(LoginRequiredMixin, DetailView):
+    model = Users
+    template_name = 'user_detail.html'
+    context_object_name = 'user'
+    # permission_required = 'crm_app.view_tags'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'User: ' + str(context['user'])
         return context
