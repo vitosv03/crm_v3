@@ -7,7 +7,7 @@
 {% block content %}
     <h1>User Detail of {{ user.get_username }}</h1>
     <a href="{% url 'user_update' user.pk %}?next={{ request.path }}">Update User</a>
-<!--    <a href="{% url 'user_update' user.pk %}">Update User</a>-->
+
     <p>{{ user.get_username }}</p>
     <p>{{ user.email }}</p>
     <p>{{ user.first_name }}</p>
