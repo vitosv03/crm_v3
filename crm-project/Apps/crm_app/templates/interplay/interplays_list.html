@@ -6,8 +6,24 @@
 <h5>{{ title }} <a href="{% url 'interplay_add' %}">___ADD new Interplay</a></h5>
           <div class="table-responsive">
             <form method="get" >
-                {{ filter.form }}
+                <label for="project">Project:</label>
+                <select name="project" id="id_project" onchange="this.form.submit()">
+                    {% for item in filter.form.project %}{{ item }}{% endfor %}
+                </select>
+
+                <label for="client">Client:</label>
+                <select name="client" id="id_client" onchange="this.form.submit()">
+                    {% for item in filter.form.client %}{{ item }}{% endfor %}
+                </select>
+
+                <label for="sort">Sort:</label>
+                <select name="sort" id="id_sort" onchange="this.form.submit()">
+                    {% for item in filter.form.sort %}{{ item }}{% endfor %}
+                </select>
+
+
               <a href="{% url 'interplay_list' %}">Reset</a>
+<!--              <a href="this.form.reset()">Reset</a>-->
             </form>
             <table class="table table-striped table-sm">
               <thead>
