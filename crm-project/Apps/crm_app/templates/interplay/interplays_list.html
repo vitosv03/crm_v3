@@ -3,6 +3,8 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block content %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <h5>{{ title }} <a href="{% url 'interplay_add' %}">___ADD new Interplay</a></h5>
           <div class="table-responsive">
             <form method="get" id="myForm" >
@@ -20,7 +22,6 @@
 <!--                <select name="sort" id="id_sort" onchange="this.form.submit()">-->
 <!--                    {% for item in filter.form.sort %}{{ item }}{% endfor %}-->
 <!--                </select>-->
-
                 {{filter.form}}
               <a href="{% url 'interplay_list' %}">Reset</a>
 <!--              <a href="this.form.reset()">Reset</a>-->
@@ -57,8 +58,15 @@
                document.getElementById("id_sort").onchange = function() {myFunction()}
                function myFunction() {document.getElementById("myForm").submit()}
               </script>
+             <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#id_tag').multiselect();
+                });
+            </script>
 
-
+<script type="text/javascript">
+$('.select_field_class').select2( { placeholder: "Select here", maximumSelectionSize: 100  } );
+</script>
           </div>
 
 
