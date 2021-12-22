@@ -34,8 +34,7 @@ class ProjectAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     template_name = 'project/project_add.html'
     success_url = reverse_lazy('home')
     # fields = '__all__'
-    fields = ['client', 'p_name', 'description',
-              'date_begin', 'date_end', 'value', ]
+    fields = ['client', 'p_name', 'description', 'date_begin', 'date_end', 'value', ]
     permission_required = 'crm_app.add_projectlist'
 
     def get_context_data(self, **kwargs):

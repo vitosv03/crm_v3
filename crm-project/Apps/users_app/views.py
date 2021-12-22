@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView
 
 from .models import Users
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordChangeView
 from .forms import LoginUserForm
 
 
@@ -82,12 +82,21 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'user_update.html'
     success_url = reverse_lazy('user_detail')
     # permission_required = 'users_app.change_user'
-    fields = ['username', 'first_name', 'last_name', 'email', 'image', ]
+    fields = ['username', 'first_name', 'last_name', 'email', 'image',]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'title of page'
         return context
+
+    # за счет этой штуки можно открыть страницу без ИД
+    def get_object(self):
+        return get_object_or_404(Users, pk=self.request.user.pk)
+
+
+class UserUpdatePasswordView(PasswordChangeView):
+    success_url = reverse_lazy('user_detail')
+    template_name = 'user_password_update.html'
 
     # за счет этой штуки можно открыть страницу без ИД
     def get_object(self):

@@ -15,6 +15,7 @@ urlpatterns = [
         # path('update/', views.UserUpdateView.as_view(), name='user_update'),
         # path('<int:pk>/update/', views.UserUpdateView.as_view(), name='user_update'),
         path('update/', views.UserUpdateView.as_view(), name='user_update'),
+        path('change_password/', views.UserUpdatePasswordView.as_view(), name='change_password'),
 
 
         # path('add/', tag_views.TagAddView.as_view(), name='tag_add'),
