@@ -64,7 +64,6 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     model = Users
     template_name = 'user_detail.html'
     context_object_name = 'user'
-
     # permission_required = 'crm_app.view_tags'
 
     def get_context_data(self, **kwargs):
@@ -72,6 +71,7 @@ class UserDetailView(LoginRequiredMixin, DetailView):
         context['title'] = 'User: ' + str(context['user'])
         return context
 
+    # за счет этой штуки можно открыть страницу без ИД
     def get_object(self):
         return get_object_or_404(Users, pk=self.request.user.pk)
 
@@ -80,23 +80,15 @@ class UserDetailView(LoginRequiredMixin, DetailView):
 class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = Users
     template_name = 'user_update.html'
-    # success_url = reverse_lazy('home')
-    # fields = '__all__'
+    success_url = reverse_lazy('user_detail')
     # permission_required = 'users_app.change_user'
     fields = ['username', 'first_name', 'last_name', 'email', 'image', ]
-
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'title of page'
         return context
 
+    # за счет этой штуки можно открыть страницу без ИД
     def get_object(self):
         return get_object_or_404(Users, pk=self.request.user.pk)
-    # def form_valid(self, form):
-    #     if self.request.method == 'POST':
-    #         form = self.request.POST, self.request.FILES
-    #     if form.is_valid():
-    #         form.save()
-    #     return super().form_valid(form)
