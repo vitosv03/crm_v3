@@ -9,7 +9,7 @@ class ProjectListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = ProjectsList
     template_name = 'project/projects_list.html'
     context_object_name = 'projects'
-    permission_required = 'crm_app.view_projectlist'
+    permission_required = 'crm_app.view_projectslist'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -21,7 +21,7 @@ class ProjectDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
     model = ProjectsList
     template_name = 'project/project_detail.html'
     context_object_name = 'project'
-    permission_required = 'crm_app.view_projectlist'
+    permission_required = 'crm_app.view_projectslist'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -67,6 +67,11 @@ class ProjectUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
         self.object = form.save()
         return super().form_valid(form)
 
+    # проверка на автора записи
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(created_by=self.request.user)
+
 
 class ProjectDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = ProjectsList
@@ -74,3 +79,8 @@ class ProjectDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
     context_object_name = 'project'
     success_url = reverse_lazy('home')
     permission_required = 'crm_app.delete_projectlist'
+
+    # проверка на автора записи
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(created_by=self.request.user)

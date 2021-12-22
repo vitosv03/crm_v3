@@ -91,6 +91,7 @@ class ProjectsList(models.Model):
 
 class Tags(models.Model):
     tag = models.CharField(max_length=20)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True)
 

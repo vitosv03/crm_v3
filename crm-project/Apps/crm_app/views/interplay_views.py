@@ -99,6 +99,11 @@ class InterplayUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVie
         self.object = form.save()
         return super().form_valid(form)
 
+    # проверка на автора записи
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(created_by=self.request.user)
+
 
 class InterplayDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = InterPlaysList
@@ -106,3 +111,8 @@ class InterplayDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteVie
     context_object_name = 'interplay'
     success_url = reverse_lazy('home')
     permission_required = 'crm_app.delete_interplays'
+
+    # проверка на автора записи
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(created_by=self.request.user)

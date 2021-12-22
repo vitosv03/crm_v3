@@ -62,6 +62,11 @@ class TagUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     #     self.object = form.save()
     #     return super().form_valid(form)
 
+    # проверка на автора записи
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(created_by=self.request.user)
+
 
 class TagDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Tags
@@ -69,3 +74,8 @@ class TagDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     context_object_name = 'tag'
     success_url = reverse_lazy('home')
     permission_required = 'crm_app.delete_tags'
+
+    # проверка на автора записи
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(created_by=self.request.user)
