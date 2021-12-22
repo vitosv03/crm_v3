@@ -48,27 +48,6 @@ class InterplayAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     fields = ['project', 'link', 'description', 'rating', 'tag', ]
     permission_required = 'crm_app.add_interplays'
 
-    # def __init__(self, *args, **kwargs):
-    #     super(InterplaysAddView, self).__init__(self, *args, **kwargs)
-    #     # self.fields['description'].queryset = Project.objects.filter(Project.status == 2)
-    #     self.field['description'] = 'dfd'
-
-    # def get_initial(self, *args, **kwargs):
-    #     initial = super(InterplaysAddView, self).get_initial(**kwargs)
-    #     data = self.request.GET.get('data')
-    #     if data is not None:
-    #         print(data)
-    #         self.initial['project'] = data
-    #     return initial
-    #
-    # def get_initial(self, *args, **kwargs):
-    #     initial = super(InterplaysAddView, self).get_initial(**kwargs)
-    #     # data = self.request.GET.get('data')
-    #     # if data is not None:
-    #     #     print(data)
-    #     self.initial['description']  = self.id
-    #     return initial
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'title of page'
@@ -77,7 +56,6 @@ class InterplayAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         edit_form = form.save(commit=False)
         edit_form.created_by = self.request.user
-        # edit_form.client = ClientsInfo.objects.filter(projectslist__p_name='ddf')[0]
         self.object = form.save()
         return super().form_valid(form)
 
