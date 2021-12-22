@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -13,7 +14,7 @@ class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = ClientsInfo
     template_name = 'client/clients_list.html'
     context_object_name = 'clients'
-    paginate_by = 2
+    paginate_by = 4
     permission_required = 'crm_app.view_clientsinfo'
 
     def get_context_data(self, **kwargs):
@@ -48,7 +49,7 @@ class ClientListView_2(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     filterset_class = ClientsInfoFilter
     template_name = 'client/clients_list_2.html'
     context_object_name = 'clients'
-    paginate_by = 2
+    paginate_by = 4
     permission_required = 'crm_app.view_clientsinfo'
 
     def get_context_data(self, **kwargs):
@@ -140,6 +141,11 @@ class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
             inlinesEmails.save()
         return super().form_valid(form)
 
+    # проверка на автора записи
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(created_by=self.request.user)
+
 
 class ClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = ClientsInfo
@@ -147,3 +153,8 @@ class ClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     context_object_name = 'client'
     success_url = reverse_lazy('home')
     permission_required = 'crm_app.delete_clientsinfo'
+
+    # проверка на автора записи
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(created_by=self.request.user)

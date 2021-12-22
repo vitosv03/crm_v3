@@ -13,11 +13,16 @@ from .utils import SORT_CHOICES_InterplaysFilter, SORT_CHOICES_ClientsInfoFilter
 class ClientsInfoFilter(django_filters.FilterSet):
     sort = django_filters.OrderingFilter(
         label='Sort by',
-        fields=('title', 'date_created', ),
+        fields=(
+            'title',
+            'date_created',
+        ),
         choices=(
-            ('title', 'title_acs'), ('-title', 'title_desc'),
-            ('date_created', 'created_acs'), ('-date_created', 'created_desc'),
-         ),
+            ('title', 'title_acs'),
+            ('-title', 'title_desc'),
+            ('date_created', 'created_acs'),
+            ('-date_created', 'created_desc'),
+        ),
         # field_labels={
         #     'title', 'title_acs',
         #     '-title', 'title_desc',
@@ -117,7 +122,8 @@ class InterplaysFilter(django_filters.FilterSet):
             'onchange': "this.form.submit()",
             'class': "select_field_class",
             'style': "width:500px"
-        }),
+         }
+        ),
     )
 
     class Meta:
