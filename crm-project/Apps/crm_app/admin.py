@@ -1,10 +1,20 @@
+from django import forms
 from django.contrib import admin
 from django.utils.translation import gettext, gettext_lazy as _
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 from .models import ClientsInfo, ClientsEmails, ClientsPhones, ProjectsList, Tags, InterPlaysList
 
 
 # Register your models here.
+
+class ClientsInfoAdminForm(forms.ModelForm):
+    summary = forms.CharField(widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = ClientsInfo
+        fields = '__all__'
+
 
 class ClientsEmailsInline(admin.TabularInline):
     model = ClientsEmails
@@ -28,6 +38,7 @@ class ClientsPhonesAdmin(admin.ModelAdmin):
 
 @admin.register(ClientsInfo)
 class ClientsInfoAdmin(admin.ModelAdmin):
+    form = ClientsInfoAdminForm
     list_display = ('title', 'head', 'summary', 'created_by',
                     'display_phoneNumber', 'display_email', 'date_created', 'date_updated', )
     inlines = [ClientsEmailsInline, ClientsPhonesInline,]

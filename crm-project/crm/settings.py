@@ -37,8 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'django_filters',
     'debug_toolbar',
+    'ckeditor',
+    'ckeditor_uploader',
+
+
     'Apps.crm_app',
     'Apps.users_app',
 ]
@@ -152,3 +157,5 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
+
+CKEDITOR_UPLOAD_PATH = "uploads/"

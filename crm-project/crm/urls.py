@@ -25,6 +25,7 @@ urlpatterns = [
     # path('', Apps.users_app.views.home, name='home'),
     path('', Apps.users_app.views.home.as_view(), name='home'),
     path('admin/', admin.site.urls),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('crm/', include('Apps.crm_app.urls')),
     path('users/', include('Apps.users_app.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
