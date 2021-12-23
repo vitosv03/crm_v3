@@ -17,11 +17,21 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ("username", "email", "password1", "password2")
 
+    # work
+    # def save(self, commit=True):
+    #     user = super(UserRegisterForm, self).save(commit=False)
+    #     user.email = self.cleaned_data['email']
+    #     if commit:
+    #         user.save()
+    #     my_group = Group.objects.get(name='Users')
+    #     my_group.user_set.add(user)
+    #     return user
+
     def save(self, commit=True):
         user = super(UserRegisterForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
         if commit:
             user.save()
-        my_group = Group.objects.get(name='Users')
-        my_group.user_set.add(user)
+        group_users = Group.objects.get(name='Users')
+        group_users.user_set.add(user)
         return user
