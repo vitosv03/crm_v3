@@ -13,6 +13,7 @@ from .forms import LoginUserForm, UserRegisterForm
 
 # Create your views here.
 
+# надо удалить больше не используется
 def usersHome(request):
     current_user = request.user
     return HttpResponse('<h1>Home --USERS-- </h1>')
@@ -22,6 +23,8 @@ class home(LoginRequiredMixin, TemplateView):
     template_name = 'home.html'
     login_url = reverse_lazy('login')
 
+
+# надо удалить больше не используется
 def listUsers(request):
     all_users = Users.objects.all()
     return render(request, 'list_users.html', dict(all_users=all_users))
