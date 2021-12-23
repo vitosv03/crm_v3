@@ -8,6 +8,7 @@ from ..filters import InterplaysFilter
 
 class InterplayListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = InterPlaysList
+    login_url = reverse_lazy('login')
     template_name = 'interplay/interplays_list.html'
     context_object_name = 'interplays'
     filterset_class = InterplaysFilter
@@ -30,6 +31,7 @@ class InterplayListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class InterplayDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = InterPlaysList
+    login_url = reverse_lazy('login')
     template_name = 'interplay/interplay_detail.html'
     context_object_name = 'interplay'
     permission_required = 'crm_app.view_interplays'
@@ -42,6 +44,7 @@ class InterplayDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailVie
 
 class InterplayAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = InterPlaysList
+    login_url = reverse_lazy('login')
     template_name = 'interplay/interplay_add.html'
     success_url = reverse_lazy('home')
     # fields = '__all__'
@@ -62,6 +65,7 @@ class InterplayAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 class InterplayUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = InterPlaysList
+    login_url = reverse_lazy('login')
     template_name = 'interplay/interplay_update.html'
     # success_url = reverse_lazy('home')
     # fields = '__all__'
@@ -85,6 +89,7 @@ class InterplayUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVie
 
 class InterplayDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = InterPlaysList
+    login_url = reverse_lazy('login')
     template_name = 'interplay/interplay_delete.html'
     context_object_name = 'interplay'
     success_url = reverse_lazy('home')

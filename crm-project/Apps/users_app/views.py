@@ -22,11 +22,6 @@ class home(LoginRequiredMixin, TemplateView):
     template_name = 'home.html'
     login_url = reverse_lazy('login')
 
-# def home(request):
-#     current_user = request.user
-#     return render(request, 'home.html', dict(user=current_user))
-
-
 def listUsers(request):
     all_users = Users.objects.all()
     return render(request, 'list_users.html', dict(all_users=all_users))
@@ -52,6 +47,7 @@ def logout_user(request):
 
 class UsersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Users
+    login_url = reverse_lazy('login')
     template_name = 'users_list.html'
     context_object_name = 'users'
     permission_required = 'users_app.view_users'
@@ -64,6 +60,7 @@ class UsersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class UserDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Users
+    login_url = reverse_lazy('login')
     template_name = 'user_detail.html'
     context_object_name = 'user'
     permission_required = 'users_app.view_users'
@@ -80,6 +77,7 @@ class UserDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
 class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Users
+    login_url = reverse_lazy('login')
     template_name = 'user_update.html'
     success_url = reverse_lazy('user_detail')
     permission_required = 'users_app.change_users'

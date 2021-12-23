@@ -45,6 +45,7 @@ class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class ClientListView_2(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = ClientsInfo
+    login_url = reverse_lazy('login')
     filterset_class = ClientsInfoFilter
     template_name = 'client/clients_list_2.html'
     context_object_name = 'clients'
@@ -65,6 +66,7 @@ class ClientListView_2(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class ClientDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = ClientsInfo
+    login_url = reverse_lazy('login')
     template_name = 'client/client_detail.html'
     context_object_name = 'client'
     permission_required = 'crm_app.view_clientsinfo'
@@ -77,6 +79,7 @@ class ClientDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
 class ClientAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = ClientsInfo
+    login_url = reverse_lazy('login')
     template_name = 'client/client_add.html'
     success_url = reverse_lazy('home')
     fields = ['title', 'head', 'summary', 'address', ]
@@ -111,6 +114,7 @@ class ClientAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = ClientsInfo
+    login_url = reverse_lazy('login')
     template_name = 'client/client_update.html'
     # fields = '__all__'
     fields = ['title', 'head', 'summary', 'address', ]
@@ -148,6 +152,7 @@ class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 class ClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = ClientsInfo
+    login_url = reverse_lazy('login')
     template_name = 'client/client_delete.html'
     context_object_name = 'client'
     success_url = reverse_lazy('home')
