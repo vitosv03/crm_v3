@@ -45,13 +45,11 @@ def logout_user(request):
     return redirect('login')
 
 
-# class TagListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-class UsersListView(LoginRequiredMixin, ListView):
+class UsersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Users
     template_name = 'users_list.html'
     context_object_name = 'users'
-
-    # permission_required = 'crm_app.view_tags'
+    permission_required = 'users_app.view_users'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -59,12 +57,11 @@ class UsersListView(LoginRequiredMixin, ListView):
         return context
 
 
-# class TagDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
-class UserDetailView(LoginRequiredMixin, DetailView):
+class UserDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Users
     template_name = 'user_detail.html'
     context_object_name = 'user'
-    # permission_required = 'crm_app.view_tags'
+    permission_required = 'users_app.view_users'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -76,12 +73,11 @@ class UserDetailView(LoginRequiredMixin, DetailView):
         return get_object_or_404(Users, pk=self.request.user.pk)
 
 
-# class TagUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-class UserUpdateView(LoginRequiredMixin, UpdateView):
+class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Users
     template_name = 'user_update.html'
     success_url = reverse_lazy('user_detail')
-    # permission_required = 'users_app.change_user'
+    permission_required = 'users_app.change_users'
     fields = ['username', 'first_name', 'last_name', 'email', 'image',]
 
     def get_context_data(self, **kwargs):
