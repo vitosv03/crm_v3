@@ -1,13 +1,14 @@
 from django.contrib.auth import logout
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, UpdateView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, TemplateView
 
 from .models import Users
 from django.contrib.auth.views import LoginView, PasswordChangeView
-from .forms import LoginUserForm
+from .forms import LoginUserForm, UserRegisterForm
 
 
 # Create your views here.
@@ -17,9 +18,13 @@ def usersHome(request):
     return HttpResponse('<h1>Home --USERS-- </h1>')
 
 
-def home(request):
-    current_user = request.user
-    return render(request, 'home.html', dict(user=current_user))
+class home(LoginRequiredMixin, TemplateView):
+    template_name = 'home.html'
+    login_url = reverse_lazy('login')
+
+# def home(request):
+#     current_user = request.user
+#     return render(request, 'home.html', dict(user=current_user))
 
 
 def listUsers(request):
@@ -97,3 +102,18 @@ class UserUpdatePasswordView(PasswordChangeView):
     # за счет этой штуки можно открыть страницу без ИД
     def get_object(self):
         return get_object_or_404(Users, pk=self.request.user.pk)
+
+
+class UserRegisterView(CreateView):
+    form_class = UserRegisterForm
+    model = Users
+    template_name = 'registration.html'
+    success_url = reverse_lazy('user_detail')
+    # fields = '__all__'
+    # fields = [ 'username',  'first_name','last_name', 'email', ]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'registration'
+        return context
+
