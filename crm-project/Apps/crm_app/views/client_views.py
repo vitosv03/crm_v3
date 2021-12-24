@@ -97,11 +97,12 @@ class ClientAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         return context
 
     def form_valid(self, form):
-        edit_form = form.save(commit=False)
-        edit_form.created_by = self.request.user
+        obj = form.save(commit=False)
+        obj.created_by = self.request.user
         context = self.get_context_data()
         inlinesPhones = context['inlinesPhones']
         inlinesEmails = context['inlinesEmails']
+        self.object = obj.save()
         self.object = form.save()
         if inlinesPhones.is_valid():
             inlinesPhones.instance = self.object

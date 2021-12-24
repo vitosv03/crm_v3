@@ -93,7 +93,8 @@ class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
     # за счет этой штуки можно открыть страницу без ИД
     def get_object(self):
-        return get_object_or_404(Users, pk=self.request.user.pk)
+        # return get_object_or_404(Users, pk=self.request.user.pk)
+        return self.request.user
 
 
 class UserUpdatePasswordView(PasswordChangeView):
@@ -102,7 +103,8 @@ class UserUpdatePasswordView(PasswordChangeView):
 
     # за счет этой штуки можно открыть страницу без ИД
     def get_object(self):
-        return get_object_or_404(Users, pk=self.request.user.pk)
+        # return get_object_or_404(Users, pk=self.request.user.pk)
+        return self.request.user
 
 
 class UserRegisterView(CreateView):
