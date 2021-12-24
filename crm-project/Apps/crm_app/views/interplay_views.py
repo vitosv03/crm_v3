@@ -46,7 +46,7 @@ class InterplayAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = InterPlaysList
     # login_url = reverse_lazy('login')
     template_name = 'interplay/interplay_add.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('interplay_list')
     # fields = '__all__'
     fields = ['project', 'link', 'description', 'rating', 'tag', ]
     permission_required = 'crm_app.add_interplays'
@@ -87,12 +87,13 @@ class InterplayUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVie
         qs = super().get_queryset()
         return qs.filter(created_by=self.request.user)
 
+
 class InterplayDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = InterPlaysList
     # login_url = reverse_lazy('login')
     template_name = 'interplay/interplay_delete.html'
     context_object_name = 'interplay'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('interplay_list')
     permission_required = 'crm_app.delete_interplays'
 
     # проверка на автора записи
