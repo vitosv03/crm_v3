@@ -81,7 +81,7 @@ class ClientAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = ClientsInfo
     # login_url = reverse_lazy('login')
     template_name = 'client/client_add.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('client_list_2')
     fields = ['title', 'head', 'summary', 'address', ]
     permission_required = 'crm_app.add_clientsinfo'
 
@@ -156,7 +156,7 @@ class ClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     # login_url = reverse_lazy('login')
     template_name = 'client/client_delete.html'
     context_object_name = 'client'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('client_list_2')
     permission_required = 'crm_app.delete_clientsinfo'
 
     # проверка на автора записи
