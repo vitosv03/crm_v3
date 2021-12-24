@@ -79,8 +79,8 @@ class UserDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
     # за счет этой штуки можно открыть страницу без ИД
     def get_object(self):
-        return get_object_or_404(Users, pk=self.request.user.pk)
-
+        # return get_object_or_404(Users, pk=self.request.user.pk)
+        return self.request.user
 
 class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     User = get_user_model()
