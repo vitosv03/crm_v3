@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.conf import settings
 from django.core.validators import RegexValidator, MaxValueValidator, MinValueValidator
 from django.db import models
@@ -41,7 +42,7 @@ class ClientsEmails(models.Model):
 class ClientsInfo(models.Model):
     title = models.CharField(max_length=100)
     head = models.CharField(max_length=100)
-    summary = models.TextField()
+    summary = RichTextField(blank=True, null=True)
     address = models.CharField(max_length=100)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)

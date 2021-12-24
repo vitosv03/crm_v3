@@ -34,7 +34,7 @@
                       <tr>
                         <td><a href="{{ client.get_absolute_url }}">{{ client.title }}</a></td>
                         <td>{{ client.head }}</td>
-                        <td>{{ client.summary }}</td>
+                        <td>{{ client.summary|safe }}</td>
                         <td>{{ client.display_phoneNumber}}</td>
                         <td>{{ client.display_email}}</td>
                         <td>{{ client.created_by }}</td>
@@ -59,3 +59,4 @@
 
 
 
+l

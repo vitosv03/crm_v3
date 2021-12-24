@@ -6,11 +6,11 @@
 
     <form method="post">
         {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
 <!--        {{form.management_form}}-->
 <!--        {{inlinesPhones.management_form}}-->
 <!--        {{inlinesEmails.management_form}}-->
-
-        {{ form.as_p }}
         {{ inlinesPhones.as_p }}
         {{ inlinesEmails.as_p }}
         <input type="submit" value="Save">
