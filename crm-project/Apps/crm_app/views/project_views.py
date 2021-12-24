@@ -7,7 +7,7 @@ from ..models import ProjectsList
 
 class ProjectListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = ProjectsList
-    login_url = reverse_lazy('login')
+    # login_url = reverse_lazy('login')
     template_name = 'project/projects_list.html'
     context_object_name = 'projects'
     permission_required = 'crm_app.view_projectslist'
@@ -20,7 +20,7 @@ class ProjectListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class ProjectDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = ProjectsList
-    login_url = reverse_lazy('login')
+    # login_url = reverse_lazy('login')
     template_name = 'project/project_detail.html'
     context_object_name = 'project'
     permission_required = 'crm_app.view_projectslist'
@@ -33,7 +33,7 @@ class ProjectDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
 
 class ProjectAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = ProjectsList
-    login_url = reverse_lazy('login')
+    # login_url = reverse_lazy('login')
     template_name = 'project/project_add.html'
     success_url = reverse_lazy('home')
     # fields = '__all__'
@@ -54,7 +54,7 @@ class ProjectAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 class ProjectUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = ProjectsList
-    login_url = reverse_lazy('login')
+    # login_url = reverse_lazy('login')
     template_name = 'project/project_update.html'
     # success_url = reverse_lazy('home')
     # fields = '__all__'
@@ -79,7 +79,7 @@ class ProjectUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
 
 class ProjectDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = ProjectsList
-    login_url = reverse_lazy('login')
+    # login_url = reverse_lazy('login')
     template_name = 'project/project_delete.html'
     context_object_name = 'project'
     success_url = reverse_lazy('home')

@@ -7,7 +7,7 @@ from ..models import Tags
 
 class TagListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Tags
-    login_url = reverse_lazy('login')
+    # login_url = reverse_lazy('login')
     template_name = 'tag/tags_list.html'
     context_object_name = 'tags'
     permission_required = 'crm_app.view_tags'
@@ -20,7 +20,7 @@ class TagListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class TagDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Tags
-    login_url = reverse_lazy('login')
+    # login_url = reverse_lazy('login')
     template_name = 'tag/tag_detail.html'
     context_object_name = 'tag'
     permission_required = 'crm_app.view_tags'
@@ -33,7 +33,7 @@ class TagDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
 class TagAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Tags
-    login_url = reverse_lazy('login')
+    # login_url = reverse_lazy('login')
     template_name = 'tag/tag_add.html'
     success_url = reverse_lazy('home')
     fields = ['tag']
@@ -47,7 +47,7 @@ class TagAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 class TagUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Tags
-    login_url = reverse_lazy('login')
+    # login_url = reverse_lazy('login')
     template_name = 'tag/tag_add.html'
     success_url = reverse_lazy('home')
     fields = '__all__'
@@ -74,7 +74,7 @@ class TagUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 class TagDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Tags
-    login_url = reverse_lazy('login')
+    # login_url = reverse_lazy('login')
     template_name = 'tag/tag_delete.html'
     context_object_name = 'tag'
     success_url = reverse_lazy('home')
