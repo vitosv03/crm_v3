@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, get_list_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -86,7 +86,6 @@ class InterplayUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVie
     def get_queryset(self):
         qs = super().get_queryset()
         return qs.filter(created_by=self.request.user)
-
 
 class InterplayDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = InterPlaysList
