@@ -1,13 +1,15 @@
 from django.contrib.auth import logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, TemplateView
 
 from .models import Users
-from django.contrib.auth.views import LoginView, PasswordChangeView
+
 from .forms import LoginUserForm, UserRegisterForm
 
 
@@ -49,6 +51,7 @@ def logout_user(request):
 
 
 class UsersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    User = get_user_model()
     model = Users
     # login_url = reverse_lazy('login')
     template_name = 'users_list.html'
@@ -62,6 +65,7 @@ class UsersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 
 class UserDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    User = get_user_model()
     model = Users
     # login_url = reverse_lazy('login')
     template_name = 'user_detail.html'
@@ -79,6 +83,7 @@ class UserDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
 
 class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    User = get_user_model()
     model = Users
     # login_url = reverse_lazy('login')
     template_name = 'user_update.html'
@@ -109,6 +114,7 @@ class UserUpdatePasswordView(PasswordChangeView):
 
 class UserRegisterView(CreateView):
     form_class = UserRegisterForm
+    User = get_user_model()
     model = Users
     template_name = 'registration.html'
     success_url = reverse_lazy('user_detail')
