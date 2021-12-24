@@ -35,7 +35,7 @@ class ProjectAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = ProjectsList
     # login_url = reverse_lazy('login')
     template_name = 'project/project_add.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('project_list')
     # fields = '__all__'
     fields = ['client', 'p_name', 'description', 'date_begin', 'date_end', 'value', ]
     permission_required = 'crm_app.add_projectlist'
@@ -82,7 +82,7 @@ class ProjectDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
     # login_url = reverse_lazy('login')
     template_name = 'project/project_delete.html'
     context_object_name = 'project'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('project_list')
     permission_required = 'crm_app.delete_projectlist'
 
     # проверка на автора записи
