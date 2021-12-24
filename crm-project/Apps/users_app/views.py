@@ -110,8 +110,6 @@ class UserRegisterView(CreateView):
     model = Users
     template_name = 'registration.html'
     success_url = reverse_lazy('user_detail')
-    # fields = '__all__'
-    # fields = [ 'username',  'first_name','last_name', 'email', ]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

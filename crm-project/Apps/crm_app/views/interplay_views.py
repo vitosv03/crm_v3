@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -14,7 +15,6 @@ class InterplayListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     filterset_class = InterplaysFilter
     paginate_by = 10
     permission_required = 'crm_app.view_interplays'
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -75,6 +75,7 @@ class InterplayUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVie
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'title of page'
+        # obj = get_object_or_404(InterPlaysList, created_by=self.request.user)
         return context
 
     def form_valid(self, form):
