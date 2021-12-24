@@ -35,7 +35,7 @@ class TagAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Tags
     # login_url = reverse_lazy('login')
     template_name = 'tag/tag_add.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('tag_list')
     fields = ['tag']
     permission_required = 'crm_app.add_tags'
 
@@ -77,7 +77,7 @@ class TagDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     # login_url = reverse_lazy('login')
     template_name = 'tag/tag_delete.html'
     context_object_name = 'tag'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('tag_list')
     permission_required = 'crm_app.delete_tags'
 
     # проверка на автора записи
