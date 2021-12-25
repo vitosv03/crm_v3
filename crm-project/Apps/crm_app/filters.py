@@ -31,12 +31,19 @@ class ClientsInfoFilter(django_filters.FilterSet):
         fields = ['sort', ]
 
 
-class InterplaysFilter(django_filters.FilterSet):
+class non_active(django_filters.FilterSet):
     Users = get_user_model()
 
     qs_project = set(InterPlaysList.objects.values_list('project', flat=True))
     qs_tag = set(InterPlaysList.objects.values_list('tag', flat=True))
     qs_created_by = set(InterPlaysList.objects.values_list('created_by', flat=True))
+
+    non_active = django_filters.BooleanFilter(
+        field_name='is_active',
+        label='Non active',
+        exclude=True,
+        widget=forms.CheckboxInput(attrs={'onchange': "this.form.submit()"})
+    )
 
     project = django_filters.ModelChoiceFilter(
         label='Project',
@@ -119,4 +126,4 @@ class InterplaysFilter(django_filters.FilterSet):
 
     class Meta:
         model = ProjectsList
-        fields = ['project', 'client', 'sort', 'created_by', 'tag']
+        fields = ['project', 'client', 'sort', 'created_by', 'tag' , 'non_active']

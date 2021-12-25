@@ -8,7 +8,6 @@ from ..filters import InterplaysFilter
 
 class InterplayListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = InterPlaysList
-    # login_url = reverse_lazy('login')
     template_name = 'crm_app/interplay/interplays_list.html'
     context_object_name = 'interplays'
     filterset_class = InterplaysFilter
@@ -26,7 +25,6 @@ class InterplayListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         queryset = super().get_queryset()
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
         return self.filterset.qs.distinct().select_related('created_by')
-
 
 class InterplayDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = InterPlaysList
