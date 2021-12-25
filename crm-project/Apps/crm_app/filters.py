@@ -31,7 +31,7 @@ class ClientsInfoFilter(django_filters.FilterSet):
         fields = ['sort', ]
 
 
-class non_active(django_filters.FilterSet):
+class InterplaysFilter(django_filters.FilterSet):
     Users = get_user_model()
 
     qs_project = set(InterPlaysList.objects.values_list('project', flat=True))
