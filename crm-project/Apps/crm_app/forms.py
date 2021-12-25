@@ -1,6 +1,6 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, formset_factory
 from django.forms.models import inlineformset_factory
-from .models import ClientsInfo, ClientsPhones, ClientsEmails
+from .models import ClientsInfo, ClientsPhones, ClientsEmails, InterPlaysList, Tags
 
 
 class ClientsInfoForm(ModelForm):
@@ -20,5 +20,4 @@ ClientsEmailsFormSet = inlineformset_factory(
     fields=('email',),
     extra=1, can_delete=False, can_order=False
 )
-
 

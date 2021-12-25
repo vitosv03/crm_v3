@@ -80,7 +80,6 @@ class ClientDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
 class ClientAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = ClientsInfo
-    # login_url = reverse_lazy('login')
     template_name = 'crm_app/client/client_add.html'
     success_url = reverse_lazy('client_list_2')
     fields = ['title', 'head', 'summary', 'address', ]

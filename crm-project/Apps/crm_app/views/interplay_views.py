@@ -46,12 +46,17 @@ class InterplayAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     context_object_name = 'interplay'
     template_name = 'crm_app/interplay/interplay_add.html'
     success_url = reverse_lazy('interplay_list')
-    fields = ['project', 'link', 'description', 'rating', 'tag', ]
+    # fields = ['project', 'link', 'description', 'rating', 'tag', ]
+    fields = ['project', 'link', 'description', 'rating',  ]
     permission_required = 'crm_app.add_interplays'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Add new Interplay'
+        if self.request.POST:
+            context['Tags'] = TagsFormSet(self.request.POST)
+        else:
+            context['TagsFormSet'] = TagsFormSet()
         return context
 
     def form_valid(self, form):
