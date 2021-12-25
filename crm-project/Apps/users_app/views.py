@@ -1,19 +1,18 @@
 from django.contrib.auth import logout
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.http import HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, TemplateView
-
-from .models import Users
 
 from .forms import LoginUserForm, UserRegisterForm
 
 
 # Create your views here.
+Users = get_user_model()
+
 
 # надо удалить больше не используется
 def usersHome(request):
@@ -28,6 +27,7 @@ class home(LoginRequiredMixin, TemplateView):
 
 # надо удалить больше не используется
 def listUsers(request):
+    # Users = get_user_model()
     all_users = Users.objects.all()
     return render(request, 'users_app/list_users.html', dict(all_users=all_users))
 
@@ -51,7 +51,7 @@ def logout_user(request):
 
 
 class UsersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    User = get_user_model()
+    # Users = get_user_model()
     model = Users
     # login_url = reverse_lazy('login')
     template_name = 'users_app/users_list.html'
@@ -65,7 +65,7 @@ class UsersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 
 class UserDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
-    User = get_user_model()
+    # Users = get_user_model()
     model = Users
     template_name = 'users_app/user_detail.html'
     context_object_name = 'user'
@@ -83,7 +83,7 @@ class UserDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
 
 class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    User = get_user_model()
+    # Users = get_user_model()
     model = Users
     template_name = 'users_app/user_update.html'
     context_object_name = 'user'
@@ -120,7 +120,7 @@ class UserUpdatePasswordView(PasswordChangeView):
 
 class UserRegisterView(CreateView):
     form_class = UserRegisterForm
-    User = get_user_model()
+    # User = get_user_model()
     model = Users
     template_name = 'users_app/registration.html'
     success_url = reverse_lazy('user_detail')
