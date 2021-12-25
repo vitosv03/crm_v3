@@ -8,7 +8,7 @@ from ..models import Tags
 class TagListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Tags
     # login_url = reverse_lazy('login')
-    template_name = 'tag/tags_list.html'
+    template_name = 'crm_app/tag/tags_list.html'
     context_object_name = 'tags'
     permission_required = 'crm_app.view_tags'
 
@@ -21,7 +21,7 @@ class TagListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 class TagDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Tags
     # login_url = reverse_lazy('login')
-    template_name = 'tag/tag_detail.html'
+    template_name = 'crm_app/tag/tag_detail.html'
     context_object_name = 'tag'
     permission_required = 'crm_app.view_tags'
 
@@ -34,7 +34,7 @@ class TagDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 class TagAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Tags
     # login_url = reverse_lazy('login')
-    template_name = 'tag/tag_add.html'
+    template_name = 'crm_app/tag/tag_add.html'
     success_url = reverse_lazy('tag_list')
     fields = ['tag']
     permission_required = 'crm_app.add_tags'
@@ -48,7 +48,7 @@ class TagAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 class TagUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Tags
     # login_url = reverse_lazy('login')
-    template_name = 'tag/tag_add.html'
+    template_name = 'crm_app/tag/tag_add.html'
     success_url = reverse_lazy('home')
     fields = '__all__'
     permission_required = 'crm_app.change_tags'
@@ -75,7 +75,7 @@ class TagUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 class TagDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Tags
     # login_url = reverse_lazy('login')
-    template_name = 'tag/tag_delete.html'
+    template_name = 'crm_app/tag/tag_delete.html'
     context_object_name = 'tag'
     success_url = reverse_lazy('tag_list')
     permission_required = 'crm_app.delete_tags'
