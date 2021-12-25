@@ -25,6 +25,7 @@ class InterplayListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
         return self.filterset.qs.distinct().select_related('created_by')
 
+
 class InterplayDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = InterPlaysList
     template_name = 'crm_app/interplay/interplay_detail.html'
@@ -61,7 +62,7 @@ class InterplayUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVie
     model = InterPlaysList
     context_object_name = 'interplay'
     template_name = 'crm_app/interplay/interplay_update.html'
-    fields = ['link', 'description', 'rating', 'tag', ]
+    fields = ['is_active', 'link', 'description', 'rating', 'tag', ]
     permission_required = 'crm_app.change_interplays'
 
     def get_context_data(self, **kwargs):

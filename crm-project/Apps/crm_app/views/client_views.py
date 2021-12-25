@@ -113,11 +113,11 @@ class ClientAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class ProjectUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = ClientsInfo
     context_object_name = 'client'
     template_name = 'crm_app/client/client_update.html'
-    fields = ['title', 'head', 'summary', 'address', ]
+    fields = ['is_active', 'title', 'head', 'summary', 'address', ]
     permission_required = 'crm_app.change_clientsinfo'
 
     def get_context_data(self, **kwargs):

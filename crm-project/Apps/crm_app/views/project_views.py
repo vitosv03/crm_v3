@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from ..models import ProjectsList
 from ..filters import ProjectsListFilter
 
+
 class ProjectListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = ProjectsList
     template_name = 'crm_app/project/projects_list.html'
@@ -22,6 +23,7 @@ class ProjectListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         queryset = super().get_queryset()
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
         return self.filterset.qs.distinct().select_related('created_by')
+
 
 class ProjectDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = ProjectsList
@@ -59,7 +61,7 @@ class ProjectUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     model = ProjectsList
     context_object_name = 'project'
     template_name = 'crm_app/project/project_update.html'
-    fields = ['client', 'p_name', 'description',
+    fields = ['is_active', 'client', 'p_name', 'description',
               'date_begin', 'date_end', 'value', ]
     permission_required = 'crm_app.change_projectlist'
 
