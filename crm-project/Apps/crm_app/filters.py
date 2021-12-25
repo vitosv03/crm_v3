@@ -117,16 +117,6 @@ class InterplaysFilter(django_filters.FilterSet):
         ),
     )
 
-    # def __init__(self, *args, **kwargs):
-    #     self.user = kwargs.pop('user')
-    #     super(InterplaysFilter, self).__init__(*args, **kwargs)
-
-    # my_records = django_filters.ModelMultipleChoiceFilter(
-    #     lookup_expr='exact',
-    #     queryset=ProjectsList.objects.filter(created_by=request.user),
-    #
-    # )
-
     class Meta:
         model = ProjectsList
         fields = ['project', 'client', 'sort', 'created_by', 'tag']
