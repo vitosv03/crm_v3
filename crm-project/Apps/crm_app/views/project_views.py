@@ -53,7 +53,6 @@ class ProjectUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     model = ProjectsList
     context_object_name = 'project'
     template_name = 'crm_app/project/project_update.html'
-    # success_url = reverse_lazy('home')
     fields = ['client', 'p_name', 'description',
               'date_begin', 'date_end', 'value', ]
     permission_required = 'crm_app.change_projectlist'
