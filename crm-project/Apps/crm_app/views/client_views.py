@@ -74,7 +74,7 @@ class ClientDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Client: ' + str(context['client'])
+        context['title'] = 'Detail of: ' + str(context['client'])
         return context
 
 
@@ -88,7 +88,7 @@ class ClientAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'title of page'
+        context['title'] = 'Add new Client'
         if self.request.POST:
             context['inlinesPhones'] = ClientsPhonesFormSet(self.request.POST)
             context['inlinesEmails'] = ClientsEmailsFormSet(self.request.POST)
@@ -116,15 +116,14 @@ class ClientAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = ClientsInfo
-    # login_url = reverse_lazy('login')
+    context_object_name = 'client'
     template_name = 'crm_app/client/client_update.html'
-    # fields = '__all__'
     fields = ['title', 'head', 'summary', 'address', ]
     permission_required = 'crm_app.change_clientsinfo'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'title of page'
+        context['title'] = 'Edit Client: ' + str(context['client'])
         if self.request.POST:
             context['inlinesPhones'] = ClientsPhonesFormSet(self.request.POST, instance=self.object)
             context['inlinesEmails'] = ClientsEmailsFormSet(self.request.POST, instance=self.object)
@@ -159,6 +158,11 @@ class ClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     context_object_name = 'client'
     success_url = reverse_lazy('client_list_2')
     permission_required = 'crm_app.delete_clientsinfo'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Delete of: ' + str(context['client'])
+        return context
 
     # проверка на автора записи
     def get_queryset(self):

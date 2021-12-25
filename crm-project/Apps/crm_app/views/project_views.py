@@ -7,7 +7,6 @@ from ..models import ProjectsList
 
 class ProjectListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = ProjectsList
-    # login_url = reverse_lazy('login')
     template_name = 'crm_app/project/projects_list.html'
     context_object_name = 'projects'
     permission_required = 'crm_app.view_projectslist'
@@ -20,29 +19,27 @@ class ProjectListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class ProjectDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = ProjectsList
-    # login_url = reverse_lazy('login')
     template_name = 'crm_app/project/project_detail.html'
     context_object_name = 'project'
     permission_required = 'crm_app.view_projectslist'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Project: ' + str(context['project'])
+        context['title'] = 'Detail of: ' + str(context['project'])
         return context
 
 
 class ProjectAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = ProjectsList
-    # login_url = reverse_lazy('login')
+    context_object_name = 'project'
     template_name = 'crm_app/project/project_add.html'
     success_url = reverse_lazy('project_list')
-    # fields = '__all__'
     fields = ['client', 'p_name', 'description', 'date_begin', 'date_end', 'value', ]
     permission_required = 'crm_app.add_projectlist'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'title of page'
+        context['title'] = 'Add new Project'
         return context
 
     def form_valid(self, form):
@@ -54,17 +51,16 @@ class ProjectAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 class ProjectUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = ProjectsList
-    # login_url = reverse_lazy('login')
+    context_object_name = 'project'
     template_name = 'crm_app/project/project_update.html'
     # success_url = reverse_lazy('home')
-    # fields = '__all__'
     fields = ['client', 'p_name', 'description',
               'date_begin', 'date_end', 'value', ]
     permission_required = 'crm_app.change_projectlist'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'title of page'
+        context['title'] = 'Update of: ' + str(context['project'])
         return context
 
     def form_valid(self, form):
@@ -79,11 +75,15 @@ class ProjectUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
 
 class ProjectDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = ProjectsList
-    # login_url = reverse_lazy('login')
     template_name = 'crm_app/project/project_delete.html'
     context_object_name = 'project'
     success_url = reverse_lazy('project_list')
     permission_required = 'crm_app.delete_projectlist'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Delete of: ' + str(context['project'])
+        return context
 
     # проверка на автора записи
     def get_queryset(self):
