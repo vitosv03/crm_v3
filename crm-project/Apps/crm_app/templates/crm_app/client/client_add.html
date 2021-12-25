@@ -126,6 +126,7 @@ new Formset(document.querySelector('#demo'));
 
 <form method="post" id="demo">
     {% csrf_token %}
+    {{ form.media }}
     {{ form.as_ul }}
     {{ inlinesPhones.as_ul }}
 

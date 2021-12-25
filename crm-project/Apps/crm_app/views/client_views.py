@@ -54,6 +54,7 @@ class ClientListView_2(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['title'] = 'Clients List_2'
         context['filter'] = self.filterset
         return context
 
