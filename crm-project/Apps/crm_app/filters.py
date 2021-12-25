@@ -35,7 +35,7 @@ class ClientsInfoFilter(django_filters.FilterSet):
 
     class Meta:
         model = ClientsInfo
-        fields = ['sort', ]
+        fields = ['sort', 'non_active']
 
 
 class InterplaysFilter(django_filters.FilterSet):
