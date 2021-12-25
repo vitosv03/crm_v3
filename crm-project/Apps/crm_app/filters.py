@@ -6,6 +6,13 @@ from django.contrib.auth import get_user_model
 
 
 class ClientsInfoFilter(django_filters.FilterSet):
+    non_active = django_filters.BooleanFilter(
+        field_name='is_active',
+        label='Non active',
+        exclude=True,
+        widget=forms.CheckboxInput(attrs={'onchange': "this.form.submit()"})
+    )
+
     sort = django_filters.OrderingFilter(
         label='Sort by',
         fields=(
