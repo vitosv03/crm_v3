@@ -50,7 +50,7 @@ class TagUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     # login_url = reverse_lazy('login')
     template_name = 'crm_app/tag/tag_add.html'
     success_url = reverse_lazy('home')
-    fields = '__all__'
+    fields = ['tag']
     permission_required = 'crm_app.change_tags'
 
     # fields = ['project', 'link', 'description', 'rating', 'tag', ]
