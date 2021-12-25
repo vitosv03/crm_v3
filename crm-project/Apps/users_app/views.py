@@ -29,12 +29,12 @@ class home(LoginRequiredMixin, TemplateView):
 # надо удалить больше не используется
 def listUsers(request):
     all_users = Users.objects.all()
-    return render(request, 'list_users.html', dict(all_users=all_users))
+    return render(request, 'users_app/list_users.html', dict(all_users=all_users))
 
 
 class LoginUserView(LoginView):
     form_class = LoginUserForm
-    template_name = 'login.html'
+    template_name = 'users_app/login.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -54,7 +54,7 @@ class UsersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     User = get_user_model()
     model = Users
     # login_url = reverse_lazy('login')
-    template_name = 'users_list.html'
+    template_name = 'users_app/users_list.html'
     context_object_name = 'users'
     permission_required = 'users_app.view_users'
 
@@ -68,7 +68,7 @@ class UserDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     User = get_user_model()
     model = Users
     # login_url = reverse_lazy('login')
-    template_name = 'user_detail.html'
+    template_name = 'users_app/user_detail.html'
     context_object_name = 'user'
     permission_required = 'users_app.view_users'
 
@@ -82,11 +82,12 @@ class UserDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
         # return get_object_or_404(Users, pk=self.request.user.pk)
         return self.request.user
 
+
 class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     User = get_user_model()
     model = Users
     # login_url = reverse_lazy('login')
-    template_name = 'user_update.html'
+    template_name = 'users_app/user_update.html'
     success_url = reverse_lazy('user_detail')
     permission_required = 'users_app.change_users'
     fields = ['username', 'first_name', 'last_name', 'email', 'image',]
@@ -116,7 +117,7 @@ class UserRegisterView(CreateView):
     form_class = UserRegisterForm
     User = get_user_model()
     model = Users
-    template_name = 'registration.html'
+    template_name = 'users_app/registration.html'
     success_url = reverse_lazy('user_detail')
 
     def get_context_data(self, **kwargs):
