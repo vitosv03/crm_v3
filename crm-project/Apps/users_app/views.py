@@ -105,7 +105,7 @@ class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 class UserUpdatePasswordView(PasswordChangeView):
     success_url = reverse_lazy('user_detail')
-    template_name = 'user_password_update.html'
+    template_name = 'users_app/user_password_update.html'
 
     # за счет этой штуки можно открыть страницу без ИД
     def get_object(self):
