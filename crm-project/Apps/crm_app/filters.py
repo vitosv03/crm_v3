@@ -2,6 +2,7 @@ import django_filters
 from django import forms
 
 from .models import ClientsInfo, ProjectsList, InterPlaysList, Tags
+from django.contrib.auth import get_user_model
 
 
 class ClientsInfoFilter(django_filters.FilterSet):
@@ -23,7 +24,7 @@ class ClientsInfoFilter(django_filters.FilterSet):
         #     'date_created', 'date_created',
         #     '-date_created', 'created_desc',
         # },
-     )
+    )
 
     class Meta:
         model = ClientsInfo
@@ -31,8 +32,11 @@ class ClientsInfoFilter(django_filters.FilterSet):
 
 
 class InterplaysFilter(django_filters.FilterSet):
+    Users = get_user_model()
+
     qs_project = set(InterPlaysList.objects.values_list('project', flat=True))
     qs_tag = set(InterPlaysList.objects.values_list('tag', flat=True))
+    qs_created_by = set(InterPlaysList.objects.values_list('created_by', flat=True))
 
     project = django_filters.ModelChoiceFilter(
         label='Project',
@@ -43,6 +47,12 @@ class InterplaysFilter(django_filters.FilterSet):
     client = django_filters.ModelChoiceFilter(
         label='Client',
         queryset=ClientsInfo.objects.filter(projectslist__pk__in=qs_project),
+        widget=forms.Select(attrs={'onchange': "this.form.submit()"})
+    )
+
+    created_by = django_filters.ModelChoiceFilter(
+        label='Created_by',
+        queryset=Users.objects.filter(pk__in=qs_created_by),
         widget=forms.Select(attrs={'onchange': "this.form.submit()"})
     )
 
@@ -103,10 +113,9 @@ class InterplaysFilter(django_filters.FilterSet):
             'onchange': "this.form.submit()",
             'class': "select_field_class",
             'style': "width:500px"
-         }
+        }
         ),
     )
-
 
     # def __init__(self, *args, **kwargs):
     #     self.user = kwargs.pop('user')
@@ -118,9 +127,6 @@ class InterplaysFilter(django_filters.FilterSet):
     #
     # )
 
-
     class Meta:
         model = ProjectsList
-        fields = ['project', 'client', 'sort', 'tag']
-
-
+        fields = ['project', 'client', 'sort', 'created_by', 'tag']
