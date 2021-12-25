@@ -7,7 +7,6 @@ from ..models import Tags
 
 class TagListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Tags
-    # login_url = reverse_lazy('login')
     template_name = 'crm_app/tag/tags_list.html'
     context_object_name = 'tags'
     permission_required = 'crm_app.view_tags'
@@ -20,44 +19,41 @@ class TagListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class TagDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Tags
-    # login_url = reverse_lazy('login')
     template_name = 'crm_app/tag/tag_detail.html'
     context_object_name = 'tag'
     permission_required = 'crm_app.view_tags'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Tag: ' + str(context['tag'])
+        context['title'] = 'Detail of:  ' + str(context['tag'])
         return context
 
 
 class TagAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Tags
-    # login_url = reverse_lazy('login')
     template_name = 'crm_app/tag/tag_add.html'
+    context_object_name = 'tag'
     success_url = reverse_lazy('tag_list')
     fields = ['tag']
     permission_required = 'crm_app.add_tags'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'title of page'
+        context['title'] = 'Add new Tag: '
         return context
 
 
 class TagUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Tags
-    # login_url = reverse_lazy('login')
     template_name = 'crm_app/tag/tag_add.html'
+    context_object_name = 'tag'
     success_url = reverse_lazy('home')
     fields = ['tag']
     permission_required = 'crm_app.change_tags'
 
-    # fields = ['project', 'link', 'description', 'rating', 'tag', ]
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'title of page'
+        context['title'] = 'Update of :  ' + str(context['tag'])
         return context
 
     # def form_valid(self, form):
@@ -74,11 +70,15 @@ class TagUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 class TagDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Tags
-    # login_url = reverse_lazy('login')
     template_name = 'crm_app/tag/tag_delete.html'
     context_object_name = 'tag'
     success_url = reverse_lazy('tag_list')
     permission_required = 'crm_app.delete_tags'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Delete of:  ' + str(context['tag'])
+        return context
 
     # проверка на автора записи
     def get_queryset(self):

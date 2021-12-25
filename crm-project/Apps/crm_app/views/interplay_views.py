@@ -31,29 +31,27 @@ class InterplayListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class InterplayDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = InterPlaysList
-    # login_url = reverse_lazy('login')
     template_name = 'crm_app/interplay/interplay_detail.html'
     context_object_name = 'interplay'
     permission_required = 'crm_app.view_interplays'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Interplay: ' + str(context['interplay'])
+        context['title'] = 'Detail of:  ' + str(context['interplay'])
         return context
 
 
 class InterplayAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = InterPlaysList
-    # login_url = reverse_lazy('login')
+    context_object_name = 'interplay'
     template_name = 'crm_app/interplay/interplay_add.html'
     success_url = reverse_lazy('interplay_list')
-    # fields = '__all__'
     fields = ['project', 'link', 'description', 'rating', 'tag', ]
     permission_required = 'crm_app.add_interplays'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'title of page'
+        context['title'] = 'Add new Interplay'
         return context
 
     def form_valid(self, form):
@@ -65,16 +63,14 @@ class InterplayAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 class InterplayUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = InterPlaysList
-    # login_url = reverse_lazy('login')
+    context_object_name = 'interplay'
     template_name = 'crm_app/interplay/interplay_update.html'
-    # success_url = reverse_lazy('home')
-    # fields = '__all__'
     fields = ['link', 'description', 'rating', 'tag', ]
     permission_required = 'crm_app.change_interplays'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'title of page'
+        context['title'] = 'Update of: '  + str(context['interplay'])
         # obj = get_object_or_404(InterPlaysList, created_by=self.request.user)
         return context
 
@@ -90,11 +86,15 @@ class InterplayUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVie
 
 class InterplayDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = InterPlaysList
-    # login_url = reverse_lazy('login')
     template_name = 'crm_app/interplay/interplay_delete.html'
     context_object_name = 'interplay'
     success_url = reverse_lazy('interplay_list')
     permission_required = 'crm_app.delete_interplays'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Delete of: ' + str(context['interplay'])
+        return context
 
     # проверка на автора записи
     def get_queryset(self):
