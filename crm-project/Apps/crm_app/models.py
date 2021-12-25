@@ -40,6 +40,7 @@ class ClientsEmails(models.Model):
 
 
 class ClientsInfo(models.Model):
+    is_active = models.BooleanField(default=True)
     title = models.CharField(max_length=100)
     head = models.CharField(max_length=100)
     summary = RichTextField(blank=True, null=True)
@@ -68,6 +69,7 @@ class ClientsInfo(models.Model):
 
 
 class ProjectsList(models.Model):
+    is_active = models.BooleanField(default=True)
     client = models.ForeignKey('ClientsInfo', on_delete=models.CASCADE)
     p_name = models.CharField(max_length=100)
     description = models.TextField()
@@ -109,6 +111,7 @@ class Tags(models.Model):
 
 
 class InterPlaysList(models.Model):
+    is_active = models.BooleanField(default=True)
     project = models.ForeignKey('ProjectsList', on_delete=models.CASCADE)
     link = models.CharField(max_length=2, choices=link_status_InterPlaysListModel, blank=True, default=None, help_text='select link')
     description = models.TextField()
