@@ -5,10 +5,12 @@
 
 
 {% block content %}
-    <h1>Project Detail of {{ project.p_name }}</h1>
+<!--    <h1>Project Detail of {{ project.p_name }}</h1>-->
+    <br>
     <a href="{% url 'project_update' project.pk %}">Edit Project</a>
     <br>
     <a href="{% url 'project_delete' project.pk %}">Delete Project</a>
+    <br><br>
     <p>{{ project.p_name }}</p>
     <p>{{ project.client }}</p>
     <p>{{ project.description}}</p>

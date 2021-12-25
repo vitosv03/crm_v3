@@ -5,10 +5,12 @@
 
 
 {% block content %}
-<h1>Clients Detail of {{ client.title }}</h1>
+<br>
+<!--<h1>Clients Detail of {{ client.title }}</h1>-->
 <a href="{% url 'client_update' client.pk %}">Edit Client</a>
 <br>
 <a href="{% url 'client_delete' client.pk %}">Delete Client</a>
+    <br><br>
     <p>{{ client.head }}</p>
     <p>{{ client.summary|safe }}</p>
     <p>{{ client.created_by }}</p>

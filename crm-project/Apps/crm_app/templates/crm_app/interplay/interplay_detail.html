@@ -5,10 +5,12 @@
 
 
 {% block content %}
-    <h1>Interplay Detail of {{ interplay.project }}</h1>
+    <br>
+<!--    <h1>Interplay Detail of {{ interplay.project }}</h1>-->
     <a href="{% url 'interplay_update' interplay.pk %}">Edit Interplay</a>
     <br>
     <a href="{% url 'interplay_delete' interplay.pk %}">Delete Interplay</a>
+    <br><br>
     <p>{{ interplay.project }}</p>
     <p>{{ interplay.client }}</p>
     <p>{{ interplay.link}}</p>
