@@ -5,11 +5,12 @@
 
 
 {% block content %}
-    <h1>User Detail of {{ user.get_username }}</h1>
+<!--    <h1>User Detail of {{ user.get_username }}</h1>-->
+    <br>
     <a href="{% url 'user_update' %}">Update User</a>
     <br>
     <a href="{% url 'change_password' %}">Change Password</a>
-
+    <br><br>
     <p>{{ user.get_username }}</p>
     <p>{{ user.email }}</p>
     <p>{{ user.first_name }}</p>

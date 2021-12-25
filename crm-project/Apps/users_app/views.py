@@ -67,14 +67,13 @@ class UsersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 class UserDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     User = get_user_model()
     model = Users
-    # login_url = reverse_lazy('login')
     template_name = 'users_app/user_detail.html'
     context_object_name = 'user'
     permission_required = 'users_app.view_users'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'User: ' + str(context['user'])
+        context['title'] = 'Profile of: ' + str(context['user'])
         return context
 
     # за счет этой штуки можно открыть страницу без ИД
@@ -86,15 +85,15 @@ class UserDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     User = get_user_model()
     model = Users
-    # login_url = reverse_lazy('login')
     template_name = 'users_app/user_update.html'
+    context_object_name = 'user'
     success_url = reverse_lazy('user_detail')
     permission_required = 'users_app.change_users'
     fields = ['username', 'first_name', 'last_name', 'email', 'image',]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'title of page'
+        context['title'] = 'Edit of: ' + str(context['user'])
         return context
 
     # за счет этой штуки можно открыть страницу без ИД
@@ -106,6 +105,12 @@ class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 class UserUpdatePasswordView(PasswordChangeView):
     success_url = reverse_lazy('user_detail')
     template_name = 'users_app/user_password_update.html'
+    context_object_name = 'user'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Change Password for: ' + str(self.request.user)
+        return context
 
     # за счет этой штуки можно открыть страницу без ИД
     def get_object(self):
