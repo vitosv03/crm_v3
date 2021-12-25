@@ -37,8 +37,6 @@ class UsersAdmin(BaseUserAdmin):
     get_image.short_description = 'image'
 
 
-
-
 admin.site.register(Users, UsersAdmin)
 
 
