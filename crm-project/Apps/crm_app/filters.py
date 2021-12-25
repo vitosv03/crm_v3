@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 
 
 class ClientsInfoFilter(django_filters.FilterSet):
+
     non_active = django_filters.BooleanFilter(
         field_name='is_active',
         label='Non active',
@@ -36,6 +37,21 @@ class ClientsInfoFilter(django_filters.FilterSet):
     class Meta:
         model = ClientsInfo
         fields = ['sort', 'non_active']
+
+
+class ProjectsListFilter(django_filters.FilterSet):
+
+    non_active = django_filters.BooleanFilter(
+        field_name='is_active',
+        label='Non active',
+        exclude=True,
+        widget=forms.CheckboxInput(attrs={'onchange': "this.form.submit()"})
+    )
+
+    class Meta:
+        model = ProjectsList
+        fields = ['non_active',]
+        # fields = []
 
 
 class InterplaysFilter(django_filters.FilterSet):

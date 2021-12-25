@@ -18,7 +18,6 @@ class InterplayListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Interplays List'
         context['filter'] = self.filterset
-        # print(self.request.user)
         return context
 
     def get_queryset(self):

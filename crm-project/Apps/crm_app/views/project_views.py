@@ -3,19 +3,25 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from ..models import ProjectsList
-
+from ..filters import ProjectsListFilter
 
 class ProjectListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = ProjectsList
     template_name = 'crm_app/project/projects_list.html'
     context_object_name = 'projects'
+    filterset_class = ProjectsListFilter
     permission_required = 'crm_app.view_projectslist'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Projects List'
+        context['filter'] = self.filterset
         return context
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        return self.filterset.qs.distinct().select_related('created_by')
 
 class ProjectDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = ProjectsList
