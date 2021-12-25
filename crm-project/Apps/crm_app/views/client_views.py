@@ -113,7 +113,7 @@ class ClientAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProjectUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = ClientsInfo
     context_object_name = 'client'
     template_name = 'crm_app/client/client_update.html'
