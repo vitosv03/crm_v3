@@ -61,7 +61,6 @@ class ClientsInfoAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if not obj.pk:
             obj.created_by = request.user
-        # obj.modified_by = request.user
         obj.email = ", ".join([e.email for e in obj.clientsemails_set.all()])
         obj.phone = ", ".join([phone.phoneNumber for phone in obj.clientsphones_set.all()])
         super().save_model(request, obj, form, change)
@@ -90,7 +89,6 @@ class TagsAdmin(admin.ModelAdmin):
 @admin.register(InterPlaysList)
 class InterPlaysAdmin(admin.ModelAdmin):
     list_display = ('project', 'link', 'date_created', 'date_updated', 'client')
-
 
     readonly_fields = ('date_created', 'date_updated', 'created_by')
 
