@@ -13,11 +13,10 @@ class Users(AbstractUser):
 
     def get_absolute_url(self):
         return reverse('user_detail', args=[str(self.id)])
-        # return reverse('user_detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.get_username()
-        # return self.username + ' ' + self.email
+
 
 
 
