@@ -34,6 +34,7 @@ class ProjectDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Detail of: ' + str(context['project'])
+        context['owner'] = self.object.created_by == self.request.user
         return context
 
     def get_queryset(self):

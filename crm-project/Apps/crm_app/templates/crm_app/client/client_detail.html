@@ -7,7 +7,7 @@
 {% block content %}
 <br>
 <!--<h1>Clients Detail of {{ client.title }}</h1>-->
-    {% if perms.crm_app.change_tags %}
+    {% if perms.crm_app.change_clientsinfo and owner %}
         <a href="{% url 'client_update' client.pk %}">Edit Client</a>
         <br>
         <a href="{% url 'client_delete' client.pk %}">Delete Client</a>

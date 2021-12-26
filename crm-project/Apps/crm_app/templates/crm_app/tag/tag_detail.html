@@ -7,7 +7,7 @@
 {% block content %}
     <br>
 
-    {% if perms.crm_app.change_tags %}
+    {% if perms.crm_app.change_tags and owner%}
         <a href="{% url 'tag_update' tag.pk %}">Update Tag</a>
         <br>
         <a href="{% url 'tag_delete' tag.pk %}">Delete Tag</a>

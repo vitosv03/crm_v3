@@ -7,7 +7,7 @@
 {% block content %}
     <br>
 <!--    <h1>Interplay Detail of {{ interplay.project }}</h1>-->
-    {% if perms.crm_app.change_tags %}
+    {% if perms.crm_app.change_interplays and owner %}
         <a href="{% url 'interplay_update' interplay.pk %}">Edit Interplay</a>
         <br>
         <a href="{% url 'interplay_delete' interplay.pk %}">Delete Interplay</a>
