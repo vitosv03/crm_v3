@@ -39,8 +39,10 @@ class ClientsPhonesAdmin(admin.ModelAdmin):
 @admin.register(ClientsInfo)
 class ClientsInfoAdmin(admin.ModelAdmin):
     form = ClientsInfoAdminForm
+    # list_display = ('title', 'head', 'summary', 'created_by',
+    #                 'display_phoneNumber', 'display_email', 'date_created', 'date_updated', )
     list_display = ('title', 'head', 'summary', 'created_by',
-                    'display_phoneNumber', 'display_email', 'date_created', 'date_updated', )
+                    'phone', 'email', 'date_created', 'date_updated', )
     inlines = [ClientsEmailsInline, ClientsPhonesInline,]
     extra = 1
 
@@ -56,16 +58,12 @@ class ClientsInfoAdmin(admin.ModelAdmin):
         (None, {'fields': ('title', 'head',)}),
     )
 
-    # def phoneNumber(self, obj):
-    #     return ", ".join([phone.phoneNumber for phone in obj.clientsphones_set.all()])
-
-    # def email(self, obj):
-    #     return ", ".join([e.email for e in obj.clientsemails_set.all()])
-
     def save_model(self, request, obj, form, change):
         if not obj.pk:
             obj.created_by = request.user
         # obj.modified_by = request.user
+        obj.email = ", ".join([e.email for e in obj.clientsemails_set.all()])
+        obj.phone = ", ".join([phone.phoneNumber for phone in obj.clientsphones_set.all()])
         super().save_model(request, obj, form, change)
 
 
@@ -100,6 +98,8 @@ class InterPlaysAdmin(admin.ModelAdmin):
         if not obj.pk:
             obj.created_by = request.user
         # obj.modified_by = request.user
+        obj.client = ClientsInfo.objects.filter(
+            projectslist__p_name=obj.project).values_list('title', flat=True)[0]
         super().save_model(request, obj, form, change)
 
 

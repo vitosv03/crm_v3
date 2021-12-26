@@ -61,7 +61,7 @@ class ClientListView_2(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
-        return self.filterset.qs.distinct().select_related('created_by',).prefetch_related('clientsemails__email')
+        return self.filterset.qs.distinct().select_related('created_by',)
 
 
 class ClientDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):

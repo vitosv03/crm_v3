@@ -31,13 +31,15 @@
                       <tr>
                         <td><a href="{{ client.get_absolute_url }}">{{ client.title }}</a></td>
                         <td>{{ client.head }}</td>
+                        <td>{{ client.email }}</td>
+                        <td>{{ client.phone }}</td>
 {% comment %}
                         <td>{% for phone in client.clientsphones_set.all %} {{ phone }},{% endfor %}</td>
                         <td>{% for email in client.clientsemails_set.all %} {{ email }},{% endfor %}</td>
-{% endcomment %}
                         <td>{{ client.display_phoneNumber}}</td>
                         <td>{{ client.display_email}}</td>
-                        <td>{{ client.created_by }}</td>
+{% endcomment %}
+                          <td>{{ client.created_by }}</td>
                         <td>{{ client.date_created }}</td>
                       </tr>
                   {% endfor %}

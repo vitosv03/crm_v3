@@ -45,6 +45,8 @@ class ClientsInfo(models.Model):
     head = models.CharField(max_length=100)
     summary = RichTextField(blank=True, null=True)
     address = models.CharField(max_length=100)
+    email = models.TextField(blank=True)
+    phone = models.TextField(blank=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True)
@@ -57,6 +59,12 @@ class ClientsInfo(models.Model):
 
     def get_absolute_url(self):
         return reverse('client_detail', args=[str(self.id)])
+
+    def save(self, *args, **kwargs):
+        self.email = ", ".join([e.email for e in self.clientsemails_set.all()])
+        self.phone = ", ".join([phone.phoneNumber for phone in self.clientsphones_set.all()])
+        super(ClientsInfo, self).save(*args, **kwargs)
+
 
     class Meta:
         verbose_name = 'ClientsInfo'
