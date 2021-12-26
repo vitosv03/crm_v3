@@ -14,22 +14,8 @@ from .forms import LoginUserForm, UserRegisterForm
 Users = get_user_model()
 
 
-# надо удалить больше не используется
-def usersHome(request):
-    current_user = request.user
-    return HttpResponse('<h1>Home --USERS-- </h1>')
-
-
 class home(LoginRequiredMixin, TemplateView):
     template_name = 'home.html'
-    # login_url = reverse_lazy('login')
-
-
-# надо удалить больше не используется
-def listUsers(request):
-    # Users = get_user_model()
-    all_users = Users.objects.all()
-    return render(request, 'users_app/list_users.html', dict(all_users=all_users))
 
 
 class LoginUserView(LoginView):
@@ -51,9 +37,10 @@ def logout_user(request):
 
 
 class UsersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    # Users = get_user_model()
+    """
+    Rendering list view for users
+    """
     model = Users
-    # login_url = reverse_lazy('login')
     template_name = 'users_app/users_list.html'
     context_object_name = 'users'
     permission_required = 'users_app.view_users'
@@ -65,7 +52,9 @@ class UsersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 
 class UserDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
-    # Users = get_user_model()
+    """
+    Rendering profile Information
+    """
     model = Users
     template_name = 'users_app/user_detail.html'
     context_object_name = 'user'
@@ -78,12 +67,13 @@ class UserDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
     # за счет этой штуки можно открыть страницу без ИД
     def get_object(self):
-        # return get_object_or_404(Users, pk=self.request.user.pk)
         return self.request.user
 
 
 class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    # Users = get_user_model()
+    """
+    Rendering update for profile Information
+    """
     model = Users
     template_name = 'users_app/user_update.html'
     context_object_name = 'user'
@@ -98,11 +88,13 @@ class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
     # за счет этой штуки можно открыть страницу без ИД
     def get_object(self):
-        # return get_object_or_404(Users, pk=self.request.user.pk)
         return self.request.user
 
 
 class UserUpdatePasswordView(PasswordChangeView):
+    """
+    Rendering udpate password for profile Information
+    """
     success_url = reverse_lazy('user_detail')
     template_name = 'users_app/user_password_update.html'
     context_object_name = 'user'
@@ -114,13 +106,14 @@ class UserUpdatePasswordView(PasswordChangeView):
 
     # за счет этой штуки можно открыть страницу без ИД
     def get_object(self):
-        # return get_object_or_404(Users, pk=self.request.user.pk)
         return self.request.user
 
 
 class UserRegisterView(CreateView):
+    """
+    Rendering registered form
+    """
     form_class = UserRegisterForm
-    # User = get_user_model()
     model = Users
     template_name = 'users_app/registration.html'
     success_url = reverse_lazy('user_detail')
