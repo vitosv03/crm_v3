@@ -59,7 +59,6 @@ class ClientListView_2(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        # queryset = ClientsInfo.objects.all()
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
         return self.filterset.qs.distinct().select_related('created_by')
 
