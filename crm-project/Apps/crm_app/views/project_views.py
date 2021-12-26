@@ -36,6 +36,9 @@ class ProjectDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
         context['title'] = 'Detail of: ' + str(context['project'])
         return context
 
+    def get_queryset(self):
+        return super().get_queryset().select_related('created_by')
+
 
 class ProjectAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = ProjectsList
@@ -77,7 +80,7 @@ class ProjectUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     # проверка на автора записи
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(created_by=self.request.user)
+        return qs.filter(created_by=self.request.user).select_related('created_by')
 
 
 class ProjectDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
