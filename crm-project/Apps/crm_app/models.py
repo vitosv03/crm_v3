@@ -47,15 +47,15 @@ class ClientsInfo(models.Model):
     address = models.CharField(max_length=100)
     email = models.TextField(blank=True)
     phone = models.TextField(blank=True)
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True)
 
-    def display_phoneNumber(self):
-        return ", ".join([phone.phoneNumber for phone in self.clientsphones_set.all()])
-
-    def display_email(self):
-        return ", ".join([e.email for e in self.clientsemails_set.all()])
+    # def display_phoneNumber(self):
+    #     return ", ".join([phone.phoneNumber for phone in self.clientsphones_set.all()])
+    #
+    # def display_email(self):
+    #     return ", ".join([e.email for e in self.clientsemails_set.all()])
 
     def get_absolute_url(self):
         return reverse('client_detail', args=[str(self.id)])
@@ -84,7 +84,7 @@ class ProjectsList(models.Model):
     date_begin = models.DateField()
     date_end = models.DateField()
     value = models.DecimalField(max_digits=10, decimal_places=2)
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True)
 
@@ -102,7 +102,7 @@ class ProjectsList(models.Model):
 
 class Tags(models.Model):
     tag = models.CharField(max_length=20)
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True)
 
@@ -124,7 +124,7 @@ class InterPlaysList(models.Model):
     link = models.CharField(max_length=2, choices=link_status_InterPlaysListModel, blank=True, default=None, help_text='select link')
     description = models.TextField()
     rating = models.SmallIntegerField(validators=[MinValueValidator(-5), MaxValueValidator(5)])
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True)
     tag = models.ManyToManyField(Tags)
