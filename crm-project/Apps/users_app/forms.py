@@ -5,11 +5,17 @@ from django.contrib.auth.models import Group
 
 
 class LoginUserForm(AuthenticationForm):
+    """
+    remake fields in user login form
+    """
     username = forms.CharField(label='Login', widget=forms.TextInput())
     password = forms.CharField(label='Password', widget=forms.PasswordInput())
 
 
 class UserRegisterForm(UserCreationForm):
+    """
+    remake fields in user registered form
+    """
     email = forms.EmailField(required=True)
 
     class Meta:
