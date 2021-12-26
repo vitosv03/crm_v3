@@ -9,6 +9,9 @@ from .models import Users
 # Register your models here.
 
 class UsersAdmin(BaseUserAdmin):
+    """
+    add Users to admin and config it
+    """
     list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'image', 'date_created',
                     'date_updated', 'get_image',)
     readonly_fields = ('date_created', 'date_updated', 'get_image',)
