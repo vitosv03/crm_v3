@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from ..models import ClientsInfo, ClientsPhones
+from ..models import ClientsInfo, ClientsPhones, ClientsEmails
 from ..forms import ClientsPhonesFormSet, ClientsEmailsFormSet
 from ..filters import ClientsInfoFilter
 from ..utils import headers
@@ -61,7 +61,7 @@ class ClientListView_2(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
-        return self.filterset.qs.distinct().select_related('created_by',)
+        return self.filterset.qs.distinct().select_related('created_by',).prefetch_related('clientsemails__email')
 
 
 class ClientDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
