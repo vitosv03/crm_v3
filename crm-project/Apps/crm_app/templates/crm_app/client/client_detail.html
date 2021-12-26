@@ -7,9 +7,14 @@
 {% block content %}
 <br>
 <!--<h1>Clients Detail of {{ client.title }}</h1>-->
-<a href="{% url 'client_update' client.pk %}">Edit Client</a>
-<br>
-<a href="{% url 'client_delete' client.pk %}">Delete Client</a>
+    {% if perms.crm_app.change_tags %}
+        <a href="{% url 'client_update' client.pk %}">Edit Client</a>
+        <br>
+        <a href="{% url 'client_delete' client.pk %}">Delete Client</a>
+    {% else %}
+        <p>You can not change or delete this record.</p>
+        <p>You have not permissions.</p>
+    {% endif %}
     <br><br>
     <p>Active: {{ client.is_active }} </p>
     <p>{{ client.head }}</p>
@@ -23,6 +28,4 @@
         {% for email in client.clientsemails_set.all%}<p>{{ email.email }}</p>{% endfor %}
 {% endcomment %}
 {% endblock %}
-
-
 

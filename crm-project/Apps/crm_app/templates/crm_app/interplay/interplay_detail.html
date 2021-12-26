@@ -7,11 +7,16 @@
 {% block content %}
     <br>
 <!--    <h1>Interplay Detail of {{ interplay.project }}</h1>-->
-    <a href="{% url 'interplay_update' interplay.pk %}">Edit Interplay</a>
-    <br>
-    <a href="{% url 'interplay_delete' interplay.pk %}">Delete Interplay</a>
+    {% if perms.crm_app.change_tags %}
+        <a href="{% url 'interplay_update' interplay.pk %}">Edit Interplay</a>
+        <br>
+        <a href="{% url 'interplay_delete' interplay.pk %}">Delete Interplay</a>
+    {% else %}
+        <p>You can not change or delete this record.</p>
+        <p>You have not permissions.</p>
+    {% endif %}
     <br><br>
-    <p>Active: {{ project.is_active }} </p>
+    <p>Active: {{ interplay.is_active }} </p>
     <p>{{ interplay.project }}</p>
     <p>{{ interplay.client }}</p>
     <p>{{ interplay.link}}</p>
