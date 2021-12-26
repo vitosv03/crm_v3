@@ -4,6 +4,9 @@ from .models import ClientsInfo, ClientsPhones, ClientsEmails, InterPlaysList, T
 
 
 class ClientsInfoForm(ModelForm):
+    """
+    creating inline formset
+    """
     class Meta:
         model = ClientsInfo
         fields = '__all__'
