@@ -11,7 +11,7 @@
 <br>
 <a href="{% url 'client_delete' client.pk %}">Delete Client</a>
     <br><br>
-    <p>Active: {{ project.is_active }} </p>
+    <p>Active: {{ client.is_active }} </p>
     <p>{{ client.head }}</p>
     <p>{{ client.summary|safe }}</p>
     <p>{{ client.created_by }}</p>

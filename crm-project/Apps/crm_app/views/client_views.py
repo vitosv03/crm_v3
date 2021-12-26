@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from ..models import ClientsInfo
+from ..models import ClientsInfo, ClientsPhones
 from ..forms import ClientsPhonesFormSet, ClientsEmailsFormSet
 from ..filters import ClientsInfoFilter
 from ..utils import headers
@@ -45,7 +45,6 @@ class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class ClientListView_2(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = ClientsInfo
-    # login_url = reverse_lazy('login')
     filterset_class = ClientsInfoFilter
     template_name = 'crm_app/client/clients_list_2.html'
     context_object_name = 'clients'
@@ -67,7 +66,6 @@ class ClientListView_2(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class ClientDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = ClientsInfo
-    # login_url = reverse_lazy('login')
     template_name = 'crm_app/client/client_detail.html'
     context_object_name = 'client'
     permission_required = 'crm_app.view_clientsinfo'
@@ -76,6 +74,9 @@ class ClientDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Detail of: ' + str(context['client'])
         return context
+
+    def get_queryset(self):
+        return super().get_queryset().select_related('created_by')
 
 
 class ClientAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
