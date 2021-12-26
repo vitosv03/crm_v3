@@ -9,6 +9,8 @@
 <h5><a href="{% url 'interplay_add' %}">___ADD new Interplay</a></h5>
           <div class="table-responsive">
             <form method="get" id="myForm" >
+{% comment %}
+
 <!--                <label for="project">Project:</label>-->
 <!--                <select name="project" id="id_project" onchange="this.form.submit()">-->
 <!--                    {% for item in filter.form.project %}{{ item }}{% endfor %}-->
@@ -23,6 +25,7 @@
 <!--                <select name="sort" id="id_sort" onchange="this.form.submit()">-->
 <!--                    {% for item in filter.form.sort %}{{ item }}{% endfor %}-->
 <!--                </select>-->
+{% endcomment %}
                 {{filter.form}}
               <a href="{% url 'interplay_list' %}">Reset</a>
 <!--              <a href="this.form.reset()">Reset</a>-->

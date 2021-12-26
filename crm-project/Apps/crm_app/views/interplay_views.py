@@ -23,7 +23,7 @@ class InterplayListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
-        return self.filterset.qs.distinct().select_related('created_by')
+        return self.filterset.qs.distinct().select_related('created_by', 'project').prefetch_related('tag')
 
 
 class InterplayDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
@@ -36,6 +36,9 @@ class InterplayDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailVie
         context = super().get_context_data(**kwargs)
         context['title'] = 'Detail of:  ' + str(context['interplay'])
         return context
+
+    def get_queryset(self):
+        return super().get_queryset().select_related('created_by').prefetch_related('tag')
 
 
 class InterplayAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -77,7 +80,7 @@ class InterplayUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVie
 
     # проверка на автора записи
     def get_queryset(self):
-        qs = super().get_queryset()
+        qs = super().get_queryset().select_related('created_by').prefetch_related('tag')
         return qs.filter(created_by=self.request.user)
 
 
