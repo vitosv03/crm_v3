@@ -6,7 +6,9 @@ from django.contrib.auth import get_user_model
 
 
 class ClientsInfoFilter(django_filters.FilterSet):
-
+    """
+    add filters block (sort, filters, checkbox) to client_list_2.html
+    """
     non_active = django_filters.BooleanFilter(
         field_name='is_active',
         label='Non active',
@@ -40,7 +42,9 @@ class ClientsInfoFilter(django_filters.FilterSet):
 
 
 class ProjectsListFilter(django_filters.FilterSet):
-
+    """
+    add filters block (sort, filters, checkbox) to project_list.html
+    """
     non_active = django_filters.BooleanFilter(
         field_name='is_active',
         label='Non active',
@@ -55,6 +59,9 @@ class ProjectsListFilter(django_filters.FilterSet):
 
 
 class InterplaysFilter(django_filters.FilterSet):
+    """
+    add filters block (sort, filters, checkbox) to interplays_list.html
+    """
     Users = get_user_model()
 
     qs_project = set(InterPlaysList.objects.values_list('project', flat=True))
