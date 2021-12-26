@@ -6,6 +6,9 @@ from ..models import Tags
 
 
 class TagListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    """
+    Rendering list of all tags
+    """
     model = Tags
     template_name = 'crm_app/tag/tags_list.html'
     context_object_name = 'tags'
@@ -18,6 +21,9 @@ class TagListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 
 class TagDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    """
+    Rendering list detail info about of one tag
+    """
     model = Tags
     template_name = 'crm_app/tag/tag_detail.html'
     context_object_name = 'tag'
@@ -31,6 +37,9 @@ class TagDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
 
 class TagAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    """
+    Rendering form to add a new tag
+    """
     model = Tags
     template_name = 'crm_app/tag/tag_add.html'
     context_object_name = 'tag'
@@ -45,6 +54,9 @@ class TagAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 
 class TagUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    """
+    Rendering form to update a new tag
+    """
     model = Tags
     template_name = 'crm_app/tag/tag_add.html'
     context_object_name = 'tag'
@@ -70,6 +82,9 @@ class TagUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 
 class TagDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    """
+    Rendering form to delete tag
+    """
     model = Tags
     template_name = 'crm_app/tag/tag_delete.html'
     context_object_name = 'tag'

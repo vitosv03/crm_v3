@@ -7,6 +7,9 @@ from ..filters import ProjectsListFilter
 
 
 class ProjectListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    """
+    Rendering list of all Projects
+    """
     model = ProjectsList
     template_name = 'crm_app/project/projects_list.html'
     context_object_name = 'projects'
@@ -26,6 +29,9 @@ class ProjectListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 
 class ProjectDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    """
+    Rendering list detail info about of one project
+    """
     model = ProjectsList
     template_name = 'crm_app/project/project_detail.html'
     context_object_name = 'project'
@@ -43,6 +49,9 @@ class ProjectDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
 
 
 class ProjectAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    """
+    Rendering form to add a new project
+    """
     model = ProjectsList
     context_object_name = 'project'
     template_name = 'crm_app/project/project_add.html'
@@ -63,6 +72,9 @@ class ProjectAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 
 class ProjectUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    """
+    Rendering form to update a new project
+    """
     model = ProjectsList
     context_object_name = 'project'
     template_name = 'crm_app/project/project_update.html'
@@ -86,6 +98,9 @@ class ProjectUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
 
 
 class ProjectDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    """
+    Rendering form to delete project
+    """
     model = ProjectsList
     template_name = 'crm_app/project/project_delete.html'
     context_object_name = 'project'

@@ -9,6 +9,9 @@ from ..utils import headers
 
 
 class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    """
+    Rendering list of all clients
+    """
     model = ClientsInfo
     template_name = 'crm_app/client/clients_list.html'
     context_object_name = 'clients'
@@ -43,6 +46,9 @@ class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 
 class ClientListView_2(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    """
+    Rendering list of all clients
+    """
     model = ClientsInfo
     filterset_class = ClientsInfoFilter
     template_name = 'crm_app/client/clients_list_2.html'
@@ -65,6 +71,9 @@ class ClientListView_2(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 
 class ClientDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    """
+    Rendering list detail info about of one client
+    """
     model = ClientsInfo
     template_name = 'crm_app/client/client_detail.html'
     context_object_name = 'client'
@@ -81,6 +90,9 @@ class ClientDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
 
 class ClientAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    """
+    Rendering form to add a new client
+    """
     model = ClientsInfo
     template_name = 'crm_app/client/client_add.html'
     success_url = reverse_lazy('client_list_2')
@@ -116,6 +128,9 @@ class ClientAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 
 class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    """
+    Rendering form to update a new client
+    """
     model = ClientsInfo
     context_object_name = 'client'
     template_name = 'crm_app/client/client_update.html'
@@ -153,8 +168,10 @@ class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 
 class ClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    """
+    Rendering form to delete client
+    """
     model = ClientsInfo
-    # login_url = reverse_lazy('login')
     template_name = 'crm_app/client/client_delete.html'
     context_object_name = 'client'
     success_url = reverse_lazy('client_list_2')

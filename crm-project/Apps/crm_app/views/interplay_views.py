@@ -7,6 +7,9 @@ from ..filters import InterplaysFilter
 
 
 class InterplayListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    """
+    Rendering list of all Interplays
+    """
     model = InterPlaysList
     template_name = 'crm_app/interplay/interplays_list.html'
     context_object_name = 'interplays'
@@ -27,6 +30,9 @@ class InterplayListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 
 class InterplayDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    """
+    Rendering list detail info about of one Interplay
+    """
     model = InterPlaysList
     template_name = 'crm_app/interplay/interplay_detail.html'
     context_object_name = 'interplay'
@@ -43,6 +49,9 @@ class InterplayDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailVie
 
 
 class InterplayAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    """
+    Rendering form to add a new Interplay
+    """
     model = InterPlaysList
     context_object_name = 'interplay'
     template_name = 'crm_app/interplay/interplay_add.html'
@@ -63,6 +72,9 @@ class InterplayAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 
 class InterplayUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    """
+    Rendering form to update a new Interplay
+    """
     model = InterPlaysList
     context_object_name = 'interplay'
     template_name = 'crm_app/interplay/interplay_update.html'
@@ -72,7 +84,6 @@ class InterplayUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVie
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Update of: '  + str(context['interplay'])
-        # obj = get_object_or_404(InterPlaysList, created_by=self.request.user)
         return context
 
     def form_valid(self, form):
@@ -86,6 +97,9 @@ class InterplayUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVie
 
 
 class InterplayDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    """
+    Rendering form to delete Interplay
+    """
     model = InterPlaysList
     template_name = 'crm_app/interplay/interplay_delete.html'
     context_object_name = 'interplay'
