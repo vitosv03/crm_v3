@@ -9,7 +9,6 @@ from ..utils import headers
 
 
 class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    # login_url = reverse_lazy('login')
     model = ClientsInfo
     template_name = 'crm_app/client/clients_list.html'
     context_object_name = 'clients'
@@ -50,6 +49,8 @@ class ClientListView_2(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     context_object_name = 'clients'
     paginate_by = 4
     permission_required = 'crm_app.view_clientsinfo'
+    # queryset = ClientsInfo.objects.select_related('created_by',).all()
+    # queryset = ClientsInfo.objects.defer('title',)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -60,7 +61,7 @@ class ClientListView_2(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
-        return self.filterset.qs.distinct().select_related('created_by')
+        return self.filterset.qs.distinct().select_related('created_by',)
 
 
 class ClientDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
