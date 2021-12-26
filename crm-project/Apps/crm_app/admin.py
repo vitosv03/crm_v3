@@ -9,6 +9,9 @@ from .models import ClientsInfo, ClientsEmails, ClientsPhones, ProjectsList, Tag
 # Register your models here.
 
 class ClientsInfoAdminForm(forms.ModelForm):
+    """
+    Change field summary for working ckeditor in admin module
+    """
     summary = forms.CharField(widget=CKEditorUploadingWidget())
 
     class Meta:
@@ -17,27 +20,42 @@ class ClientsInfoAdminForm(forms.ModelForm):
 
 
 class ClientsEmailsInline(admin.TabularInline):
+    """
+    add ClientsEmails to TabularInline
+    """
     model = ClientsEmails
     extra = 0
 
 
 class ClientsPhonesInline(admin.TabularInline):
+    """
+    add ClientsPhones to TabularInline
+    """
     model = ClientsPhones
     extra = 0
 
 
 @admin.register(ClientsEmails)
 class ClientsEmailsAdmin(admin.ModelAdmin):
+    """
+    add ClientsEmails to admin
+    """
     list_display = ('email', 'client', 'date_created', 'date_updated',)
 
 
 @admin.register(ClientsPhones)
 class ClientsPhonesAdmin(admin.ModelAdmin):
+    """
+    add ClientsPhones to admin
+    """
     list_display = ('phoneNumber', 'client', 'date_created', 'date_updated',)
 
 
 @admin.register(ClientsInfo)
 class ClientsInfoAdmin(admin.ModelAdmin):
+    """
+    add ClientsInfo to admin and config it
+    """
     form = ClientsInfoAdminForm
     # list_display = ('title', 'head', 'summary', 'created_by',
     #                 'display_phoneNumber', 'display_email', 'date_created', 'date_updated', )
@@ -68,6 +86,9 @@ class ClientsInfoAdmin(admin.ModelAdmin):
 
 @admin.register(ProjectsList)
 class ProjectsListAdmin(admin.ModelAdmin):
+    """
+    add ProjectsList to admin and config it
+    """
     list_display = ('client', 'p_name', 'description', 'date_begin', 'date_end', 'value',
                     'created_by', 'date_created', 'date_updated',)
 
@@ -82,12 +103,18 @@ class ProjectsListAdmin(admin.ModelAdmin):
 
 @admin.register(Tags)
 class TagsAdmin(admin.ModelAdmin):
+    """
+    add Tags to admin and config it
+    """
     list_display = ('tag', 'date_created', 'date_updated',)
     readonly_fields = ('date_created', 'date_updated', )
 
 
 @admin.register(InterPlaysList)
 class InterPlaysAdmin(admin.ModelAdmin):
+    """
+    add InterPlays to admin and config it
+    """
     list_display = ('project', 'link', 'date_created', 'date_updated', 'client')
 
     readonly_fields = ('date_created', 'date_updated', 'created_by')
