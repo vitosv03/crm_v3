@@ -6,11 +6,45 @@
 
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+<!--        {{ form.as_p }}-->
+
+      {% if form.non_field_errors %}
+        <ul>
+          {% for error in form.non_field_errors %}
+            <li style="color: red">{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <p>
+        {{ form.username.label_tag }}<br>
+        {{ form.username }}
+          <small>{{ form.username.help_text }}</small>
+        {% for error in form.username.errors %}<p style="color: red">{{ error }}</p>{% endfor %}
+      </p>
+
+      <p>
+        {{ form.password.label_tag }}<br>
+        {{ form.password }}
+          <input type="checkbox" id="show_pwd" onclick ="showPassword()"> Show
+          <br>
+          <small>{{ form.password.help_text }}</small>
+        {% for error in form.password.errors %}<p style="color: red">{{ error }}</p>{% endfor %}
+      </p>
+
         <input type="submit" value="Login">
         <p>No login, Registered as simple user</p>
         <a href="{% url 'registration' %}">Registration</a>
     </form>
 
+<script type="text/javascript">
+function showPassword()
+{
+    if(document.getElementById("show_pwd").checked)
+        {document.getElementById("id_password").type="text";}
+    else
+        {document.getElementById("id_password").type="password";}
+}
+</script>
 
 {% endblock %}
