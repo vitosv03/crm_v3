@@ -93,7 +93,7 @@ class UserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 class UserUpdatePasswordView(PasswordChangeView):
     """
-    Rendering udpate password for profile Information
+    Rendering update password for profile Information
     """
     success_url = reverse_lazy('user_detail')
     template_name = 'users_app/user_password_update.html'
