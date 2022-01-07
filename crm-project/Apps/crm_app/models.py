@@ -65,7 +65,6 @@ class ClientsInfo(models.Model):
         self.phone = ", ".join([phone.phoneNumber for phone in self.clientsphones_set.all()])
         super(ClientsInfo, self).save(*args, **kwargs)
 
-
     class Meta:
         verbose_name = 'ClientsInfo'
         verbose_name_plural = 'ClientsInfo'

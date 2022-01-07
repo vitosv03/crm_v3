@@ -26,27 +26,29 @@ from Apps.crm_app.models import Tags
 
 class TagsModelTest(TestCase):
 
+    test_model = Tags
+
     @classmethod
     def setUpTestData(cls):
         # Set up non-modified objects used by all test methods
         Tags.objects.create(tag='myNewTag', )
-        tag = Tags.objects.get(id=1)
+        tag = cls.test_model.objects.get(id=1)
 
     def test_tag(self):
-        tag = Tags.objects.get(id=1)
+        tag = self.test_model.objects.get(id=1)
         field = Tags._meta.get_field('tag')
         self.assertEquals(field.verbose_name, 'tag')
         self.assertEquals(field.max_length, 20)
 
     def test_created_by(self):
-        created_by = Tags.objects.get(id=1)
+        tag = self.test_model.objects.get(id=1)
         field = Tags._meta.get_field('created_by')
         self.assertEquals(field.verbose_name, 'created by')
         self.assertEquals(field.blank, True)
         self.assertEquals(field.null, True)
 
     def test_date_created(self):
-        date_created = Tags.objects.get(id=1)
+        tag = self.test_model.objects.get(id=1)
         field = Tags._meta.get_field('date_created')
         self.assertEquals(field.verbose_name, 'date created')
         self.assertEquals(field.auto_now_add, True)
@@ -54,7 +56,7 @@ class TagsModelTest(TestCase):
         # self.assertEquals(field.blank, False)
 
     def test_date_updated(self):
-        date_updated = Tags.objects.get(id=1)
+        tag = self.test_model.objects.get(id=1)
         field = Tags._meta.get_field('date_updated')
         self.assertEquals(field.verbose_name, 'date updated')
         self.assertEquals(field.auto_now, True)
@@ -63,7 +65,7 @@ class TagsModelTest(TestCase):
 
     # def __str__(self):
     def test_object_name_is_tag(self):
-        tag = Tags.objects.get(id=1)
+        tag = self.test_model.objects.get(id=1)
         expected_object_name = tag.tag
         self.assertEquals(expected_object_name, str(tag))
 
