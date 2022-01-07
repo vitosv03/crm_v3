@@ -14,20 +14,20 @@ class TagsModelTest(TestCase):
         Tags.objects.create(tag='myNewTag', )
         tag = Tags.objects.get(id=1)
 
-    def test_tag_label(self):
+    def test_tag(self):
         tag = Tags.objects.get(id=1)
         field = Tags._meta.get_field('tag')
         self.assertEquals(field.verbose_name, 'tag')
         self.assertEquals(field.max_length, 20)
 
-    def test_created_by_label_blank_null(self):
+    def test_created_by(self):
         created_by = Tags.objects.get(id=1)
         field = Tags._meta.get_field('created_by')
         self.assertEquals(field.verbose_name, 'created by')
         self.assertEquals(field.blank, True)
         self.assertEquals(field.null, True)
 
-    def test_date_created_label(self):
+    def test_date_created(self):
         date_created = Tags.objects.get(id=1)
         field = Tags._meta.get_field('date_created')
         self.assertEquals(field.verbose_name, 'date created')
@@ -35,7 +35,7 @@ class TagsModelTest(TestCase):
         self.assertEquals(field.blank, True)
         # self.assertEquals(field.blank, False)
 
-    def test_date_updated_label(self):
+    def test_date_updated(self):
         date_updated = Tags.objects.get(id=1)
         field = Tags._meta.get_field('date_updated')
         self.assertEquals(field.verbose_name, 'date updated')
