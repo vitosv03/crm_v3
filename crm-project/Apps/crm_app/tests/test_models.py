@@ -2,8 +2,26 @@ from django.test import TestCase
 # from unittest import main
 
 # Create your tests here.
-from Apps.crm_app.models import Tags
 # from ..models import Tags
+from Apps.crm_app.models import Tags
+
+
+# class Tags(models.Model):
+#     tag = models.CharField(max_length=20)
+#     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
+#     date_created = models.DateTimeField(auto_now_add=True, blank=True)
+#     date_updated = models.DateTimeField(auto_now=True, blank=True)
+#
+#     def get_absolute_url(self):
+#         return reverse('tag_detail', args=[str(self.id)])
+#
+#     class Meta:
+#         verbose_name = 'Tags'
+#         verbose_name_plural = 'Tags'
+#         ordering = ['-date_created']
+#
+#     def __str__(self):
+#         return self.tag
 
 
 class TagsModelTest(TestCase):
