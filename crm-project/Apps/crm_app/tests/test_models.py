@@ -16,76 +16,32 @@ class TagsModelTest(TestCase):
 
     def test_tag_label(self):
         tag = Tags.objects.get(id=1)
-        field_label = Tags._meta.get_field('tag').verbose_name
-        self.assertEquals(field_label, 'tag')
+        field = Tags._meta.get_field('tag')
+        self.assertEquals(field.verbose_name, 'tag')
+        self.assertEquals(field.max_length, 20)
 
-    def test_created_by_label(self):
+    def test_created_by_label_blank_null(self):
         created_by = Tags.objects.get(id=1)
-        field_label = Tags._meta.get_field('created_by').verbose_name
-        self.assertEquals(field_label, 'created by')
+        field = Tags._meta.get_field('created_by')
+        self.assertEquals(field.verbose_name, 'created by')
+        self.assertEquals(field.blank, True)
+        self.assertEquals(field.null, True)
 
     def test_date_created_label(self):
         date_created = Tags.objects.get(id=1)
-        field_label = Tags._meta.get_field('date_created').verbose_name
-        self.assertEquals(field_label, 'date created')
+        field = Tags._meta.get_field('date_created')
+        self.assertEquals(field.verbose_name, 'date created')
+        self.assertEquals(field.auto_now_add, True)
+        self.assertEquals(field.blank, True)
+        # self.assertEquals(field.blank, False)
 
     def test_date_updated_label(self):
         date_updated = Tags.objects.get(id=1)
-        field_label = Tags._meta.get_field('date_updated').verbose_name
-        self.assertEquals(field_label, 'date updated')
-
-    def test_tag_max_length(self):
-        tag = Tags.objects.get(id=1)
-        max_length = Tags._meta.get_field('tag').max_length
-        self.assertEquals(max_length, 20)
-
-    def test_date_created_auto_now_add(self):
-        tag = Tags.objects.get(id=1)
-        auto_now_add = Tags._meta.get_field('date_created').auto_now_add
-        self.assertEquals(auto_now_add, True)
-
-    def test_date_updated_auto_now(self):
-        tag = Tags.objects.get(id=1)
-        auto_now = Tags._meta.get_field('date_updated').auto_now
-        self.assertEquals(auto_now, True)
-
-    # def test_date_created_blank(self):
-    #     # tag = Tags.objects.get(id=1)
-    #     blank = Tags._meta.get_field('date_created').blank
-    #     self.assertEquals(blank, False)
-    #
-    # def test_date_updated_blank(self):
-    #     # tag = Tags.objects.get(id=1)
-    #     blank = Tags._meta.get_field('date_updated').blank
-    #     self.assertEquals(blank, False)
-
-    def test_created_by_blank_null_is_true(self):
-        tag = Tags.objects.get(id=1)
-        blank = Tags._meta.get_field('created_by').blank
-        null = Tags._meta.get_field('created_by').null
-        self.assertEquals(blank, True)
-        self.assertEquals(null, True)
-
-    # # -------------------------------
-    #     def test_created_by_label_blank_null(self):
-    #         field = Tags._meta.get_field('created_by')
-    #         self.assertEquals(field.verbose_name, 'created by')
-    #         self.assertEquals(field.blank, True)
-    #         self.assertEquals(field.null, True)
-    #
-    #
-    #     def test_created_by_label(self):
-    #         field_label = Tags._meta.get_field('created_by').verbose_name
-    #         self.assertEquals(field_label, 'created by')
-    #
-    #     def test_created_by_blank(self):
-    #         blank = Tags._meta.get_field('created_by').blank
-    #         self.assertEquals(blank, True)
-    #
-    #     def test_created_by_null(self):
-    #         null = Tags._meta.get_field('created_by').null
-    #         self.assertEquals(null, True)
-    # # -------------------------------
+        field = Tags._meta.get_field('date_updated')
+        self.assertEquals(field.verbose_name, 'date updated')
+        self.assertEquals(field.auto_now, True)
+        self.assertEquals(field.blank, True)
+        # self.assertEquals(field.blank, False)
 
     # def __str__(self):
     def test_object_name_is_tag(self):
@@ -98,5 +54,3 @@ class TagsModelTest(TestCase):
         # This will also fail if the urlconf is not defined.
         self.assertEquals(tag.get_absolute_url(), '/crm/tag/1/detail/')
 
-    # if __name__ == '__main__':
-    #     main()
