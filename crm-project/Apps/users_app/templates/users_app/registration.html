@@ -4,8 +4,7 @@
 {% block sidebar %} {% endblock %}
 {% block content %}
 
-    <form method="post">
-        {% csrf_token %}
+    <form method="post">{% csrf_token %}
 <!--        {{ form.as_ul }}-->
       <p>
         {{ form.username.label_tag }}<br>
@@ -56,6 +55,51 @@ function showPassword()
         {document.getElementById("id_password2").type="password";}
 }
 </script>
+<br><br><br>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<!-- Кнопка-триггер модального окна -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Запустите демо модального окна
+</button>
+
+<!-- Модальное окно -->
+<div class="modal modal-dialog-scrollable" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+<!--      <div class="modal-header">-->
+<!--&lt;!&ndash;        <h5 class="modal-title" id="exampleModalLabel">Заголовок модального окна</h5>&ndash;&gt;-->
+<!--        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>-->
+<!--      </div>-->
+      <div class="modal-body">
+        {% include 'users_app/login.html' %}
+
+          <p>
+        {{ form.username.label_tag }}<br>
+        {{ form.username }}
+          <small>{{ form.username.help_text }}</small>
+        {% for error in form.username.errors %}<p style="color: red">{{ error }}</p>{% endfor %}
+      </p>
+
+      <p>
+        {{ form.email.label_tag }}<br>
+        {{ form.email }}
+          <small>{{ form.email.help_text }}</small>
+        {% for error in form.email.errors %}<p style="color: red">{{ error }}</p>{% endfor %}
+      </p>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 {% endblock %}
