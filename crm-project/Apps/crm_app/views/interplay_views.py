@@ -2,8 +2,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from ..models import InterPlaysList
-from ..filters import InterplaysFilter
+from Apps.crm_app.models import InterPlaysList
+from Apps.crm_app.filters import InterplaysFilter
 
 
 class InterplayListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):

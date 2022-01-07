@@ -2,10 +2,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from ..models import ClientsInfo, ClientsPhones, ClientsEmails
-from ..forms import ClientsPhonesFormSet, ClientsEmailsFormSet
-from ..filters import ClientsInfoFilter
-from ..utils import headers
+from Apps.crm_app.models import ClientsInfo, ClientsPhones, ClientsEmails
+from Apps.crm_app.forms import ClientsPhonesFormSet, ClientsEmailsFormSet
+from Apps.crm_app.filters import ClientsInfoFilter
+from Apps.crm_app.utils import headers
 
 
 class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):

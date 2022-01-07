@@ -2,8 +2,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from ..models import ProjectsList
-from ..filters import ProjectsListFilter
+from Apps.crm_app.models import ProjectsList
+from Apps.crm_app.filters import ProjectsListFilter
 
 
 class ProjectListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
