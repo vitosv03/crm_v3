@@ -79,8 +79,8 @@ class ClientsInfoAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if not obj.pk:
             obj.created_by = request.user
-        obj.email = ", ".join([e.email for e in obj.clientsemails_set.all()])
-        obj.phone = ", ".join([phone.phoneNumber for phone in obj.clientsphones_set.all()])
+        # obj.email = ", ".join([e.email for e in obj.clientsemails_set.all()])
+        # obj.phone = ", ".join([phone.phoneNumber for phone in obj.clientsphones_set.all()])
         super().save_model(request, obj, form, change)
 
 

@@ -48,9 +48,6 @@ class ClientsEmails(models.Model):
 #
 
 
-
-
-
 class ClientsInfo(models.Model):
     is_active = models.BooleanField(default=True)
     title = models.CharField(max_length=100)
