@@ -39,31 +39,46 @@ class ClientsEmails(models.Model):
         return self.email
 
 
+# class ClientsInfoManager(models.Manager):
+#     # use_for_related_fields = True
+#     # def g_qs(self, client):
+#     def get_queryset(self):
+#         # return super().get_queryset().filter(phoneNumber=15)
+#         return ClientsPhones.objects.filter(client_id=2)
+#
+
+
+
+
+
 class ClientsInfo(models.Model):
     is_active = models.BooleanField(default=True)
     title = models.CharField(max_length=100)
     head = models.CharField(max_length=100)
     summary = RichTextField(blank=True, null=True)
     address = models.CharField(max_length=100)
-    email = models.TextField(blank=True)
-    phone = models.TextField(blank=True)
+    # email = models.TextField(blank=True)
+    # phone = models.TextField(blank=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True)
 
-    # def display_phoneNumber(self):
-    #     return ", ".join([phone.phoneNumber for phone in self.clientsphones_set.all()])
-    #
-    # def display_email(self):
-    #     return ", ".join([e.email for e in self.clientsemails_set.all()])
+    # objects = models.Manager()  # The default manager.
+    # phoneNumber = ClientsInfoManager()
+
+    def display_phoneNumber(self):
+        return ", ".join([phone.phoneNumber for phone in self.clientsphones_set.all()])
+
+    def display_email(self):
+        return ", ".join([e.email for e in self.clientsemails_set.all()])
 
     def get_absolute_url(self):
         return reverse('client_detail', args=[str(self.id)])
 
-    def save(self, *args, **kwargs):
-        self.email = ", ".join([e.email for e in self.clientsemails_set.all()])
-        self.phone = ", ".join([phone.phoneNumber for phone in self.clientsphones_set.all()])
-        super(ClientsInfo, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     self.email = ", ".join([e.email for e in self.clientsemails_set.all()])
+    #     self.phone = ", ".join([phone.phoneNumber for phone in self.clientsphones_set.all()])
+    #     super(ClientsInfo, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'ClientsInfo'

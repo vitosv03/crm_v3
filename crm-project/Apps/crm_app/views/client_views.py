@@ -53,10 +53,8 @@ class ClientListView_2(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     filterset_class = ClientsInfoFilter
     template_name = 'crm_app/client/clients_list_2.html'
     context_object_name = 'clients'
-    paginate_by = 4
+    paginate_by = 6
     permission_required = 'crm_app.view_clientsinfo'
-    # queryset = ClientsInfo.objects.select_related('created_by',).all()
-    # queryset = ClientsInfo.objects.defer('title',)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

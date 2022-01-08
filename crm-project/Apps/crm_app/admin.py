@@ -57,11 +57,11 @@ class ClientsInfoAdmin(admin.ModelAdmin):
     add ClientsInfo to admin and config it
     """
     form = ClientsInfoAdminForm
-    # list_display = ('title', 'head', 'summary', 'created_by',
-    #                 'display_phoneNumber', 'display_email', 'date_created', 'date_updated', )
+
     list_display = ('title', 'head', 'summary', 'created_by',
-                    'phone', 'email', 'date_created', 'date_updated', )
-    inlines = [ClientsEmailsInline, ClientsPhonesInline,]
+                    'display_phoneNumber', 'display_email', 'date_created', 'date_updated',)
+
+    inlines = [ClientsEmailsInline, ClientsPhonesInline, ]
     extra = 1
 
     fieldsets = (
@@ -107,7 +107,7 @@ class TagsAdmin(admin.ModelAdmin):
     add Tags to admin and config it
     """
     list_display = ('tag', 'date_created', 'date_updated',)
-    readonly_fields = ('date_created', 'date_updated', )
+    readonly_fields = ('date_created', 'date_updated',)
 
 
 @admin.register(InterPlaysList)
@@ -126,15 +126,3 @@ class InterPlaysAdmin(admin.ModelAdmin):
         obj.client = ClientsInfo.objects.filter(
             projectslist__p_name=obj.project).values_list('title', flat=True)[0]
         super().save_model(request, obj, form, change)
-
-
-
-
-
-
-
-
-
-
-
-
