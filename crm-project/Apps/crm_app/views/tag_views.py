@@ -49,7 +49,7 @@ class TagAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Add new Tag: '
+        context['title'] = 'Add new Tag'
         return context
 
 
