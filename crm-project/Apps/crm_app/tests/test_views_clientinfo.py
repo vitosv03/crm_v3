@@ -10,9 +10,8 @@ User = get_user_model()
 model = User
 # Create your tests here.
 
-# from Apps.crm_app.models import ClientsInfo, ClientsPhones, ClientsEmails
-# from Apps.crm_app.views.client_views import ClientListView_2
-from Apps.crm_app.views.tag_views import TagUpdateView
+from Apps.crm_app.forms import ClientsInfoForm
+from Apps.crm_app.views.client_views import ClientUpdateView
 from django.urls import reverse
 
 
@@ -59,3 +58,60 @@ class ClientInfoTest(TestCase):
         self.assertTrue(response.context['title'].startswith('Detail of:'))
         owner = self.myClient.created_by == self.user_1
         self.assertTrue(response.context['owner'] == owner)
+
+    def test_ClientInfoAddView(self):
+        # add permission
+        self.user_1.user_permissions.add(self.add_clientsinfo)
+        # check response from page (go to page)
+        response = self.client.get(reverse('client_add'))
+        self.assertEqual(response.status_code, 200)
+        # check get_context_data
+        self.assertEqual(response.context['title'], 'Add new Client')
+
+        # check form_valid
+        form_data = {
+            'title': 'Company',
+            'head': 'Big Boss',
+            'summary': 'mySummary',
+            'address': 'Street',
+            'created_by': self.user_1,
+        }
+
+        form = ClientsInfoForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+    def test_ClientInfoUpdateView(self):
+        # add permission
+        self.user_1.user_permissions.add(self.change_clientsinfo)
+        # check response from page (go to page)
+        response = self.client.get(reverse('client_update', kwargs={'pk': self.myClient.pk, }))
+        self.assertEqual(response.status_code, 200)
+        # check get_context_data
+        self.assertTrue(response.context['title'].startswith('Edit Client'))
+        # check get_queryset
+        url = 'crm/client/' + str(self.myClient.pk) + '/update/'
+        request = RequestFactory().get(url)
+        request.user = self.user_1
+        view = ClientUpdateView()
+        view.setup(request)
+        qs = view.get_queryset()
+        qs_original = ClientsInfo.objects.filter(created_by=request.user)
+        self.assertQuerysetEqual(qs, qs_original)
+
+    def test_ClientInfoDeleteView(self):
+        # add permission
+        self.user_1.user_permissions.add(self.delete_clientsinfo)
+        # check response from page (go to page)
+        response = self.client.get(reverse('client_delete', kwargs={'pk': self.myClient.pk, }))
+        self.assertEqual(response.status_code, 200)
+        # check get_context_data
+        self.assertTrue(response.context['title'].startswith('Delete of'))
+        # check get_queryset
+        url = 'crm/client/' + str(self.myClient.pk) + '/delete/'
+        request = RequestFactory().get(url)
+        request.user = self.user_1
+        view = ClientUpdateView()
+        view.setup(request)
+        qs = view.get_queryset()
+        qs_original = ClientsInfo.objects.filter(created_by=request.user)
+        self.assertQuerysetEqual(qs, qs_original)
