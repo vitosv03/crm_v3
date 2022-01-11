@@ -165,6 +165,7 @@ class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
         return qs.filter(created_by=self.request.user)
 
 
+
 class ClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     """
     Rendering form to delete client
