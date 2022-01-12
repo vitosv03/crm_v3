@@ -89,3 +89,11 @@ class InterPlaysListTest(TestCase):
         owner = self.myInterplay.created_by == self.user_1
         self.assertTrue(response.context['owner'] == owner)
 
+    def test_InterPlaysLisAddView(self):
+        # add permission
+        self.user_1.user_permissions.add(self.add_interplays)
+        # check response from page (go to page)
+        response = self.client.get(reverse('interplay_add'))
+        self.assertEqual(response.status_code, 200)
+        # check get_context_data
+        self.assertEqual(response.context['title'], 'Add new Interplay')
