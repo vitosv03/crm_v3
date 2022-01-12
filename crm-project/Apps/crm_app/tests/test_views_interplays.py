@@ -89,7 +89,7 @@ class InterPlaysListTest(TestCase):
         owner = self.myInterplay.created_by == self.user_1
         self.assertTrue(response.context['owner'] == owner)
 
-    def test_InterPlaysLisAddView(self):
+    def test_InterPlaysListAddView(self):
         # add permission
         self.user_1.user_permissions.add(self.add_interplays)
         # check response from page (go to page)
@@ -97,3 +97,24 @@ class InterPlaysListTest(TestCase):
         self.assertEqual(response.status_code, 200)
         # check get_context_data
         self.assertEqual(response.context['title'], 'Add new Interplay')
+
+    def test_InterPlaysListUpdateView(self):
+        # add permission
+        self.user_1.user_permissions.add(self.change_interplays)
+        # check response from page (go to page)
+        response = self.client.get(reverse('interplay_update', kwargs={'pk': self.myInterplay.pk, }))
+        self.assertEqual(response.status_code, 200)
+        # check get_context_data
+        self.assertTrue(response.context['title'].startswith('Update of'))
+        # check url for get_queryset
+        url = '/crm/interplay/' + str(self.myInterplay.pk) + '/update/'
+        resp = self.client.get(url)
+        self.assertEqual(resp.status_code, 200)
+        # check get_queryset
+        request = RequestFactory().get(url)
+        request.user = self.user_1
+        view = InterplayUpdateView()
+        view.setup(request)
+        qs = view.get_queryset()
+        qs_original = InterPlaysList.objects.filter(created_by=request.user)
+        self.assertQuerysetEqual(qs, qs_original)
