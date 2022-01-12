@@ -118,3 +118,24 @@ class InterPlaysListTest(TestCase):
         qs = view.get_queryset()
         qs_original = InterPlaysList.objects.filter(created_by=request.user)
         self.assertQuerysetEqual(qs, qs_original)
+
+    def test_InterPlaysListDeleteView(self):
+        # add permission
+        self.user_1.user_permissions.add(self.delete_interplays)
+        # check response from page (go to page)
+        response = self.client.get(reverse('interplay_delete', kwargs={'pk': self.myInterplay.pk, }))
+        self.assertEqual(response.status_code, 200)
+        # check get_context_data
+        self.assertTrue(response.context['title'].startswith('Delete of'))
+        # check url for get_queryset
+        url = '/crm/interplay/' + str(self.myInterplay.pk) + '/delete/'
+        resp = self.client.get(url)
+        self.assertEqual(resp.status_code, 200)
+        # check get_queryset
+        request = RequestFactory().get(url)
+        request.user = self.user_1
+        view = InterplayDeleteView()
+        view.setup(request)
+        qs = view.get_queryset()
+        qs_original = InterPlaysList.objects.filter(created_by=request.user)
+        self.assertQuerysetEqual(qs, qs_original)
