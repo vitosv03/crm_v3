@@ -69,7 +69,7 @@ class InterPlaysListTest(TestCase):
         obj_tag_1 = Tags.objects.get(id=1)
         obj_tag_2 = Tags.objects.get(id=2)
 
-    def test_InterPlaysListView(self):
+    def test_InterPlaysListListView(self):
         # add permission
         self.user_1.user_permissions.add(self.view_interplays)
         # check response from page (go to page)
@@ -77,4 +77,15 @@ class InterPlaysListTest(TestCase):
         self.assertEqual(response.status_code, 200)
         # check get_context_data
         self.assertEqual(response.context['title'], 'Interplays List')
+
+    def test_InterPlaysListDetailView(self):
+        # add permission
+        self.user_1.user_permissions.add(self.view_interplays)
+        # check response from page (go to page)
+        response = self.client.get(reverse('interplay_detail', kwargs={'pk': self.myInterplay.pk, }))
+        self.assertEqual(response.status_code, 200)
+        # check get_context_data
+        self.assertTrue(response.context['title'].startswith('Detail of'))
+        owner = self.myInterplay.created_by == self.user_1
+        self.assertTrue(response.context['owner'] == owner)
 

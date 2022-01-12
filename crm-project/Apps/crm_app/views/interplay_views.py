@@ -36,7 +36,7 @@ class InterplayDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailVie
     model = InterPlaysList
     template_name = 'crm_app/interplay/interplay_detail.html'
     context_object_name = 'interplay'
-    permission_required = 'crm_app.view_interplays'
+    permission_required = 'crm_app.view_interplayslist'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
