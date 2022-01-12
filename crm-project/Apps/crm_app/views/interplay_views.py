@@ -15,7 +15,7 @@ class InterplayListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     context_object_name = 'interplays'
     filterset_class = InterplaysFilter
     paginate_by = 10
-    permission_required = 'crm_app.view_interplays'
+    permission_required = 'crm_app.view_interplayslist'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -57,7 +57,7 @@ class InterplayAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     template_name = 'crm_app/interplay/interplay_add.html'
     success_url = reverse_lazy('interplay_list')
     fields = ['project', 'link', 'description', 'rating', 'tag', ]
-    permission_required = 'crm_app.add_interplays'
+    permission_required = 'crm_app.add_interplayslist'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -79,7 +79,7 @@ class InterplayUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVie
     context_object_name = 'interplay'
     template_name = 'crm_app/interplay/interplay_update.html'
     fields = ['is_active', 'link', 'description', 'rating', 'tag', ]
-    permission_required = 'crm_app.change_interplays'
+    permission_required = 'crm_app.change_interplayslist'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -104,7 +104,7 @@ class InterplayDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteVie
     template_name = 'crm_app/interplay/interplay_delete.html'
     context_object_name = 'interplay'
     success_url = reverse_lazy('interplay_list')
-    permission_required = 'crm_app.delete_interplays'
+    permission_required = 'crm_app.delete_interplayslist'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
