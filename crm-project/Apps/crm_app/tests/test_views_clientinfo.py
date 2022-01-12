@@ -11,7 +11,7 @@ model = User
 # Create your tests here.
 
 from Apps.crm_app.forms import ClientsInfoForm
-from Apps.crm_app.views.client_views import ClientUpdateView
+from Apps.crm_app.views.client_views import ClientUpdateView,ClientDeleteView
 from django.urls import reverse
 
 
@@ -86,8 +86,11 @@ class ClientInfoTest(TestCase):
         self.assertEqual(response.status_code, 200)
         # check get_context_data
         self.assertTrue(response.context['title'].startswith('Edit Client'))
+        # check url for get_queryset
+        url = '/crm/client/' + str(self.myClient.pk) + '/update/'
+        resp = self.client.get(url)
+        self.assertEqual(resp.status_code, 200)
         # check get_queryset
-        url = 'crm/client/' + str(self.myClient.pk) + '/update/'
         request = RequestFactory().get(url)
         request.user = self.user_1
         view = ClientUpdateView()
@@ -104,11 +107,14 @@ class ClientInfoTest(TestCase):
         self.assertEqual(response.status_code, 200)
         # check get_context_data
         self.assertTrue(response.context['title'].startswith('Delete of'))
+        # check url for get_queryset
+        url = '/crm/client/' + str(self.myClient.pk) + '/delete/'
+        resp = self.client.get(url)
+        self.assertEqual(resp.status_code, 200)
         # check get_queryset
-        url = 'crm/client/' + str(self.myClient.pk) + '/delete/'
         request = RequestFactory().get(url)
         request.user = self.user_1
-        view = ClientUpdateView()
+        view = ClientDeleteView()
         view.setup(request)
         qs = view.get_queryset()
         qs_original = ClientsInfo.objects.filter(created_by=request.user)
