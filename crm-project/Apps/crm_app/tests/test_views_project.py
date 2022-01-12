@@ -11,7 +11,7 @@ model = User
 # Create your tests here.
 
 # from Apps.crm_app.forms import ClientsInfoForm
-from Apps.crm_app.views.project_views import ProjectUpdateView
+from Apps.crm_app.views.project_views import ProjectUpdateView, ProjectDeleteView
 from django.urls import reverse
 
 
@@ -87,11 +87,35 @@ class ProjectsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         # check get_context_data
         self.assertTrue(response.context['title'].startswith('Update of'))
+        # check url for get_queryset
+        url = '/crm/project/' + str(self.myProject.pk) + '/update/'
+        resp = self.client.get(url)
+        self.assertEqual(resp.status_code, 200)
         # check get_queryset
-        url = 'crm/project/' + str(self.myProject.pk) + '/update/'
         request = RequestFactory().get(url)
         request.user = self.user_1
         view = ProjectUpdateView()
+        view.setup(request)
+        qs = view.get_queryset()
+        qs_original = ProjectsList.objects.filter(created_by=request.user)
+        self.assertQuerysetEqual(qs, qs_original)
+
+    def test_ProjectsDeleteView(self):
+        # add permission
+        self.user_1.user_permissions.add(self.delete_projectslist)
+        # check response from page (go to page)
+        response = self.client.get(reverse('project_delete', kwargs={'pk': self.myProject.pk, }))
+        self.assertEqual(response.status_code, 200)
+        # check get_context_data
+        self.assertTrue(response.context['title'].startswith('Delete of'))
+        # check url for get_queryset
+        url = '/crm/project/' + str(self.myProject.pk) + '/delete/'
+        resp = self.client.get(url)
+        self.assertEqual(resp.status_code, 200)
+        # check get_queryset
+        request = RequestFactory().get(url)
+        request.user = self.user_1
+        view = ProjectDeleteView()
         view.setup(request)
         qs = view.get_queryset()
         qs_original = ProjectsList.objects.filter(created_by=request.user)
