@@ -10,7 +10,7 @@ model = User
 
 # from Apps.crm_app.models import ClientsInfo, ClientsPhones, ClientsEmails
 # from Apps.crm_app.views.client_views import ClientListView_2
-from Apps.crm_app.views.tag_views import TagUpdateView
+from Apps.crm_app.views.tag_views import TagUpdateView, TagDeleteView
 from django.urls import reverse
 
 
@@ -69,8 +69,11 @@ class TagsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         # check get_context_data
         self.assertTrue(response.context['title'].startswith('Update of'))
+        # check url for get_queryset
+        url = '/crm/tag/' + str(self.myNewTag.pk) + '/update/'
+        resp = self.client.get(url)
+        self.assertEqual(resp.status_code, 200)
         # check get_queryset
-        url = 'crm/tag/' + str(self.myNewTag.pk) + '/update/'
         request = RequestFactory().get(url)
         request.user = self.user_1
         view = TagUpdateView()
@@ -87,11 +90,14 @@ class TagsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         # check get_context_data
         self.assertTrue(response.context['title'].startswith('Delete of'))
+        # check url for get_queryset
+        url = '/crm/tag/' + str(self.myNewTag.pk) + '/delete/'
+        resp = self.client.get(url)
+        self.assertEqual(resp.status_code, 200)
         # check get_queryset
-        url = 'crm/tag/' + str(self.myNewTag.pk) + '/delete/'
         request = RequestFactory().get(url)
         request.user = self.user_1
-        view = TagUpdateView()
+        view = TagDeleteView()
         view.setup(request)
         qs = view.get_queryset()
         qs_original = Tags.objects.filter(created_by=request.user)
