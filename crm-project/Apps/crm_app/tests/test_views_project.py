@@ -23,7 +23,7 @@ class ProjectsTest(TestCase):
         self.user_1.save()
         # create permission
         self.view_projectslist = Permission.objects.get(codename='view_projectslist')
-        self.add_projectslist = Permission.objects.get(codename='add_projectslist')
+        self.add_projectlist = Permission.objects.get(codename='add_projectslist')
         self.change_projectslist = Permission.objects.get(codename='change_projectslist')
         self.delete_projectslist = Permission.objects.get(codename='delete_projectslist')
         self.user_1.save()
@@ -69,3 +69,12 @@ class ProjectsTest(TestCase):
         self.assertTrue(response.context['title'].startswith('Detail of'))
         owner = self.myProject.created_by == self.user_1
         self.assertTrue(response.context['owner'] == owner)
+
+    def test_ProjectsAddView(self):
+        # add permission
+        self.user_1.user_permissions.add(self.add_projectlist)
+        # check response from page (go to page)
+        response = self.client.get(reverse('project_add'))
+        self.assertEqual(response.status_code, 200)
+        # check get_context_data
+        self.assertEqual(response.context['title'], 'Add new Project')

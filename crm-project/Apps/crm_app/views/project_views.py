@@ -57,7 +57,7 @@ class ProjectAddView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     template_name = 'crm_app/project/project_add.html'
     success_url = reverse_lazy('project_list')
     fields = ['client', 'p_name', 'description', 'date_begin', 'date_end', 'value', ]
-    permission_required = 'crm_app.add_projectlist'
+    permission_required = 'crm_app.add_projectslist'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -80,7 +80,7 @@ class ProjectUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     template_name = 'crm_app/project/project_update.html'
     fields = ['is_active', 'client', 'p_name', 'description',
               'date_begin', 'date_end', 'value', ]
-    permission_required = 'crm_app.change_projectlist'
+    permission_required = 'crm_app.change_projectslist'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -105,7 +105,7 @@ class ProjectDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
     template_name = 'crm_app/project/project_delete.html'
     context_object_name = 'project'
     success_url = reverse_lazy('project_list')
-    permission_required = 'crm_app.delete_projectlist'
+    permission_required = 'crm_app.delete_projectslist'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
