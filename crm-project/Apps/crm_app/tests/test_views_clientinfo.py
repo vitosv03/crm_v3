@@ -67,7 +67,6 @@ class ClientInfoTest(TestCase):
         self.assertEqual(response.status_code, 200)
         # check get_context_data
         self.assertEqual(response.context['title'], 'Add new Client')
-
         # check form_valid
         form_data = {
             'title': 'Company',
@@ -76,7 +75,6 @@ class ClientInfoTest(TestCase):
             'address': 'Street',
             'created_by': self.user_1,
         }
-
         form = ClientsInfoForm(data=form_data)
         self.assertTrue(form.is_valid())
 
