@@ -58,3 +58,14 @@ class ProjectsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         # check get_context_data
         self.assertEqual(response.context['title'], 'Projects List')
+
+    def test_ProjectsDetailView(self):
+        # add permission
+        self.user_1.user_permissions.add(self.view_projectslist)
+        # check response from page (go to page)
+        response = self.client.get(reverse('project_detail', kwargs={'pk': self.myProject.pk, }))
+        self.assertEqual(response.status_code, 200)
+        # check get_context_data
+        self.assertTrue(response.context['title'].startswith('Detail of'))
+        owner = self.myProject.created_by == self.user_1
+        self.assertTrue(response.context['owner'] == owner)
