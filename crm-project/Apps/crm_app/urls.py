@@ -5,7 +5,7 @@ urlpatterns = [
 
     path('client/', include([
         path('list_2/', client_views.ClientListView_2.as_view(), name='client_list_2'),
-        path('list/', client_views.ClientListView.as_view(), name='client_list'),
+        # path('list/', client_views.ClientListView.as_view(), name='client_list'),
         path('add/', client_views.ClientAddView.as_view(), name='client_add'),
         path('<int:pk>/detail/', client_views.ClientDetailView.as_view(), name='client_detail'),
         path('<int:pk>/update/', client_views.ClientUpdateView.as_view(), name='client_update'),

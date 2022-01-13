@@ -8,41 +8,41 @@ from Apps.crm_app.filters import ClientsInfoFilter
 from Apps.crm_app.utils import headers
 
 
-class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    """
-    Rendering list of all clients
-    """
-    model = ClientsInfo
-    template_name = 'crm_app/client/clients_list.html'
-    context_object_name = 'clients'
-    paginate_by = 4
-    permission_required = 'crm_app.view_clientsinfo'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Clients List'
-        sort = self.request.GET.get('sort')
-        context['sort'] = sort
-        return context
-
-    def get_queryset(self):
-        queryset = ClientsInfo.objects.all()
-        sort = self.request.GET.get('sort')
-        page = self.request.GET.get('page')
-        if page is None:
-            if sort is not None:
-                if headers[sort] == "des":
-                    queryset = ClientsInfo.objects.all().order_by(sort).reverse()
-                    headers[sort] = "asc"
-                else:
-                    queryset = ClientsInfo.objects.all().order_by(sort)
-                    headers[sort] = "des"
-        elif sort is not None:
-            if headers[sort] == "des":
-                queryset = ClientsInfo.objects.all().order_by(sort)
-            elif headers[sort] == "asc":
-                queryset = ClientsInfo.objects.all().order_by(sort).reverse()
-        return queryset.select_related('created_by')
+# class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+#     """
+#     Rendering list of all clients
+#     """
+#     model = ClientsInfo
+#     template_name = 'crm_app/client/clients_list.html'
+#     context_object_name = 'clients'
+#     paginate_by = 4
+#     permission_required = 'crm_app.view_clientsinfo'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['title'] = 'Clients List'
+#         sort = self.request.GET.get('sort')
+#         context['sort'] = sort
+#         return context
+#
+#     def get_queryset(self):
+#         queryset = ClientsInfo.objects.all()
+#         sort = self.request.GET.get('sort')
+#         page = self.request.GET.get('page')
+#         if page is None:
+#             if sort is not None:
+#                 if headers[sort] == "des":
+#                     queryset = ClientsInfo.objects.all().order_by(sort).reverse()
+#                     headers[sort] = "asc"
+#                 else:
+#                     queryset = ClientsInfo.objects.all().order_by(sort)
+#                     headers[sort] = "des"
+#         elif sort is not None:
+#             if headers[sort] == "des":
+#                 queryset = ClientsInfo.objects.all().order_by(sort)
+#             elif headers[sort] == "asc":
+#                 queryset = ClientsInfo.objects.all().order_by(sort).reverse()
+#         return queryset.select_related('created_by')
 
 
 class ClientListView_2(LoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -163,7 +163,6 @@ class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     def get_queryset(self):
         qs = super().get_queryset()
         return qs.filter(created_by=self.request.user)
-
 
 
 class ClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
