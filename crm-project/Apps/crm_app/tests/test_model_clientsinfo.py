@@ -124,7 +124,7 @@ class ClientsInfoModelTest(TestCase):
         # This will also fail if the urlconf is not defined.
         self.assertEquals(obj.get_absolute_url(), '/crm/client/1/detail/')
 
-    def display_email(self):
+    def test_display_email(self):
         obj_client_2 = ClientsInfo.objects.get(id=2)
         obj_email_1 = ClientsEmails.objects.get(id=1)
         obj_email_2 = ClientsEmails.objects.get(id=2)
