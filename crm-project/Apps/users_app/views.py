@@ -27,13 +27,13 @@ class LoginUserView(LoginView):
         context['title'] = 'Login'
         return context
 
-    def get_success_url(self):
-        return reverse_lazy('home')
+    # def get_success_url(self):
+    #     return reverse_lazy('home')
 
 
 def logout_user(request):
     logout(request)
-    return redirect('login')
+    return redirect('/')
 
 
 class UsersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):

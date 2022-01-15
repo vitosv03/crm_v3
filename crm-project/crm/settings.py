@@ -157,6 +157,8 @@ MEDIA_URL = '/crm_media/'
 
 AUTH_USER_MODEL = 'users_app.Users'
 
+LOGIN_REDIRECT_URL = '/users/user/detail/'
+
 
 INTERNAL_IPS = [
     # ...
