@@ -31,11 +31,15 @@
           <small>{{ form.password.help_text }}</small>
         {% for error in form.password.errors %}<p style="color: red">{{ error }}</p>{% endfor %}
       </p>
-
-        <input type="submit" value="Login">
-        <p>No login, Registered as simple user</p>
-        <a href="{% url 'registration' %}">Registration</a>
+      <input type="submit" value="Login">
     </form>
+
+<br>
+      No login, Registered as simple user
+      <p><a href="{% url 'registration' %}">Registration</a></p>
+
+      Forgot password
+      <p><a href="{% url 'reset_password' %}">Reset password</a></p>
 
 <script type="text/javascript">
 function showPassword()

@@ -68,11 +68,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'crm.urls'
 
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+# TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR],
+        # 'DIRS': [TEMPLATE_DIR],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -168,3 +169,12 @@ LOGIN_URL = reverse_lazy('login')
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'test.django2022@gmail.com'
+EMAIL_HOST_PASSWORD = 'PyPass-99'
+EMAIL_USE_TLS = True
+
