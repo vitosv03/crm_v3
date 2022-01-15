@@ -2,14 +2,32 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
+from django.utils.translation import gettext_lazy as _
 
 
 class LoginUserForm(AuthenticationForm):
     """
     remake fields in user login form
     """
+
     username = forms.CharField(label='Login', widget=forms.TextInput())
     password = forms.CharField(label='Password', widget=forms.PasswordInput())
+
+    def get_invalid_login_error(self):
+
+        User = get_user_model()
+
+        user = User.objects.get(username=self.cleaned_data.get('username'))
+
+        if not user.is_active and user:
+            raise forms.ValidationError(
+                self.error_messages['inactive'],
+                code='inactive', )
+        else:
+            return forms.ValidationError(
+                self.error_messages['invalid_login'],
+                code='invalid_login',
+                params={'username': self.username_field.verbose_name}, )
 
 
 class UserRegisterForm(UserCreationForm):
