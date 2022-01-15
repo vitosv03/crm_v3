@@ -58,7 +58,6 @@ class ClientsInfoModelTest(TestCase):
         obj_phone_1 = ClientsPhones.objects.get(id=1)
         obj_phone_2 = ClientsPhones.objects.get(id=2)
 
-
     def test_is_active(self):
         obj = self.test_model.objects.get(id=1)
         field = self.test_model._meta.get_field('is_active')
