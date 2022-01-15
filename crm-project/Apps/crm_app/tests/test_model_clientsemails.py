@@ -6,12 +6,12 @@ model = User
 
 # Create your tests here.
 # from ..models import Tags
-from Apps.crm_app.models import ClientsPhones, ClientsInfo
+from Apps.crm_app.models import ClientsEmails, ClientsInfo
 
 
-class ClientsPhonesModelTest(TestCase):
+class ClientsEmailsModelTest(TestCase):
 
-    test_model = ClientsPhones
+    test_model = ClientsEmails
     test_client = ClientsInfo
 
     @classmethod
@@ -28,18 +28,17 @@ class ClientsPhonesModelTest(TestCase):
             created_by=user,
         )
         cls.test_model.objects.create(
-            phoneNumber='+380991234567',
+            email='mail@gmail.com',
             client=client,
         )
         obj_1 = cls.test_model.objects.get(id=1)
         obj_2 = cls.test_client.objects.get(id=1)
 
-    def test_phoneNumber(self):
+    def test_email(self):
         obj = self.test_model.objects.get(id=1)
-        field = self.test_model._meta.get_field('phoneNumber')
-        self.assertEquals(field.verbose_name, 'phoneNumber')
-        self.assertEquals(field.max_length, 13)
-        self.assertEquals(field.help_text, 'e.g. +380991234567')
+        field = self.test_model._meta.get_field('email')
+        self.assertEquals(field.verbose_name, 'email')
+        self.assertEquals(field.max_length, 100)
 
     def test_client_field(self):
         obj = self.test_model.objects.get(id=1)
@@ -63,7 +62,7 @@ class ClientsPhonesModelTest(TestCase):
         # self.assertEquals(field.blank, False)
 
     # def __str__(self):
-    def test_object_name_is_phoneNumber(self):
+    def test_object_name_is_email(self):
         obj = self.test_model.objects.get(id=1)
-        expected_object_name = obj.phoneNumber
+        expected_object_name = obj.email
         self.assertEquals(expected_object_name, str(obj))
