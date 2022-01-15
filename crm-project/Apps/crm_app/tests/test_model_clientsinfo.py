@@ -6,7 +6,7 @@ model = User
 
 # Create your tests here.
 # from ..models import Tags
-from Apps.crm_app.models import ClientsInfo
+from Apps.crm_app.models import ClientsInfo, ClientsEmails
 
 
 class ClientsInfoModelTest(TestCase):
@@ -26,6 +26,33 @@ class ClientsInfoModelTest(TestCase):
             created_by=user,
         )
         obj = cls.test_model.objects.get(id=1)
+
+    def setUp(self):
+        # create user
+        self.user_1 = User.objects.create_user(username='TestUser_2', email='lekt_2@ukr.net', password='PyPass-99')
+        self.user_1.save()
+        self.user_1.save()
+        # create new client
+        self.client_1 = ClientsInfo.objects.create(
+            title='Company_2',
+            head='Big Boss_2',
+            summary='mySummary_2',
+            address='Street_2',
+            created_by=self.user_1,
+        )
+        # create new email_1
+        self.email_1 = ClientsEmails.objects.create(
+            email='mail_1@gmail.com',
+            client=self.client_1,
+        )
+        # create new email_2
+        self.email_2 = ClientsEmails.objects.create(
+            email='mail_2@gmail.com',
+            client=self.client_1,
+        )
+        obj_client_2 = ClientsEmails.objects.get(id=2)
+        obj_email_1 = ClientsEmails.objects.get(id=1)
+        obj_email_2 = ClientsEmails.objects.get(id=2)
 
     def test_is_active(self):
         obj = self.test_model.objects.get(id=1)
@@ -91,3 +118,11 @@ class ClientsInfoModelTest(TestCase):
         obj = self.test_model.objects.get(id=1)
         # This will also fail if the urlconf is not defined.
         self.assertEquals(obj.get_absolute_url(), '/crm/client/1/detail/')
+
+    def test_display_phoneNumber(self):
+        obj_client_2 = ClientsInfo.objects.get(id=2)
+        obj_email_1 = ClientsEmails.objects.get(id=1)
+        obj_email_2 = ClientsEmails.objects.get(id=2)
+        list_emails = ClientsEmails.objects.all().values_list('email', flat=True)
+        emails = ", ".join([e for e in list_emails])
+        self.assertEquals(obj_client_2.display_email(), emails)
