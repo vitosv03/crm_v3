@@ -6,7 +6,7 @@ model = User
 
 # Create your tests here.
 # from ..models import Tags
-from Apps.crm_app.models import ClientsInfo, ClientsEmails
+from Apps.crm_app.models import ClientsInfo, ClientsEmails, ClientsPhones
 
 
 class ClientsInfoModelTest(TestCase):
@@ -40,19 +40,24 @@ class ClientsInfoModelTest(TestCase):
             address='Street_2',
             created_by=self.user_1,
         )
+
         # create new email_1
-        self.email_1 = ClientsEmails.objects.create(
-            email='mail_1@gmail.com',
-            client=self.client_1,
-        )
+        self.email_1 = ClientsEmails.objects.create(email='mail_1@gmail.com', client=self.client_1,)
         # create new email_2
-        self.email_2 = ClientsEmails.objects.create(
-            email='mail_2@gmail.com',
-            client=self.client_1,
-        )
+        self.email_2 = ClientsEmails.objects.create(email='mail_2@gmail.com', client=self.client_1,)
+
+        # create new phone_1
+        self.phone_1 = ClientsPhones.objects.create(phoneNumber='+380991234567', client=self.client_1,)
+        # create new phone_2
+        self.phone_2 = ClientsPhones.objects.create(phoneNumber='+380991234560', client=self.client_1,)
+
+
         obj_client_2 = ClientsEmails.objects.get(id=2)
         obj_email_1 = ClientsEmails.objects.get(id=1)
         obj_email_2 = ClientsEmails.objects.get(id=2)
+        obj_phone_1 = ClientsPhones.objects.get(id=1)
+        obj_phone_2 = ClientsPhones.objects.get(id=2)
+
 
     def test_is_active(self):
         obj = self.test_model.objects.get(id=1)
@@ -119,10 +124,18 @@ class ClientsInfoModelTest(TestCase):
         # This will also fail if the urlconf is not defined.
         self.assertEquals(obj.get_absolute_url(), '/crm/client/1/detail/')
 
-    def test_display_phoneNumber(self):
+    def display_email(self):
         obj_client_2 = ClientsInfo.objects.get(id=2)
         obj_email_1 = ClientsEmails.objects.get(id=1)
         obj_email_2 = ClientsEmails.objects.get(id=2)
         list_emails = ClientsEmails.objects.all().values_list('email', flat=True)
         emails = ", ".join([e for e in list_emails])
         self.assertEquals(obj_client_2.display_email(), emails)
+
+    def test_display_phoneNumber(self):
+        obj_client_2 = ClientsInfo.objects.get(id=2)
+        obj_phone_1 = ClientsPhones.objects.get(id=1)
+        obj_phone_2 = ClientsPhones.objects.get(id=2)
+        list_phones = ClientsPhones.objects.all().values_list('phoneNumber', flat=True)
+        phones = ", ".join([e for e in list_phones])
+        self.assertEquals(obj_client_2.display_phoneNumber(), phones)
