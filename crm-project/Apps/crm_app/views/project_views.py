@@ -87,9 +87,9 @@ class ProjectUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
         context['title'] = 'Update of: ' + str(context['project'])
         return context
 
-    def form_valid(self, form):
-        self.object = form.save()
-        return super().form_valid(form)
+    # def form_valid(self, form):
+    #     self.object = form.save()
+    #     return super().form_valid(form)
 
     # проверка на автора записи
     def get_queryset(self):
